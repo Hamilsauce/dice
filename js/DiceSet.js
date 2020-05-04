@@ -18,32 +18,42 @@ export class DiceSet {
     return dice;
   }
   renderRolls(dice, parentSelector) {
-    const parent = document.querySelector(`.${parentSelector}`);
-
-    let output = dice
+    const rollArea = document.querySelector(`.${parentSelector}`);
+    const keptArea = document.querySelector(`.keptDisplay`);
+		const activeDice = this.getActiveDice()
+		const keptDice = this.getKeptDice()
+    
+    let keptDiceOutput = keptDice
+      .reduce((acc, curr) => {
+        return acc += curr.template;
+      }, '');
+    keptArea.innerHTML = keptDiceOutput;
+      
+      
+    let activeDiceOutput = activeDice
       .reduce((acc, curr) => {
         return acc += curr.template;
       }, '');
 
-    parent.innerHTML = output;
+    rollArea.innerHTML = activeDiceOutput;
 
-    dice.forEach(die => {
+    activeDice.forEach(die => {
       let dieVal = document.querySelector(`.${die.id}Value`)
-      let selector = `checkbox-${die.id}`;
-      let checkbox = document.querySelector(`.${selector}`);
-      if (die.kept == false) {
-        die.registerEventListener(selector);
+        die.registerEventListener(`.${die.id}Value`);
         dieVal.classList.toggle('dieValue')
         dieVal.classList.toggle('dieValue')
-        // document.querySelector(`.${die.id}Value`).classList.toggle('dieValue')
-      } else {
-        checkbox.classList.add('kept');
-        checkbox.disabled = true;
-      }
+
       setTimeout(() => {}, 500);
     })
   }
-  keptDice() {
+  getActiveDice() {
+    let activeArray = this.dice
+      .filter(die => {
+        return die.kept === false;
+      })
+    return activeArray;
+  }
+  getKeptDice() {
     let keptArray = this.dice
       .filter(die => {
         return die.kept === true;
@@ -75,8 +85,8 @@ export class DiceSet {
     })
   }
   generateScore() {
-    let count = this.keptDice().length;
-    let value = this.keptDice()[0].value;
+    let count = this.getKeptDice().length;
+    let value = this.getKeptDice()[0].value;
     return `Player rolled ${count} ${value}'s`;
   }
 }
@@ -84,3 +94,21 @@ export class DiceSet {
 {
   DiceSet
 }
+
+/*
+activeDice.forEach(die => {
+  let dieVal = document.querySelector(`.${die.id}Value`)
+  let selector = `checkbox-${die.id}`;
+  let checkbox = document.querySelector(`.${selector}`);
+  if (die.kept == false) {
+    die.registerEventListener(selector);
+    dieVal.classList.toggle('dieValue')
+    dieVal.classList.toggle('dieValue')
+    // document.querySelector(`.${die.id}Value`).classList.toggle('dieValue')
+  } else {
+    checkbox.classList.add('kept');
+    checkbox.disabled = true;
+  }
+  setTimeout(() => {}, 500);
+})
+*/

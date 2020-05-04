@@ -36,6 +36,7 @@ export class Game {
   newGame() {
     this.activePlayer = this.players[0];
     console.log('in new');
+    document.querySelector('.rollButton').value = 'Roll';
   }
 
   newTurn() {}

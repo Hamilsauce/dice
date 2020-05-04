@@ -4,6 +4,7 @@ export class Die {
     this.id = id,
       this.value = null,
       this.kept = false,
+      this.selected = false;
       this.name = this.createIdAsName();
   }
   createIdAsName() {
@@ -39,25 +40,48 @@ export class Die {
       let checkboxId = `checkbox-${this.id}`;
       this.template = /*html */ `
       <li class="dieItem ${this.id}Item">
-        <!-- <label class="itemLabel" for="${checkboxId}"> -->
           <div class="label-div">
-            <div class="dieLabel">${this.name}: </div><div class="dieValue ${this.id}Value">${this.value}</div>
+            <div class="dieLabel">${this.name}: </div>
+            <div class="dieValue ${this.id}Value">
+            ${this.value}
+            </div>
           </div>
-        <!-- </label> -->
-        <input
-          class="dieCheck ${checkboxId}"
-          type="checkbox"
-          value="${this.value}"
-          data-die-id="${this.id}"
-          data-die-value="${this.value}"
-          name="${checkboxId}"
-        />
       </li>`;
     } else {
       this.template = this.template;
     }
   }
   registerEventListener() {
+    let el = document.querySelector(`.${this.id}Value`);
+  	el.addEventListener('click', e => {
+  	  console.log('click2');
+  	  let keptDice = this.diceSet.getKeptDice();
+  	  let selectedDice = this.diceSet.selectedDice();
+  	
+  	  let keptCheck = keptDice.every(d => {
+  	    return d.value === this.value;
+  	  })
+  	  let selectedCheck = selectedDice.every(d => {
+  	    return d.value === this.value;
+  	  })
+  	
+  	  if (keptCheck === false || selectedCheck === false && selectedDice.length !== 0) {
+  	    this.selected = false;
+  	    el.classList.remove('selected');
+  	
+  	    console.log('must pick previously kept die val');
+  	    return;
+  	  } else if (this.selected) {
+  	  	this.selected = false;
+  	    el.classList.remove('selected');
+  	  } else {
+  	  	this.selected = true;
+  	    el.classList.add('selected');
+  	  }
+  	})
+  }
+  
+  registerEventListener2() {
     let el = document.querySelector(`.checkbox-${this.id}`);
     el.addEventListener('change', e => {
       console.log('click');
@@ -73,7 +97,7 @@ export class Die {
 
       if (keptCheck === false || selectedCheck === false && selectedDice.length !== 0) {
         el.checked = false;
-        el.classList.add('noMatch');
+        // el.classList.add('noMatch');
         document.querySelector(`.${this.id}Value`).classList.remove('selected');
 
         console.log('must pick previously kept die val');

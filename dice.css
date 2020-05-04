@@ -13,15 +13,16 @@ body {
 .app-header {
   max-width: 700px;
   margin: auto;
-  padding: 0px 10px
+  padding: 0px 6px
 }
 
 .text-container {
-  margin: auto;
+  margin: 0;
 }
 
 .app-title {
-  margin: 10px auto 0px auto;
+  margin: 5px auto 0px auto;
+  font-size: 1.6em;
 }
 
 .sub-title {
@@ -37,18 +38,52 @@ body {
   border: 3px solid red;
   color: red;
 }
-
+.table-label {
+	margin: 0;
+	text-align: center;
+}
+.table {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+grid-template-areas: 
+ "s s"
+ "r k";
+ grid-template-rows: 30px 1fr;
+}
+.scoreDisplay {
+	grid-area: s;
+}
 .rollDisplay {
   /* margin: auto; */
   box-sizing: border-box;
-  padding: 3px 40px;
-  margin: 5px auto;
+  padding: 0px 0px;
+  margin: 0px 0;
   list-style: none;
   background: rgb(255, 255, 255);
   width: 100%;
   min-height: 400px;
   /* max-height: 470px; */
+}.keptDisplay {
+	
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+  box-sizing: border-box;
+  list-style: none;
+  background: rgb(255, 255, 255);
+  width: 100%;
+  min-height: 400px;
+	
 }
+
+.display-container {}
+.container1 {
+  grid-area: r;
+	
+}
+.container2 {
+	grid-area: k;
+}
+
 
 .button-container {
   background: rgb(182, 182, 182);
@@ -84,7 +119,7 @@ body {
   flex-wrap: nowrap;
   justify-content: space-between;
   margin: auto;
-  padding: 7px 20px;
+  padding: 7px 5px;
   max-width: 450px;
   background: rgba(59, 124, 185, 0.863);
   border-left: 2px solid white;
@@ -130,7 +165,7 @@ checkbox {
 
 .dieLabel {
   box-sizing: border-box;
-
+color: white;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -146,24 +181,40 @@ checkbox {
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: center;
-  margin: 10px 15px;
+  margin: 5px 6px;
   padding: 15px 25px;
   background: white;
   border: 3px solid rgba(46, 46, 46, 0.931);
   border-radius: 6px;
   box-shadow: 0 0 15px 1px rgba(56, 56, 56, 0.514);
-  transition: transform 1s 0.5s ease-out;
+  transition: transform 1s ease-out;
   /* transform: scale(1.2); */
   transform-style: preserve-3d;
   transform: rotateX(720deg);
   animation-name: dice-animation;
-  animation-duration: 2s;
+  animation-duration: 1s;
   animation-direction: normal;
   animation-iteration-count: initial;
 
 }
+.dieValueKept {
+	 cursor: pointer;
+	 box-sizing: border-box;
+	 display: flex;
+	 flex-direction: row;
+	 flex-wrap: nowrap;
+	 justify-content: center;
+	 margin: 10px 15px;
+	 padding: 15px 25px;
+	 background: white;
+	 border: 3px solid rgba(46, 46, 46, 0.931);
+	 border-radius: 6px;
+	 box-shadow: 0 0 15px 1px rgba(56, 56, 56, 0.514);
+	 transition: transform 0.5s  ease-out;
+	 /* transform: scale(1.2); */
+}
 
-.dieValue:hover {
+.dieValue::active {
   border: 2px solid rgb(224, 50, 27);
   transition: transform .5s ease-out;
   /* transform: scale(1.2); */
@@ -205,6 +256,8 @@ checkbox {
 .selected {
   border: 3px solid red;
   color: red;
+  transform: translateX(100px);
+  transition: 0.5s;
 }
 
 .kept {
