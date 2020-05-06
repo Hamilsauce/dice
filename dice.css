@@ -10,7 +10,7 @@ body {
 }
 
 body {
-  height: 90vh;
+  height: fit-content;
 
 }
 
@@ -25,7 +25,7 @@ body {
   margin: 0 auto;
   padding: 0;
   display: grid;
-  grid-template-rows: 1fr;
+  grid-template-rows: 100px 75px 1fr 50px;
   height: fit-content;
 
 }
@@ -38,26 +38,25 @@ body {
   grid-template-columns: repeat(2, minmax(max-content, 2fr));
   grid-column-gap: 10px;
   justify-content: space-between;
-  
+
   justify-content: center;
-  padding: 6px 25px;
+  padding: 7px 25px;
   background: #4C4D5A;
   box-shadow: 0 0 12px 1px rgba(0, 0, 0, 0.341);
   border-top: 2px solid #616375F5;
 }
 
 .footer button {
-  height: 40px;
+  height: 30px;
   background: #FFFFFFD4;
   color: #4C4D5A;
   font-weight: 700;
   font-size: 1.2em;
   border-radius: 8px;
-  padding: 4px 8px;
+  padding: 0px 8px;
   border: 1px solid #737694;
   outline: none;
   min-width: max-content;
-  max-width: auto;
   transition: 0.3s;
 
 }
@@ -95,6 +94,7 @@ body {
 .selected {
   border: 3px solid red;
   color: red;
+  z-index: 3;
 }
 
 .kept {
@@ -105,11 +105,10 @@ body {
 .table-label {
   margin: 0;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   background-color: rgba;
   background: rgb(33, 74, 112);
-  padding: 15px;
-  
+  padding: 5px;
 }
 
 .table {
@@ -118,11 +117,12 @@ body {
   grid-template-areas:
     "s s"
     "r k";
-  grid-template-rows: 70px 1fr;
+  grid-template-rows: 40px 1fr;
   background: rgb(53, 107, 158);
   color: white;
-  height: 400px;
-  height: 525px;
+  /* height: 400px; */
+  /* height: 425px; */
+  height: 435px;
 }
 
 .scoreDisplay {
@@ -130,58 +130,50 @@ body {
   text-align: center;
   display: flex;
   justify-content: center;
-  font-size: 1.7em;
+  font-size: 1.5em;
   font-weight: 600;
-  padding: 3px 15px;
+  padding: 0px 15px;
   background-color: white;
   color: rgba(59, 156, 42, 0);
   transition: 0.2s;
-  height: 80px;
-
+  height: 40px;
 }
 
 .scoreDisplay.show {
   color: rgba(59, 156, 42, 1);
-
 }
 
 .rollDisplay {
-  /* margin: auto; */
   box-sizing: border-box;
   padding: 0px 0px;
   margin: 0px 0;
   list-style: none;
   width: 100%;
-  height: fit-content;
-  /* max-height: 470px; */
+  display: grid;
+  justify-content: center;
+  grid-template-areas:
+    "die1 ."
+    "die2 di3"
+    "die4 die5";
 }
 
 .keptDisplay {
-
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
   box-sizing: border-box;
   list-style: none;
   width: 100%;
-  height: fit-content;
-
 }
-
-.display-container {}
 
 .container1 {
   grid-area: r;
-
 }
 
 .container2 {
   grid-area: k;
 }
 
-.action-bar{
-	display: none;
-}
-.action-bar.show {
+.action-bar {
   transition: transform 1s 0.5s ease-out;
   box-sizing: border-box;
   display: grid;
@@ -198,11 +190,15 @@ body {
   background: #4C4D5A;
   border-top: 2px solid #616375F5;
   border-bottom: 2px solid #616375F5;
-
-
+  transition: 0.5s;
 }
 
-.options-container.show {
+.action-bar.fade {
+  opacity: 0.5;
+}
+
+
+.options-container {
   box-sizing: border-box;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -218,8 +214,8 @@ body {
   transition: 1s;
 }
 
-.options-container {
-  display: none
+.options-container.hide {
+  opacity: 0.4;
 }
 
 .control-group {
@@ -300,13 +296,13 @@ select {
   transition: 0.3s;
 }
 
-.button-container.show input:hover {
-	
-}
+.button-container.show input:hover {}
+
 .button-container.show input:active {
-	  transform: scale(1.1);
-	  background: #FFFFFF;
+  transform: scale(1.1);
+  background: #FFFFFF;
 }
+
 .dieItem {
   box-sizing: border-box;
   display: flex;
@@ -374,6 +370,8 @@ select {
   border: 3px solid rgba(148, 146, 146, 0.931);
   border-radius: 6px;
   box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.541);
+  font-size: 1.2em;
+  font-weight: 600;
   /* transition: transform 1s ease-out; */
   /* transform: scale(1.2); */
   /* transform-style: preserve-3d;
@@ -429,30 +427,35 @@ select {
 }
 
 .die1Value {
+  grid-area: die1;
   transition: transform 1s 0.0s ease-out;
   transform-style: preserve-3d;
   /* transform: rotateX(720deg); */
 }
 
 .die2Value {
+  grid-area: die2;
   transition: transform 1s 0s ease-out;
   transform-style: preserve-3d;
   /* transform: rotateX(720deg); */
 }
 
 .die3Value {
+  grid-area: die3;
   transition: transform 1s 0s ease-out;
   transform-style: preserve-3d;
   /* transform: rotateX(720deg); */
 }
 
 .die4Value {
+  grid-area: die4;
   transition: transform 1s 0s ease-out;
   transform-style: preserve-3d;
   /* transform: rotateX(720deg); */
 }
 
 .die5Value {
+  grid-area: die5;
   transition: transform 1s 0s ease-out;
   transform-style: preserve-3d;
   /* transform: rotateX(720deg); */

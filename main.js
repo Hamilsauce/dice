@@ -12,28 +12,27 @@ import {
   gameFactory
 } from './js/Game.js';
 
-// let options = document.querySelector('.options-container')
-// options.classList.toggle('show');
-
-//horses
 const uiState = () => {
-let options = document.querySelector('.action-bar')
-	if (game.gameStarted === true) {
-		options.classList.remove('show')
-	} else {
-
-		options.classList.add('show')
-	}
+  let actionBar = document.querySelector('.action-bar')
+  if (game.gameStarted === true) {
+    actionBar.classList.add('fade')
+    actionBar.classList.remove('show')
+  } else {
+    actionBar.classList.remove('fade')
+    actionBar.classList.add('show')
+  }
 }
 
-const toggleScore = (displayTime) => {
+const displayMessage = (message, displayTime) => {
+  let board = document.querySelector('.scoreDisplay')
   console.log(typeof displayTime);
   if (typeof displayTime != 'number') {
-    console.log('toggleScore param invalid');
-    document.querySelector('.scoreDisplay').classList.add('show')
+    console.log('displayMessage param invalid');
+    board.classList.add('show')
     return;
   }
-  document.querySelector('.scoreDisplay').classList.toggle('show')
+  board.classList.toggle('show')
+  board.textContent = message;
   setTimeout(() => {
     document.querySelector('.scoreDisplay').classList.toggle('show')
   }, displayTime)
@@ -51,10 +50,10 @@ const playerTurn = (player, diceCount) => {
     let scoreDisplay = document.querySelector('.scoreDisplay')
     player.keepDice();
     game.updateState()
-
     let output = game.generateScore();
-    toggleScore(20000)
     scoreDisplay.textContent = output;
+
+    displayMessage(output, 20000)
     return;
   } else {
     dice.forEach(die => {
@@ -80,7 +79,7 @@ document.querySelector('.rollButton')
     player.rollCount += 1;
     if (player.rollCount == game.rules.rollLimit) {
       e.target.textContent = 'End Turn'
-      toggleScore(3000)
+      displayMessage('End Turn', 3000)
       document.querySelector('.scoreDisplay').textContent = 'Last roll!'
     }
   });
@@ -99,6 +98,9 @@ document.querySelector('.start-button')
     gameFactory(playerCount, gameRules);
     game.newGame()
     uiState()
+
+    let msg = `${game.activePlayer.name}'s turn. Roll on!`
+    displayMessage(msg, 5000)
     console.log(game);
 
     document.querySelector('.action-bar').classList.toggle('disabled');
