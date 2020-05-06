@@ -14,8 +14,8 @@
     <p class="subtitle">Click the roll button, select the dice you want to keep, click the roll button.</p>
   </header>
   <main class="app">
-    <section class="action-bar">
-      <div class="options-container">
+    <section class="action-bar show">
+      <div class="options-container show">
         <div class="control-group">
           <label for="player-count-input">Players: </label>
           <input type="number" name="player-count-input" id="player-count-input" class="player-count-input">
@@ -32,24 +32,26 @@
           <button class="start-button">Start</button>
         </div>
       </div>
-      <div class="button-container">
-        <input type="button" name="rollButton" class="rollButton" value="Roll" />
-        <input type="button" name="nextPlayerButton" class="nextPlayerButton" value="Next Player" /></div>
     </section>
     <section class="table">
       <div class="scoreDisplay"></div>
+      </div>
+      </div>
       </div>
       <div class="display-container container1">
         <h3 class="table-label">Active Dice</h3>
         <ul class="rollDisplay"></ul>
       </div>
       <div class="display-container container2">
-
         <h3 class="table-label">Kept Dice</h3>
         <ul class="keptDisplay"></ul>
       </div>
     </section>
   </main>
+    <footer class="footer">
+      <button class="rollButton">Roll</button>
+      <button name="nextPlayerButton" class="nextPlayerButton">Next Player</button>
+    </footer>
   <script src="./main.js" type="module" charset="utf-8"></script>
 </body>
 

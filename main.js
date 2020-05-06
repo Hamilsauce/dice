@@ -12,46 +12,58 @@ import {
   gameFactory
 } from './js/Game.js';
 
+// let options = document.querySelector('.options-container')
+// options.classList.toggle('show');
 
-// const game = new Game(1, 'horses')
-// game.newGame()
-
-// let diceCount = 5 - diceSet.getKeptDice().length;
-// let rollCount = 0;
 //horses
+const uiState = () => {
+let options = document.querySelector('.action-bar')
+	if (game.gameStarted === true) {
+		options.classList.remove('show')
+	} else {
+
+		options.classList.add('show')
+	}
+}
+
+const toggleScore = (displayTime) => {
+  console.log(typeof displayTime);
+  if (typeof displayTime != 'number') {
+    console.log('toggleScore param invalid');
+    document.querySelector('.scoreDisplay').classList.add('show')
+    return;
+  }
+  document.querySelector('.scoreDisplay').classList.toggle('show')
+  setTimeout(() => {
+    document.querySelector('.scoreDisplay').classList.toggle('show')
+  }, displayTime)
+}
 
 const playerTurn = (player, diceCount) => {
   const rollLimit = game.rules.rollLimit;
   let activePlayer = game.activePlayer;
   let diceSet = activePlayer.diceSet;
   let dice = diceSet.dice;
+
   game.updateState();
 
-  document.querySelector('.scoreDisplay').textContent = 'Last roll!'
-
   if (player.rollCount >= rollLimit || diceCount <= 0) {
-    console.log('no more rolls!');
-
+    let scoreDisplay = document.querySelector('.scoreDisplay')
     player.keepDice();
     game.updateState()
-    let scoreDisplay = document.querySelector('.scoreDisplay')
+
     let output = game.generateScore();
+    toggleScore(20000)
     scoreDisplay.textContent = output;
-
     return;
-
   } else {
     dice.forEach(die => {
-      if (die.kept === true) {
-        return;
-      }
+      if (die.kept === true) return;
       die.roll(1, 6, 'rollDisplay');
     });
     diceSet.renderRolls(dice, 'rollDisplay');
-
   }
 }
-
 
 document.querySelector('.rollButton')
   .addEventListener('click', e => {
@@ -59,7 +71,6 @@ document.querySelector('.rollButton')
     let diceSet = player.diceSet;
 
     game.updateState();
-
     let diceCount = diceSet.diceCount - diceSet.keptCount;
     playerTurn(player, diceCount);
 
@@ -67,11 +78,12 @@ document.querySelector('.rollButton')
     console.log(game);
 
     player.rollCount += 1;
-    if (player.rollCount >= game.rules.rollLimit) {
-      e.target.value = 'End Turn'
+    if (player.rollCount == game.rules.rollLimit) {
+      e.target.textContent = 'End Turn'
+      toggleScore(3000)
+      document.querySelector('.scoreDisplay').textContent = 'Last roll!'
     }
   });
-
 
 document.querySelector('.nextPlayerButton')
   .addEventListener('click', e => {
@@ -80,14 +92,14 @@ document.querySelector('.nextPlayerButton')
 
 document.querySelector('.start-button')
   .addEventListener('click', e => {
-    // const createGame = new Event('createGame');
     let gameSelect = document.querySelector('.game-select')
 
     let gameRules = gameSelect.options[gameSelect.selectedIndex].value
     let playerCount = document.querySelector('.player-count-input').value;
     gameFactory(playerCount, gameRules);
+    game.newGame()
+    uiState()
     console.log(game);
 
-    document.querySelector('.button-container').classList.add('show');
-    document.querySelector('.options-container').classList.toggle('disabled');
+    document.querySelector('.action-bar').classList.toggle('disabled');
   });

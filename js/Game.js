@@ -5,16 +5,15 @@ import {
 
 export class Game {
   constructor(playerCount, rules) {
-    // this.ruleSet = this.getRules(ruleSet)
     this.playerCount = playerCount,
-      this.rules = this.getRules(rules)
-    this.players = this.createPlayers(this.playerCount).map(player => new Player(player, this)),
+      this.rules = this.getRules(rules),
+      this.players = this.createPlayers(this.playerCount).map(player => new Player(player, this)),
       this.activePlayer = null,
+      this.gameStarted = false,
       this.winner = null
   }
   getRules(ruleSet) {
     if (ruleSet.toLowerCase() == 'horses') {
-      // alert('Horses it is! Roll some dice.')
       return {
         name: ruleSet,
         diceCount: 5,
@@ -35,19 +34,19 @@ export class Game {
     return players;
   }
   newGame() {
+  	this.gameStarted = true;
     this.activePlayer = this.players[0];
     console.log('in new');
     document.querySelector('.rollButton').value = 'Roll';
   }
+  
   updateState() {
-
     this.activePlayer.keepDice();
     this.activePlayer.diceSet.getKeptDice()
     this.activePlayer.diceSet.getKeptCount()
     this.activePlayer.diceSet.getActiveDice()
-
-
   }
+  
   generateScore() {
     this.updateState();
     let player = this.activePlayer;
@@ -57,7 +56,8 @@ export class Game {
 
     return `${player.name} rolled ${count} ${value}'s`;
   }
-  newTurn() {}
+  newTurn() {
+  }
   /*
   1.save the final keptDice from diceSet in the score prop
     of of game.activePlayer
@@ -94,7 +94,7 @@ export let game = undefined;
 export const gameFactory = (playerCount, rules) => {
   // const newGame = new Game(playerCount, rules);
   game = new Game(playerCount, rules);
-game.newGame()
+  game.newGame()
   return game
 
 }
