@@ -55,7 +55,7 @@ document.querySelector('.rollButton')
 document.querySelector('.keepButton')
   .addEventListener('click', e => {
 
-    diceSet.keepDice();
+    player.keepDice();
   });
 
 document.querySelector('.nextPlayerButton')

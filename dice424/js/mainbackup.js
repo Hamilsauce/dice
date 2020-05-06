@@ -73,7 +73,7 @@ document.querySelector('.rollButton').addEventListener('click', e => {
 });
 
 document.querySelector('.keepButton').addEventListener('click', e => {
-  diceSet.keepDice();
+  player.keepDice();
 });
 
 document.querySelector('.nextPlayerButton').addEventListener('click', e => {

@@ -7,7 +7,7 @@ export class Player {
     this.game = game,
       this.id = id,
       this.name = this.createIdAsName(),
-      this.diceSet = new DiceSet(5),
+      this.diceSet = new DiceSet(this.game.rules.diceCount, this),
       this.rollCount = 0
   }
   createIdAsName() {
@@ -26,6 +26,20 @@ export class Player {
       return 'Player (No ID)';
     }
   }
+
+  increaseRollCount(n) {
+    this.rollCount += n;
+    return this.rollCount;
+  }
+
+  keepDice() {
+    let dice = this.diceSet.dice;
+    dice.forEach(die => {
+      die.keep();
+    })
+
+  }
+
 }
 
 {

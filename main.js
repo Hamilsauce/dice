@@ -8,54 +8,65 @@ import {
   Player
 } from './js/Player.js';
 import {
-  Game
+  game,
+  gameFactory
 } from './js/Game.js';
 
 
-const game = new Game(1)
-game.newGame()
-// const diceSet = new DiceSet(5);
-let diceSet = game.activePlayer.diceSet
-console.log(diceSet);
+// const game = new Game(1, 'horses')
+// game.newGame()
 
-let diceCount = 5 - diceSet.getKeptDice().length;
-let rollCount = 0;
-  const rollLimit = 3;
-
+// let diceCount = 5 - diceSet.getKeptDice().length;
+// let rollCount = 0;
 //horses
-const playerTurn = (rollCount, diceCount) => {
-  console.log(diceSet);
+const playerTurn = (player, diceCount) => {
+  const rollLimit = game.rules.rollLimit;
+  let activePlayer = game.activePlayer;
+  let diceSet = activePlayer.diceSet;
+  let dice = diceSet.dice;
+  game.updateState();
 
-  if (rollCount >= rollLimit || diceSet.diceCount <= 0) {
+  if (player.rollCount >= rollLimit || diceCount <= 0) {
     console.log('no more rolls!');
-    
-    diceSet.keepDice();
+
+    player.keepDice();
+    game.updateState()
     let scoreDisplay = document.querySelector('.scoreDisplay')
-    let output = diceSet.generateScore();
+    let output = game.generateScore();
     scoreDisplay.textContent = output;
+
     return;
+
   } else {
-    diceSet.dice.forEach(die => {
+    dice.forEach(die => {
       if (die.kept === true) {
         return;
       }
       die.roll(1, 6, 'rollDisplay');
     });
-    diceSet.renderRolls(diceSet.dice, 'rollDisplay');
-    
+    diceSet.renderRolls(dice, 'rollDisplay');
+
   }
 }
 
 
 document.querySelector('.rollButton')
   .addEventListener('click', e => {
-  diceSet.keepDice()
-    diceCount = 5 - diceSet.getKeptDice().length;
-    playerTurn(rollCount, diceCount);
+    const player = game.activePlayer;
+    let diceSet = player.diceSet;
 
-    rollCount += 1;
-    if (rollCount >= rollLimit) {
-    	e.target.value = 'End Turn'
+    game.updateState();
+
+    let diceCount = diceSet.diceCount - diceSet.keptCount;
+    playerTurn(player, diceCount);
+
+    game.updateState();
+    console.log(game);
+
+    player.rollCount += 1;
+    if (player.rollCount >= game.rules.rollLimit) {
+      document.querySelector('.scoreDisplay').textContent = 'Last roll!'
+      e.target.value = 'End Turn'
     }
   });
 
@@ -63,4 +74,18 @@ document.querySelector('.rollButton')
 document.querySelector('.nextPlayerButton')
   .addEventListener('click', e => {
     location.reload();
+  });
+
+document.querySelector('.start-button')
+  .addEventListener('click', e => {
+    // const createGame = new Event('createGame');
+    let gameSelect = document.querySelector('.game-select')
+
+    let gameRules = gameSelect.options[gameSelect.selectedIndex].value
+    let playerCount = document.querySelector('.player-count-input').value;
+    gameFactory(playerCount, gameRules);
+    console.log(game);
+
+    document.querySelector('.button-container').classList.add('show');
+    document.querySelector('.options-container').classList.toggle('disabled');
   });

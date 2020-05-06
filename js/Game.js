@@ -4,23 +4,24 @@ import {
 
 
 export class Game {
-  constructor(playerCount) {
+  constructor(playerCount, rules) {
     // this.ruleSet = this.getRules(ruleSet)
     this.playerCount = playerCount,
-      this.players = this.createPlayers(this.playerCount).map(player => new Player(player, this)),
+      this.rules = this.getRules(rules)
+    this.players = this.createPlayers(this.playerCount).map(player => new Player(player, this)),
       this.activePlayer = null,
       this.winner = null
   }
   getRules(ruleSet) {
     if (ruleSet.toLowerCase() == 'horses') {
-      console.log('making ruleset');
+      // alert('Horses it is! Roll some dice.')
       return {
         name: ruleSet,
         diceCount: 5,
         rollLimit: 3
       }
     } else {
-      console.log('no ruleset');
+      alert('No rules provided. Need dice count and roll limit.');
     }
   }
 
@@ -38,7 +39,24 @@ export class Game {
     console.log('in new');
     document.querySelector('.rollButton').value = 'Roll';
   }
+  updateState() {
 
+    this.activePlayer.keepDice();
+    this.activePlayer.diceSet.getKeptDice()
+    this.activePlayer.diceSet.getKeptCount()
+    this.activePlayer.diceSet.getActiveDice()
+
+
+  }
+  generateScore() {
+    this.updateState();
+    let player = this.activePlayer;
+    let diceSet = player.diceSet;
+    let count = diceSet.keptCount;
+    let value = diceSet.keptDice[0].value;
+
+    return `${player.name} rolled ${count} ${value}'s`;
+  }
   newTurn() {}
   /*
   1.save the final keptDice from diceSet in the score prop
@@ -55,6 +73,33 @@ export class Game {
   getWinner() {}
 }
 
+class Horses extends Game {
+  constructor(playerCount) {
+    super(playerCount);
+    this.rules = {
+      diceCount: 5,
+      rollLimit: 3,
+      winConditions() {
+        //...need to 1) compare number of dice kept, 2) then compare the values of the kept dice;
+      }
+
+    }
+  }
+  evaluateScores() {
+    //...
+  }
+}
+export let game = undefined;
+
+export const gameFactory = (playerCount, rules) => {
+  // const newGame = new Game(playerCount, rules);
+  game = new Game(playerCount, rules);
+game.newGame()
+  return game
+
+}
+
+
 {
-  Game
+  gameFactory
 }
