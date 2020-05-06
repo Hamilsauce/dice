@@ -19,12 +19,15 @@ import {
 // let diceCount = 5 - diceSet.getKeptDice().length;
 // let rollCount = 0;
 //horses
+
 const playerTurn = (player, diceCount) => {
   const rollLimit = game.rules.rollLimit;
   let activePlayer = game.activePlayer;
   let diceSet = activePlayer.diceSet;
   let dice = diceSet.dice;
   game.updateState();
+
+  document.querySelector('.scoreDisplay').textContent = 'Last roll!'
 
   if (player.rollCount >= rollLimit || diceCount <= 0) {
     console.log('no more rolls!');
@@ -65,7 +68,6 @@ document.querySelector('.rollButton')
 
     player.rollCount += 1;
     if (player.rollCount >= game.rules.rollLimit) {
-      document.querySelector('.scoreDisplay').textContent = 'Last roll!'
       e.target.value = 'End Turn'
     }
   });
