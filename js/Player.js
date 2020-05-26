@@ -3,12 +3,14 @@ import {
 } from './DiceSet.js'
 
 export class Player {
-  constructor(id, game) {
+  constructor([id, index], game) {
     this.game = game,
       this.id = id,
+      this.index = index,
       this.name = this.createIdAsName(),
       this.diceSet = new DiceSet(this.game.rules.diceCount, this),
-      this.rollCount = 0
+      this.rollCount = 0,
+      this.hasPlayed = false
   }
   createIdAsName() {
     console.log(this.id);
@@ -37,10 +39,9 @@ export class Player {
     dice.forEach(die => {
       die.keep();
     })
-
   }
-
 }
+
 
 {
   Player

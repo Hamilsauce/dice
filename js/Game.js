@@ -2,7 +2,6 @@ import {
   Player
 } from './Player.js'
 
-
 export class Game {
   constructor(playerCount, rules) {
     this.playerCount = playerCount,
@@ -10,6 +9,7 @@ export class Game {
       this.players = this.createPlayers(this.playerCount).map(player => new Player(player, this)),
       this.activePlayer = null,
       this.gameStarted = false,
+      this.gameOver = false,
       this.winner = null
   }
   getRules(ruleSet) {
@@ -27,26 +27,28 @@ export class Game {
   createPlayers(count) {
     let players = [];
     for (var i = 1; i <= count; i++) {
-      let player = `player${i}`;
+      let player = [`player${i}`, i]
       players.push(player);
     };
 
     return players;
   }
   newGame() {
-  	this.gameStarted = true;
+    this.gameStarted = true;
     this.activePlayer = this.players[0];
-    console.log('in new');
     document.querySelector('.rollButton').value = 'Roll';
+    let nextPlayerButton = document.querySelector('.nextPlayerButton')
+    nextPlayerButton.disabled = true;
+    nextPlayerButton.style.opacity = '0.7';
   }
-  
+
   updateState() {
     this.activePlayer.keepDice();
     this.activePlayer.diceSet.getKeptDice()
     this.activePlayer.diceSet.getKeptCount()
     this.activePlayer.diceSet.getActiveDice()
   }
-  
+
   generateScore() {
     this.updateState();
     let player = this.activePlayer;
@@ -56,21 +58,72 @@ export class Game {
 
     return `${player.name} rolled ${count} ${value}'s`;
   }
-  newTurn() {
+  endTurn() {
+    let rollButton = document.querySelector('.rollButton')
+    let nextPlayerButton = document.querySelector('.nextPlayerButton')
+
+    nextPlayerButton.disabled = false;
+    nextPlayerButton.style.opacity = '1';
+
+    rollButton.disabled = true;
+    rollButton.style.opacity = '0.7';
+
+    this.activePlayer.finalScore = {
+      keptCount: this.activePlayer.diceSet.getKeptCount(),
+      keptValue: this.activePlayer.diceSet.getKeptDice()[0].value
+    }
+    this.activePlayer.hasPlayed = true;
+
+    let remainingPlayers = this.players
+      .filter(player => {
+        return player.hasPlayed === false;
+      })
+
+    if (remainingPlayers.length > 0) {
+      this.activePlayer = remainingPlayers[0];
+    } else {
+      this.endGame();
+    }
   }
-  /*
-  1.save the final keptDice from diceSet in the score prop
-    of of game.activePlayer
 
-  2. Reset game state, create new diceSet
+  nextPlayer(diceAreas) {
+    diceAreas.forEach(area => {
+      area.innerHTML = '';
+      let rollButton = document.querySelector('.rollButton')
+      rollButton.disabled = false;
+      rollButton.style.opacity = '1';
+      rollButton.textContent = 'Roll';
+    });
+  }
 
-  3. switch activePlayer to 'hasRolled',
-    activate next player
+  endGame() {
+    this.gameOver = true;
+    this.getWinner()
+  }
 
-  */
-  endGame() {}
+  getWinner() {
+    const scoreArray = this.players
+      .map(player => {
+        let score = Object.entries(player.finalScore);
+        let nameProp = [
+          ['id', player.name]
+        ];
+        return nameProp.concat(score)
+          .reduce((obj, prop) => {
+            obj[prop[0]] = prop[1];
+            return obj;
+          }, {});
+      });
 
-  getWinner() {}
+    scoreArray.sort((a, b) => {
+      if (b.keptCount - a.keptCount == 0) {
+        return b.keptValue - a.keptValue;
+      } else {
+        return b.keptCount - a.keptCount
+      }
+    })
+    this.winner = scoreArray[0];
+  }
 }
 
 class Horses extends Game {
@@ -92,7 +145,6 @@ class Horses extends Game {
 export let game = undefined;
 
 export const gameFactory = (playerCount, rules) => {
-  // const newGame = new Game(playerCount, rules);
   game = new Game(playerCount, rules);
   game.newGame()
   return game

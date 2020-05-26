@@ -11,13 +11,11 @@ body {
 
 body {
   height: fit-content;
-
 }
 
 * {
   touch-action: manipulation;
   box-sizing: border-box;
-
 }
 
 .app {
@@ -27,7 +25,6 @@ body {
   display: grid;
   grid-template-rows: 100px 75px 1fr 50px;
   height: fit-content;
-
 }
 
 .footer {
@@ -38,7 +35,6 @@ body {
   grid-template-columns: repeat(2, minmax(max-content, 2fr));
   grid-column-gap: 10px;
   justify-content: space-between;
-
   justify-content: center;
   padding: 7px 25px;
   background: #4C4D5A;
@@ -56,25 +52,23 @@ body {
   padding: 0px 8px;
   border: 1px solid #737694;
   outline: none;
+  cursor: pointer;
   min-width: max-content;
   transition: 0.3s;
-
 }
-
-.footer button:hover {}
 
 .footer button:active {
   transform: scale(1.1);
   background: #FFFFFF;
-
 }
+
+.nextPlayerButton {}
 
 .app-header {
   max-width: 700px;
   margin: 0 auto;
   padding: 0px 6px;
   height: auto;
-
 }
 
 .text-container {
@@ -120,8 +114,6 @@ body {
   grid-template-rows: 40px 1fr;
   background: rgb(53, 107, 158);
   color: white;
-  /* height: 400px; */
-  /* height: 425px; */
   height: 435px;
 }
 
@@ -197,7 +189,6 @@ body {
   opacity: 0.5;
 }
 
-
 .options-container {
   box-sizing: border-box;
   display: grid;
@@ -223,7 +214,6 @@ body {
   flex-direction: column;
   align-content: center;
   justify-content: space-evenly;
-
   height: 100%;
 }
 
@@ -296,8 +286,6 @@ select {
   transition: 0.3s;
 }
 
-.button-container.show input:hover {}
-
 .button-container.show input:active {
   transform: scale(1.1);
   background: #FFFFFF;
@@ -319,15 +307,11 @@ select {
 
 .dieItem:first-child {
   box-sizing: border-box;
-
 }
 
 .dieItem:last-child {
   box-sizing: border-box;
-
 }
-
-
 
 .itemLabel {
   box-sizing: border-box;
@@ -373,14 +357,12 @@ select {
   font-size: 1.2em;
   font-weight: 600;
   /* transition: transform 1s ease-out; */
-  /* transform: scale(1.2); */
   /* transform-style: preserve-3d;
   transform: rotateX(720deg);
   animation-name: dice-animation;
   animation-duration: 1s;
   animation-direction: normal;
   animation-iteration-count: initial; */
-
 }
 
 .activeDie {
@@ -414,14 +396,12 @@ select {
   border-radius: 6px;
   box-shadow: 0 0 15px 1px rgba(56, 56, 56, 0.514);
   transform: scale(0.8);
-
   transition: transform 0.5s ease-out;
 }
 
 .dieValue:active {
   border: 3px solid rgb(224, 50, 27);
   transition: transform 1s ease-in;
-  /* transform: scale(1.2); */
   transform-style: preserve-3d;
   transform: scale(1.5);
 }
@@ -430,35 +410,30 @@ select {
   grid-area: die1;
   transition: transform 1s 0.0s ease-out;
   transform-style: preserve-3d;
-  /* transform: rotateX(720deg); */
 }
 
 .die2Value {
   grid-area: die2;
   transition: transform 1s 0s ease-out;
   transform-style: preserve-3d;
-  /* transform: rotateX(720deg); */
 }
 
 .die3Value {
   grid-area: die3;
   transition: transform 1s 0s ease-out;
   transform-style: preserve-3d;
-  /* transform: rotateX(720deg); */
 }
 
 .die4Value {
   grid-area: die4;
   transition: transform 1s 0s ease-out;
   transform-style: preserve-3d;
-  /* transform: rotateX(720deg); */
 }
 
 .die5Value {
   grid-area: die5;
   transition: transform 1s 0s ease-out;
   transform-style: preserve-3d;
-  /* transform: rotateX(720deg); */
 
 }
 

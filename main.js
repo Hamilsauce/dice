@@ -25,9 +25,9 @@ const uiState = () => {
 
 const displayMessage = (message, displayTime) => {
   let board = document.querySelector('.scoreDisplay')
-  console.log(typeof displayTime);
+  // console.log(typeof displayTime);
   if (typeof displayTime != 'number') {
-    console.log('displayMessage param invalid');
+    // console.log('displayMessage param invalid');
     board.classList.add('show')
     return;
   }
@@ -51,6 +51,7 @@ const playerTurn = (player, diceCount) => {
     player.keepDice();
     game.updateState()
     let output = game.generateScore();
+    game.endTurn()
     scoreDisplay.textContent = output;
 
     displayMessage(output, 20000)
@@ -74,19 +75,40 @@ document.querySelector('.rollButton')
     playerTurn(player, diceCount);
 
     game.updateState();
-    console.log(game);
-
     player.rollCount += 1;
+
     if (player.rollCount == game.rules.rollLimit) {
-      e.target.textContent = 'End Turn'
+      e.target.textContent = 'End turn'
       displayMessage('End Turn', 3000)
       document.querySelector('.scoreDisplay').textContent = 'Last roll!'
+    }
+
+    if (game.gameOver === true) {
+      let nextPlayerButton = document.querySelector('.nextPlayerButton')
+      e.target.textContent = 'Game Over'
+      nextPlayerButton.disabled = true;
+      nextPlayerButton.style.opacity = '0.7'
+
+      let winnerMsg = `${game.winner.id} wins with ${game.winner.keptCount} ${game.winner.keptValue}'s`
+      displayMessage(winnerMsg, 20000)
     }
   });
 
 document.querySelector('.nextPlayerButton')
   .addEventListener('click', e => {
-    location.reload();
+    const rollArea = document.querySelector(`.rollDisplay`);
+    const keptArea = document.querySelector(`.keptDisplay`);
+    let rollButton = document.querySelector('.rollButton')
+    // location.reload();
+    rollButton.textContent = 'Roll';
+    game.nextPlayer([rollArea, keptArea])
+    uiState()
+
+    let msg = `${game.activePlayer.name}'s turn. Roll on!`
+    displayMessage(msg, 5000)
+    // console.log(game);
+
+
   });
 
 document.querySelector('.start-button')
@@ -101,7 +123,7 @@ document.querySelector('.start-button')
 
     let msg = `${game.activePlayer.name}'s turn. Roll on!`
     displayMessage(msg, 5000)
-    console.log(game);
+    // console.log(game);
 
     document.querySelector('.action-bar').classList.toggle('disabled');
   });

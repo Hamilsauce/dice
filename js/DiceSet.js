@@ -4,7 +4,8 @@ import {
 
 export class DiceSet {
   constructor(diceCount, player) {
-    this.diceCount = diceCount,
+    this.player = player,
+      this.diceCount = diceCount,
       this.dice = this.createDice(this.diceCount).map(die => new Die(die, this)),
       this.activeDice = this.getActiveDice(),
       this.keptCount = 0,
@@ -32,12 +33,14 @@ export class DiceSet {
         curr.createTemplate()
         return acc += curr.template;
       }, '');
+
     keptArea.innerHTML = keptDiceOutput;
 
     let activeDiceOutput = activeDice
       .reduce((acc, curr) => {
         return acc += curr.template;
       }, '');
+
     rollArea.innerHTML = activeDiceOutput;
 
     activeDice.forEach(die => {
@@ -49,7 +52,6 @@ export class DiceSet {
     let activeArray = this.dice
       .filter(die => die.kept === false)
     this.activeDice = activeArray;
-
     return this.activeDice;
   }
 
@@ -59,7 +61,6 @@ export class DiceSet {
         return die.kept === true;
       })
     this.keptDice = keptArray;
-
     return this.keptDice;
   }
 
@@ -68,12 +69,11 @@ export class DiceSet {
       .filter(die => {
         return die.selected === true;
       })
-
     return selected;
   }
+
   getKeptCount() {
     this.keptCount = this.keptDice.length;
-
     return this.keptCount;
   }
 }
@@ -81,21 +81,3 @@ export class DiceSet {
 {
   DiceSet
 }
-
-/*
-activeDice.forEach(die => {
-  let dieVal = document.querySelector(`.${die.id}Value`)
-  let selector = `checkbox-${die.id}`;
-  let checkbox = document.querySelector(`.${selector}`);
-  if (die.kept == false) {
-    die.registerEventListener(selector);
-    dieVal.classList.toggle('dieValue')
-    dieVal.classList.toggle('dieValue')
-    // document.querySelector(`.${die.id}Value`).classList.toggle('dieValue')
-  } else {
-    checkbox.classList.add('kept');
-    checkbox.disabled = true;
-  }
-  setTimeout(() => {}, 500);
-})
-*/
