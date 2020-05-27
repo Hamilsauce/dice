@@ -38,6 +38,18 @@ body {
   width: 35px;
 }
 
+
+.selected {
+	outline: 5px solid blue;
+	background: blue;
+	border: 1px solid yellow ;
+	transform: scale(1.05);
+}
+.kept{
+	background: blue;
+	outline: 5px solid blue;
+	transform: scale(1.05);
+}
 .even-roll {
   transition: transform 1.5s ease-out;
 }
@@ -200,6 +212,8 @@ body {
 }
 
 [data-side="5"] .dot:nth-of-type(4) {
+	
+
   grid-area: seven;
 }
 
@@ -259,4 +273,8 @@ ol {
   margin-inline-start: 0rem;
   margin-inline-end: 0rem;
   padding-inline-start: 0rem;
+}
+
+.die-item.selected {
+  background: purple;
 }
