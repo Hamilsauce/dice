@@ -86,40 +86,6 @@ export class Die {
     })
   }
 
-  registerEventListener2() {
-    let el = document.querySelector(`.checkbox-${this.id}`);
-    el.addEventListener('change', e => {
-      console.log('click');
-      let keptDice = this.diceSet.keptDice();
-      let selectedDice = this.diceSet.selectedDice();
-
-      let keptCheck = keptDice.every(d => {
-        return d.value === this.value;
-      })
-      let selectedCheck = selectedDice.every(d => {
-        return d.value === this.value;
-      })
-
-      if (keptCheck === false || selectedCheck === false && selectedDice.length !== 0) {
-        el.checked = false;
-        // el.classList.add('noMatch');
-        document.querySelector(`.${this.id}Value`).classList.remove('selected');
-
-        console.log('must pick previously kept die val');
-        this.selected = false;
-        return;
-      } else if (el.checked) {
-        el.disabled = false;
-        this.selected = true;
-        document.querySelector(`.${this.id}Value`).classList.add('selected');
-      } else if (!el.checked) {
-        el.disabled = false;
-        document.querySelector(`.${this.id}Value`).classList.remove('selected');
-
-        this.selected = false;
-      }
-    })
-  }
   keep() {
     this.selected == true ? this.kept = true : this.selected = false;
     this.selected = false;
