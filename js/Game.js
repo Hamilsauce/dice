@@ -6,7 +6,7 @@ export class Game {
   constructor(playerCount, rules) {
     this.playerCount = playerCount,
       this.rules = this.getRules(rules),
-      this.players = this.createPlayers(this.playerCount).map(player => new Player(player, this)),
+      this.players = this.createPlayers(this.playerCount).map(id => new Player(id, this)),
       this.activePlayer = null,
       this.gameStarted = false,
       this.gameOver = false,
@@ -26,20 +26,21 @@ export class Game {
 
   createPlayers(count) {
     let players = [];
-    for (var i = 1; i <= count; i++) {
-      let player = [`player${i}`, i]
-      players.push(player);
+    for (let i = 1; i <= count; i++) {
+      let id = i;
+      players.push(id);
     };
-
     return players;
   }
   newGame() {
-    this.gameStarted = true;
-    this.activePlayer = this.players[0];
-    document.querySelector('.rollButton').value = 'Roll';
     let nextPlayerButton = document.querySelector('.nextPlayerButton')
     nextPlayerButton.disabled = true;
     nextPlayerButton.style.opacity = '0.7';
+
+    this.gameStarted = true;
+    this.activePlayer = this.players[0];
+
+    document.querySelector('.rollButton').value = 'Roll';
   }
 
   updateState() {

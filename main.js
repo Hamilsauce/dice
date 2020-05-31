@@ -1,17 +1,9 @@
 import {
-  DiceSet
-} from './js/DiceSet.js';
-import {
-  Die
-} from './js/Die.js';
-import {
-  Player
-} from './js/Player.js';
-import {
   game,
   gameFactory
 } from './js/Game.js';
 
+//@UI stuff
 const uiState = () => {
   let actionBar = document.querySelector('.action-bar')
   if (game.gameStarted === true) {
@@ -25,18 +17,23 @@ const uiState = () => {
 
 const displayMessage = (message, displayTime) => {
   let board = document.querySelector('.scoreDisplay')
-  // console.log(typeof displayTime);
   if (typeof displayTime != 'number') {
-    // console.log('displayMessage param invalid');
     board.classList.add('show')
     return;
   }
-  board.classList.toggle('show')
-  board.textContent = message;
+  board.classList.remove('show')
+
+  board.textContent = '';
   setTimeout(() => {
-    document.querySelector('.scoreDisplay').classList.toggle('show')
-  }, displayTime)
+    board.textContent = message;
+    board.classList.add('show')
+    setTimeout(() => {
+      board.classList.remove('show')
+    }, displayTime)
+  }, 500)
+
 }
+//@ End UI stuff
 
 const playerTurn = (player, diceCount) => {
   const rollLimit = game.rules.rollLimit;
@@ -46,7 +43,7 @@ const playerTurn = (player, diceCount) => {
 
   game.updateState();
 
-  if (player.rollCount >= rollLimit || diceCount <= 0) {
+  if (player.rollCount >= rollLimit || diceCount <= 0) { //! test if roll limit reached, end turn if so
     let scoreDisplay = document.querySelector('.scoreDisplay')
     player.keepDice();
     game.updateState()
@@ -55,13 +52,12 @@ const playerTurn = (player, diceCount) => {
     scoreDisplay.textContent = output;
 
     displayMessage(output, 20000)
-    return;
   } else {
     dice.forEach(die => {
       if (die.kept === true) return;
       die.createDieValue(1, 6, 'rollDisplay');
     });
-    diceSet.renderRolls(dice, 'rollDisplay');
+    diceSet.renderRolls('rollDisplay');
   }
 }
 
@@ -77,10 +73,10 @@ document.querySelector('.rollButton')
     game.updateState();
     player.rollCount += 1;
 
-    if (player.rollCount == game.rules.rollLimit) {
+    if (player.rollCount == game.rules.rollLimit) { //! test if last turn, update UI
       e.target.textContent = 'End turn'
-      displayMessage('End Turn', 3000)
-      document.querySelector('.scoreDisplay').textContent = 'Last roll!'
+      displayMessage('Last roll!', 7000)
+      // document.querySelector('.scoreDisplay').textContent = 'Last roll!'
     }
 
     if (game.gameOver === true) {
@@ -101,11 +97,14 @@ document.querySelector('.nextPlayerButton')
     let rollButton = document.querySelector('.rollButton')
     // location.reload();
     rollButton.textContent = 'Roll';
-    game.nextPlayer([rollArea, keptArea])
+    game.nextPlayer([rollArea, keptArea]);
+    e.target.disabled = true;
+    e.target.style.opacity = '0.7'
+
     uiState()
 
     let msg = `${game.activePlayer.name}'s turn. Roll on!`
-    displayMessage(msg, 5000)
+    displayMessage(msg, 7000)
     // console.log(game);
 
 
@@ -122,7 +121,7 @@ document.querySelector('.start-button')
     uiState()
 
     let msg = `${game.activePlayer.name}'s turn. Roll on!`
-    displayMessage(msg, 5000)
+    displayMessage(msg, 7000)
     // console.log(game);
 
     document.querySelector('.action-bar').classList.toggle('disabled');

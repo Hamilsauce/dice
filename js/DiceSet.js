@@ -6,42 +6,38 @@ export class DiceSet {
   constructor(diceCount, player) {
     this.player = player,
       this.diceCount = diceCount,
-      this.dice = this.createDice(this.diceCount).map(die => new Die(die, this)),
+      this.dice = this.createDice(this.diceCount).map(id => new Die(id, this)),
       this.activeDice = this.getActiveDice(),
       this.keptCount = 0,
       this.selectedValue = null
   }
 
   createDice(count) {
-    let dice = [];
-    for (var i = 1; i <= count; i++) {
-      let die = `die${i}`;
-      dice.push(die);
+    let die = [];
+    for (let i = 1; i <= count; i++) {
+      let id = i;
+      die.push(id);
     };
-    return dice;
+    return die;
   }
-
-  renderRolls(dice, parentSelector) {
-    const rollArea = document.querySelector(`.${parentSelector}`);
+  renderRolls(rollAreaSelector) {
+    const rollArea = document.querySelector(`.${rollAreaSelector}`);
     const keptArea = document.querySelector(`.keptDisplay`);
     const activeDice = this.getActiveDice()
     const keptDice = this.getKeptDice()
 
-    let keptDiceOutput = keptDice
+    let keptDiceMarkup = keptDice //* get the html template for each kept die and reduce it to single html string
       .reduce((acc, curr) => {
-        // console.log(curr);
         curr.createTemplate()
         return acc += curr.template;
       }, '');
+    keptArea.innerHTML = keptDiceMarkup;
 
-    keptArea.innerHTML = keptDiceOutput;
-
-    let activeDiceOutput = activeDice
+    let activeDiceMarkup = activeDice //* get the html template for each active (unkept) die and reduce it to single html string
       .reduce((acc, curr) => {
         return acc += curr.template;
       }, '');
-
-    rollArea.innerHTML = activeDiceOutput;
+    rollArea.innerHTML = activeDiceMarkup;
 
     activeDice.forEach(die => {
       die.registerEventListener(`.${die.id}Value`);

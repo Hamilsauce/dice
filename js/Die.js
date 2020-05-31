@@ -2,21 +2,23 @@ export class Die {
   constructor(id, diceSet) {
     this.value = null,
       this.id = id,
+      this.name = this.createNameFromId(),
+      this.dieValueClass = `die${this.id}Value`,
       this.selected = false,
-      this.name = this.createIdAsName(),
       this.diceSet = diceSet,
       this.kept = false
+
   }
-  createIdAsName() {
-    if (this.id == 'die1') {
+  createNameFromId() {
+    if (this.id == 1) {
       return 'Die One';
-    } else if (this.id == 'die2') {
+    } else if (this.id == 2) {
       return 'Die Two';
-    } else if (this.id == 'die3') {
+    } else if (this.id == 3) {
       return 'Die Three';
-    } else if (this.id == 'die4') {
+    } else if (this.id == 4) {
       return 'Die Four';
-    } else if (this.id == 'die5') {
+    } else if (this.id == 5) {
       return 'Die Five';
     } else {
       return 'Die (No ID)';
@@ -37,17 +39,17 @@ export class Die {
       this.template = /*html */ `
       <li class="dieItem ${this.id}Item">
           <div class="label-div">
-            <div class="dieValue ${valueLabel} activeDie">
+            <div class="dieValue ${this.dieValueClass} activeDie">
             ${this.value}
             </div>
           </div>
       </li>`;
     } else {
       this.template = /*html */ `
-      <li class="dieItem ${this.id}Item">
+      <li class="dieItem die${this.id}Item">
           <div class="label-div">
             <!-- <div class="dieLabel">${this.name}: </div> -->
-            <div class="dieValue ${valueLabel} keptDie">
+            <div class="dieValue ${this.dieValueClass} keptDie">
             ${this.value}
             </div>
           </div>
@@ -55,7 +57,7 @@ export class Die {
     }
   }
   registerEventListener() {
-    let el = document.querySelector(`.${this.id}Value`);
+    let el = document.querySelector(`.${this.dieValueClass}`);
 
     el.addEventListener('click', e => {
       let keptDice = this.diceSet.getKeptDice();
@@ -64,7 +66,7 @@ export class Die {
       let keptCheck = keptDice.every(d => {
         return d.value === this.value;
       })
-      
+
       let selectedCheck = selectedDice.every(d => {
         return d.value === this.value;
       })

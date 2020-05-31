@@ -3,26 +3,25 @@ import {
 } from './DiceSet.js'
 
 export class Player {
-  constructor([id, index], game) {
+  constructor(id, game) {
     this.game = game,
       this.id = id,
-      this.index = index,
-      this.name = this.createIdAsName(),
+      this.name = this.createNameFromId(),
       this.diceSet = new DiceSet(this.game.rules.diceCount, this),
       this.rollCount = 0,
       this.hasPlayed = false
   }
-  createIdAsName() {
+  createNameFromId() {
     // console.log(this.id);
-    if (this.id == 'player1') {
+    if (this.id == 1) {
       return 'Player One';
-    } else if (this.id == 'player2') {
+    } else if (this.id == 2) {
       return 'Player Two';
-    } else if (this.id == 'player3') {
+    } else if (this.id == 3) {
       return 'Player Three';
-    } else if (this.id == 'player4') {
+    } else if (this.id == 4) {
       return 'Player Four';
-    } else if (this.id == 'player5') {
+    } else if (this.id == 5) {
       return 'Player Five';
     } else {
       return 'Player (No ID)';
