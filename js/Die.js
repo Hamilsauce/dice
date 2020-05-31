@@ -22,7 +22,7 @@ export class Die {
       return 'Die (No ID)';
     }
   }
-  roll(min, max) {
+  createDieValue(min, max) {
     if (this.kept === false) {
       min = Math.ceil(min);
       max = Math.floor(max);
@@ -32,13 +32,11 @@ export class Die {
     return this.value;
   }
   createTemplate() {
-    // let parent = document.querySelector(parentClass);
     let valueLabel = `${this.id}Value`;
     if (this.kept === false) {
       this.template = /*html */ `
       <li class="dieItem ${this.id}Item">
           <div class="label-div">
-
             <div class="dieValue ${valueLabel} activeDie">
             ${this.value}
             </div>
@@ -58,14 +56,15 @@ export class Die {
   }
   registerEventListener() {
     let el = document.querySelector(`.${this.id}Value`);
+
     el.addEventListener('click', e => {
-      console.log('click2');
       let keptDice = this.diceSet.getKeptDice();
       let selectedDice = this.diceSet.selectedDice();
 
       let keptCheck = keptDice.every(d => {
         return d.value === this.value;
       })
+      
       let selectedCheck = selectedDice.every(d => {
         return d.value === this.value;
       })

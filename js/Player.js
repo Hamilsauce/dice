@@ -13,7 +13,7 @@ export class Player {
       this.hasPlayed = false
   }
   createIdAsName() {
-    console.log(this.id);
+    // console.log(this.id);
     if (this.id == 'player1') {
       return 'Player One';
     } else if (this.id == 'player2') {

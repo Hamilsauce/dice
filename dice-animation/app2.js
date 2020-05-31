@@ -6,21 +6,17 @@ function rollDice() {
   const rollDisplay = document.querySelector(`.rollDisplay`)
   // const dice = [...document.querySelectorAll(".die-list")]
   const dice = document.querySelectorAll(".die-list")
-  // .filter(die => {
-  //   console.log('filter die: ');
-  //   return die.dataset.kept = 'false';
-  // })
-  // console.log('post filter kept dice line 12');
-  // console.log(dice);
-
+    .filter(die => {
+      console.log('filter die: ');
+      return die.dataset.kept = 'false';
+    })
+  console.log('post filter kept dice line 12');
+  console.log(dice);
 
   dice.forEach((die, index) => {
-   if (die.dataset.kept != 'true') {
     registerEventListeners(die)
     toggleClasses(die);
     die.dataset.roll = getRandomNumber(1, 6);
-   }
-   
 
     let el = document.createElement('div');
     let dieClass = `dieValue${die.dataset.roll}`
@@ -45,13 +41,12 @@ function getRandomNumber(min, max) {
 const registerEventListeners = die => {
   const rollDisplay = document.querySelector(`.rollDisplay`)
   // let el = document.querySelector(`.${this.id}Value`);
+
+
   // dice.forEach(die => {
+
   die.addEventListener('click', e => {
-    console.log('eve');
-    console.log('target');
-    console.log(e.target);
-    console.log('e.currentTarget');
-    console.log(e.currentTarget);
+    console.log('click2');
     // let keptDice = this.diceSet.getKeptDice();
     // let selectedDice = this.diceSet.selectedDice();
     // let keptVals = rollDisplay.textContent	
@@ -64,8 +59,7 @@ const registerEventListeners = die => {
 
     die.classList.toggle('selected')
     if (die.classList.contains('selected')) {
-      // selected.push(die.dataset.roll)
-      selected.push(die)
+      selected.push(die.dataset.roll)
       die.dataset.selected = 'true';
     } else {
       let popped = selected.pop()
@@ -95,8 +89,7 @@ const registerEventListeners = die => {
 const keepDice = () => {
   const dice = [...document.querySelectorAll(".die-list")];
   let arr = [];
-  console.log('checking data attrs for selscted');
-
+  console.log(dice);
   let sel = dice.filter(die => {
     console.log(die.dataset.selected === 'true');
     return die.classList.contains('selected') == true;
@@ -114,12 +107,12 @@ const keepDice = () => {
   console.log(sel);
   console.log('unsel');
   console.log(unsel);
-  let kept = dice.filter(die => {
-    // console.log(die.dataset.selected === false);
+  let kep = dice.filter(die => {
+    console.log(die.dataset.selected === false);
     return die.classList.contains('kept') == true;
   })
   console.log('kep');
-  console.log(kept);
+  console.log(kep);
 }
 
 document.getElementById("roll-button")

@@ -1,3 +1,10 @@
+import Vue from './vue.js'
+
+import addProduct from './dice.js'
+
+
+console.log('logging');
+console.log(vue);
 const products = [
   { id: 1, name: 'Angular', description: 'Superheroic JavaScript MVW Framework.', price: 100 },
   { id: 2, name: 'Ember', description: 'A framework for creating ambitious web applications.', price: 100 },
@@ -70,44 +77,69 @@ const ProductDelete = Vue.extend({
 });
 
 
-const AddProduct = Vue.extend({
-  template: '#add-product',
-  data() {
-    return {
-      product: {
-        name: '',
-        description: '',
-        price: ''
-      }
-    }
-  },
-  methods: {
-    createProduct() {
-      let product = this.product;
-      products.push({
-        id: Math.random().toString().split('.')[1],
-        name: product.name,
-        description: product.description,
-        price: product.price
-      });
-      router.push('/');
-    }
-  }
-});
+// const AddProduct = Vue.extend({
+//   template: '#add-product',
+//   data() {
+//     return {
+//       product: {
+//         name: '',
+//         description: '',
+//         price: ''
+//       }
+//     }
+//   },
+//   methods: {
+//     createProduct() {
+//       let product = this.product;
+//       products.push({
+//         id: Math.random().toString().split('.')[1],
+//         name: product.name,
+//         description: product.description,
+//         price: product.price
+//       });
+//       router.push('/');
+//     }
+//   }
+// });
 
 
 //* ROUTER
 const router = new VueRouter({
   routes: [
-    { path: '/', component: List },
-    { path: '/product/:product_id', component: Product, name: 'product' },
-    { path: '/add-product', component: AddProduct },
-    { path: '/product/:product_id/edit', component: ProductEdit, name: 'product-edit' },
-    { path: '/product/:product_id/delete', component: ProductDelete, name: 'product-delete' }
+    {
+      path: '/',
+      component: List
+    },
+    {
+      path: '/product/:product_id',
+      component: Product,
+      name: 'product'
+    },
+    {
+      path: '/die',
+      component: AddProduct
+    },
+    {
+      path: '/product/:product_id/edit',
+      component: ProductEdit,
+      name: 'product-edit'
+    },
+    {
+      path: '/product/:product_id/delete',
+      component: ProductDelete,
+      name: 'product-delete'
+    }
 ]
 });
 
+let vdub = new Vue({
+  el: '#app',
+  components: {
+    addProduct
+  }
+});
+
 // RENDER FUNCTION
-let app = new Vue({
-  router: router
-}).$mount('#app')
+// new Vue({
+//   router: router
+// }).$mount('#app')

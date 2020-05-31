@@ -29,7 +29,7 @@ export class DiceSet {
 
     let keptDiceOutput = keptDice
       .reduce((acc, curr) => {
-        console.log(curr);
+        // console.log(curr);
         curr.createTemplate()
         return acc += curr.template;
       }, '');

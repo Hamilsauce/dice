@@ -59,7 +59,7 @@ const playerTurn = (player, diceCount) => {
   } else {
     dice.forEach(die => {
       if (die.kept === true) return;
-      die.roll(1, 6, 'rollDisplay');
+      die.createDieValue(1, 6, 'rollDisplay');
     });
     diceSet.renderRolls(dice, 'rollDisplay');
   }
