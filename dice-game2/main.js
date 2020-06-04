@@ -45,7 +45,7 @@ const playerTurn = (player, diceCount) => {
 
   if (player.rollCount >= rollLimit || diceCount <= 0) { //! test if roll limit reached, end turn if so
     let scoreDisplay = document.querySelector('.scoreDisplay')
-    player.keepDice();
+    player.keepDice2();
     game.updateState()
     let output = game.generateScore();
     game.endTurn()
@@ -54,7 +54,7 @@ const playerTurn = (player, diceCount) => {
     displayMessage(output, 20000)
   } else {
 
-    player.keepDice()
+    player.keepDice2()
     player.rollDice();
     // dice.forEach(die => {
     //   if (die.kept === true) return;

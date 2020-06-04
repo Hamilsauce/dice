@@ -30,70 +30,32 @@ export class Die {
       max = Math.floor(max);
       this.value = Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
     }
+    this.createTemplate();
     return this.value;
   }
-
-
-  newTemplate() {
-    const oddEven = this.id % 2 == 0 ? 'even-roll' : 'odd-roll';
-    const dieList = document.createElement('ol');
-    dieList.classList.add('die-list', oddEven);
-    dieList.setAttribute('id', `die-${this.id}`);
-    dieList.dataset.roll = '1';
-    dieList.dataset.selected = 'false';
-    dieList.dataset.kept = 'false';
-
-    let sideCount = 6;
-    for (let i = 1; i <= sideCount; i++) {
-      const dieSide = document.createElement('li');
-      dieSide.classList.add('die-item');
-      dieSide.dataset.side = i;
-
-      for (let j = 1; j <= i; j++) {
-        const dot = document.createElement('span');
-        dot.classList.add('dot');
-        dieSide.appendChild(dot);
-      }
-      dieList.appendChild(dieSide)
+  createTemplate() {
+    let valueLabel = `${this.id}Value`;
+    if (this.kept === false) {
+      this.template = /*html */ `
+      <li class="dieItem ${this.id}Item">
+          <div class="label-div">
+            <div class="dieValue ${this.dieValueClass} activeDie">
+            ${this.value}
+            </div>
+          </div>
+      </li>`;
+    } else {
+      this.template = /*html */ `
+      <li class="dieItem die${this.id}Item">
+          <div class="label-div">
+            <!-- <div class="dieLabel">${this.name}: </div> -->
+            <div class="dieValue ${this.dieValueClass} keptDie">
+            ${this.value}
+            </div>
+          </div>
+      </li>`;
     }
-
-    this.dieElement = dieList;
   }
-  registerEventListener2() {
-    let el = this.dieElement;
-    el.addEventListener('click', e => {
-      let keptDice = this.diceSet.getKeptDice();
-      let selectedDice = this.diceSet.selectedDice();
-
-      let keptCheck = keptDice.every(d => {
-        return d.value === this.value;
-      })
-
-      let selectedCheck = selectedDice.every(d => {
-        return d.value === this.value;
-      })
-
-        die.classList.toggle('selected')
-
-        const dieSides = [...die.children];
-        dieSides.forEach(child => {
-          child.classList.toggle('selected')
-
-          const dots = [...child.children];
-          dots.forEach(dot => {
-            dot.classList.toggle('selected')
-          })
-        })
-
-      if (die.classList.contains('selected')) {
-        die.dataset.selected = 'true';
-      } else {
-        die.dataset.selected = 'false';
-      }
-
-    })
-  }
-
   registerEventListener() {
     let el = document.querySelector(`.${this.dieValueClass}`);
 
@@ -113,6 +75,7 @@ export class Die {
         this.selected = false;
         el.classList.remove('selected');
 
+        console.log('must pick previously kept die val');
         return;
       } else if (this.selected) {
         this.selected = false;

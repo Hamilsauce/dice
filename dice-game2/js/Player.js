@@ -29,7 +29,7 @@ export class Player {
   }
   rollDice() {
     //TODO If this is first roll, then either add event listeners to dice or enable pointerevents
-    this.keepDice();
+    this.keepDice2();
     const rollDisplay = document.querySelector(`.rollDisplay`)
     const dice = [...document.querySelectorAll(".die-list")]
     const activeDice = dice.filter(die => {
@@ -46,7 +46,7 @@ export class Player {
     this.rollCount += n;
     return this.rollCount;
   }
-  keepDice() {
+  keepDice2() {
 
     const dice = [...document.querySelectorAll(".die-list")];
 
@@ -76,6 +76,12 @@ export class Player {
 
   }
 
+  keepDice() {
+    let dice = this.diceSet.dice;
+    dice.forEach(die => {
+      die.keep();
+    })
+  }
 }
 
 

@@ -8,7 +8,7 @@ export class Game {
       this.rules = this.getRules(rules),
       this.players = this.createPlayers(this.playerCount).map(id => new Player(id, this)),
       this.activePlayer = null,
-      this.gameActive = false,
+      this.gameStarted = false,
       this.gameOver = false,
       this.winner = null
   }
@@ -32,25 +32,13 @@ export class Game {
     };
     return players;
   }
-  toggleClasses(die) {
-    die.classList.toggle("odd-roll");
-    die.classList.toggle("even-roll");
-  }
-
-  getRandomNumber(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
   newGame() {
     let nextPlayerButton = document.querySelector('.nextPlayerButton')
     nextPlayerButton.disabled = true;
     nextPlayerButton.style.opacity = '0.7';
 
-    this.gameActive = true;
+    this.gameStarted = true;
     this.activePlayer = this.players[0];
-    this.nextPlayer()
-    // this.activePlayer.diceSet.renderDice()
 
     document.querySelector('.rollButton').value = 'Roll';
   }
@@ -66,8 +54,8 @@ export class Game {
     this.updateState();
     let player = this.activePlayer;
     let diceSet = player.diceSet;
-    let count = player.keptDice.length
-    let value = player.keptDice[0].dataset.roll;
+    let count = diceSet.keptCount;
+    let value = diceSet.keptDice[0].value;
 
     return `${player.name} rolled ${count} ${value}'s`;
   }
@@ -82,8 +70,8 @@ export class Game {
     rollButton.style.opacity = '0.7';
 
     this.activePlayer.finalScore = {
-      keptCount: this.activePlayer.keptDice.length,
-      keptValue: this.activePlayer.keptDice[0].dataset.roll
+      keptCount: this.activePlayer.diceSet.getKeptCount(),
+      keptValue: this.activePlayer.diceSet.getKeptDice()[0].value
     }
     this.activePlayer.hasPlayed = true;
 
@@ -92,8 +80,6 @@ export class Game {
         return player.hasPlayed === false;
       })
 
-    //! If remaining players exist, set activeplayer to next in array
-    //! else end game
     if (remainingPlayers.length > 0) {
       this.activePlayer = remainingPlayers[0];
     } else {
@@ -101,25 +87,18 @@ export class Game {
     }
   }
 
-
-  nextPlayer() {
-    let rollDisplay = document.querySelector('.rollDisplay')
-
-
-    rollDisplay.innerHTML = '';
-    let rollButton = document.querySelector('.rollButton')
-    this.activePlayer.diceSet.renderDice()
-
-    rollButton.disabled = false;
-    rollButton.style.opacity = '1';
-    rollButton.textContent = 'Roll';
-
-
+  nextPlayer(diceAreas) {
+    diceAreas.forEach(area => {
+      area.innerHTML = '';
+      let rollButton = document.querySelector('.rollButton')
+      rollButton.disabled = false;
+      rollButton.style.opacity = '1';
+      rollButton.textContent = 'Roll';
+    });
   }
 
   endGame() {
     this.gameOver = true;
-    this.gameActive = false;
     this.getWinner()
   }
 
@@ -136,30 +115,15 @@ export class Game {
             return obj;
           }, {});
       });
-    let tie = 0;
+
     scoreArray.sort((a, b) => {
       if (b.keptCount - a.keptCount == 0) {
-        if (b.keptValue - a.keptValue == 0) {
-          tie += 1
-          return 0;
-        } else {
-          return b.keptValue - a.keptValue;
-
-        }
+        return b.keptValue - a.keptValue;
       } else {
         return b.keptCount - a.keptCount
       }
     })
-
-    let tieArray = [];
-    if (tie >= 1) {
-      tieArray = scoreArray.slice(0, tie + 1)
-      let tieString = tieArray.map(pl => { return pl.id }).join(' & ');
-      this.winner = `${tieString} tie!`
-    } else {
-
-      this.winner = scoreArray[0];
-    }
+    this.winner = scoreArray[0];
   }
 }
 

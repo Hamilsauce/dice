@@ -1,0 +1,560 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@300;400;600;700&display=swap');
+
+html,
+body {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0 auto;
+  width: 100vw;
+  font-family: 'Dosis', sans-serif;
+}
+
+body {
+  height: fit-content;
+}
+
+* {
+  touch-action: manipulation;
+  box-sizing: border-box;
+}
+
+.app {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0;
+  display: grid;
+  grid-template-rows: 100px 75px 1fr 50px;
+  height: fit-content;
+}
+
+.footer {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(max-content, 2fr));
+  grid-column-gap: 10px;
+  justify-content: space-between;
+  justify-content: center;
+  padding: 7px 25px;
+  background: #4C4D5A;
+  box-shadow: 0 0 12px 1px rgba(0, 0, 0, 0.341);
+  border-top: 2px solid #616375F5;
+}
+
+.footer button {
+  height: 30px;
+  background: #FFFFFFD4;
+  color: #4C4D5A;
+  font-weight: 700;
+  font-size: 1.2em;
+  border-radius: 8px;
+  padding: 0px 8px;
+  border: 1px solid #737694;
+  outline: none;
+  cursor: pointer;
+  min-width: max-content;
+  transition: 0.3s;
+}
+
+.footer button:active {
+  transform: scale(1.1);
+  background: #FFFFFF;
+}
+
+.nextPlayerButton {}
+
+.app-header {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0px 6px;
+  height: auto;
+}
+
+.text-container {
+  margin: 0;
+}
+
+.app-title {
+  margin: 0px auto 0px auto;
+  font-size: 1.6em;
+}
+
+.subtitle {
+  margin: 5px;
+  font-size: 1em;
+}
+
+/* .selected {
+  border: 3px solid red;
+  color: red;
+  z-index: 3;
+} */
+
+/* .kept {
+  border: 3px solid red;
+  color: red;
+} */
+
+.table-label {
+  margin: 0;
+  text-align: center;
+  margin-bottom: 15px;
+  background-color: rgba;
+  background: rgb(33, 74, 112);
+  padding: 5px;
+}
+
+.table {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "s s"
+    "r r";
+  grid-template-rows: 40px 1fr;
+  background: rgb(53, 107, 158);
+  color: white;
+  height: 435px;
+}
+
+.scoreDisplay {
+  grid-area: s;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  font-size: 1.5em;
+  font-weight: 600;
+  padding: 0px 15px;
+  background-color: white;
+  color: rgba(59, 156, 42, 0);
+  transition: 0.2s;
+  height: 40px;
+}
+
+.scoreDisplay.show {
+  color: rgba(59, 156, 42, 1);
+}
+
+.rollDisplay {
+  box-sizing: border-box;
+  padding: 0px 0px;
+  margin: 0px 0;
+  list-style: none;
+  width: 100%;
+  display: grid;
+  justify-content: center;
+  grid-template-areas:
+    "die1 ."
+    "die2 di3"
+    "die4 die5";
+}
+
+.keptDisplay {
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  box-sizing: border-box;
+  list-style: none;
+  width: 100%;
+}
+
+.container1 {
+  grid-area: r;
+}
+
+.container2 {
+  grid-area: k;
+}
+
+.action-bar {
+  transition: transform 1s 0.5s ease-out;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  justify-content: space-between;
+  margin: 0px;
+  padding: 0px 0px 0px 0px;
+  max-width: 100%;
+  max-height: 70px;
+  font-size: 1em;
+  font-weight: 500;
+  color: rgb(255, 255, 255);
+  background: #4C4D5A;
+  border-top: 2px solid #616375F5;
+  border-bottom: 2px solid #616375F5;
+  transition: 0.5s;
+}
+
+.action-bar.fade {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.options-container {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 10px;
+  justify-content: flex-end;
+  margin: 0 auto 0px auto;
+  padding: 0px 20px;
+  max-width: fit-content;
+  font-size: 1em;
+  font-weight: 500;
+  opacity: 1;
+  transition: 1s;
+}
+
+.options-container.hide {
+  opacity: 0.4;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: space-evenly;
+  height: 100%;
+}
+
+.control-group:nth-child(3) {
+  justify-content: flex-end;
+  padding-bottom: 2px;
+}
+
+.control-group label {
+  margin-bottom: 3px;
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+#player-count-input {
+  max-width: 80px;
+  font-size: 1em;
+  font-weight: 500;
+  padding: 4px;
+}
+
+.control-group input,
+button,
+select {
+  font-size: 1em;
+  font-weight: 500;
+  padding: 4px;
+}
+
+.button-container {
+  display: none;
+}
+
+.action-bar input,
+button,
+select {
+  margin-bottom: 3px;
+  font-weight: 500;
+}
+
+.button-container.show {
+  transition: transform 1s 0.5s ease-out;
+  transform-style: preserve-3d;
+  transform: scale(1.2);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 4px auto;
+  padding: 10px 20px;
+  max-width: fit-content;
+  height: fit-content;
+  font-weight: 500;
+}
+
+.button-container.show input {
+  margin: 3px 5px 0px 5px;
+  font-size: 1.05em;
+  max-height: 30px;
+  height: 40px;
+  background: #FFFFFFD4;
+  color: #4C4D5A;
+  font-weight: 700;
+  font-size: 1em;
+  border-radius: 8px;
+  padding: 4px;
+  border: 1px solid #737694;
+  outline: none;
+  transition: 0.3s;
+}
+
+.button-container.show input:active {
+  transform: scale(1.1);
+  background: #FFFFFF;
+}
+
+/* .dieItem {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 7px 5px;
+  max-width: 450px;
+  font-size: 1.2em;
+  font-weight: 500;
+  color: rgb(29, 24, 24);
+} */
+
+.dieItem:first-child {
+  box-sizing: border-box;
+}
+
+.dieItem:last-child {
+  box-sizing: border-box;
+}
+
+.itemLabel {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  width: 80px;
+}
+
+.label-div {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.dieLabel {
+  box-sizing: border-box;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: left;
+  align-items: center;
+  margin: 10px 10px;
+}
+
+.dieValue {
+  cursor: pointer;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  margin: 0px 6px;
+  padding: 15px 25px;
+  background: white;
+  border: 3px solid rgba(148, 146, 146, 0.931);
+  border-radius: 6px;
+  box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.541);
+  font-size: 1.2em;
+  font-weight: 600;
+  /* transition: transform 1s ease-out; */
+  /* transform-style: preserve-3d;
+  transform: rotateX(720deg);
+  animation-name: dice-animation;
+  animation-duration: 1s;
+  animation-direction: normal;
+  animation-iteration-count: initial; */
+}
+
+/* .activeDie {
+  transition: transform 1s ease-out;
+  transform-style: preserve-3d;
+  transform: rotateX(720deg);
+  animation-name: dice-animation;
+  animation-duration: 1s;
+  animation-direction: normal;
+  animation-iteration-count: initial;
+} */
+
+/* .selected {
+  border: 3px solid red;
+  color: red;
+  transition: 0.5s;
+  transform: translateX(150px) scale(1.2);
+} */
+
+/* .keptDie {
+  cursor: pointer;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  margin: 10px 15px;
+  padding: 15px 25px;
+  background: white;
+  border: 3px solid rgba(88, 224, 70, 0.931);
+  border-radius: 6px;
+  box-shadow: 0 0 15px 1px rgba(56, 56, 56, 0.514);
+  transform: scale(0.8);
+  transition: transform 0.5s ease-out;
+} */
+
+.dieValue:active {
+  border: 3px solid rgb(224, 50, 27);
+  transition: transform 1s ease-in;
+  transform-style: preserve-3d;
+  transform: scale(1.5);
+}
+
+.die1Value {
+  grid-area: die1;
+  transition: transform 1s 0.0s ease-out;
+  transform-style: preserve-3d;
+}
+
+.die2Value {
+  grid-area: die2;
+  transition: transform 1s 0s ease-out;
+  transform-style: preserve-3d;
+}
+
+.die3Value {
+  grid-area: die3;
+  transition: transform 1s 0s ease-out;
+  transform-style: preserve-3d;
+}
+
+.die4Value {
+  grid-area: die4;
+  transition: transform 1s 0s ease-out;
+  transform-style: preserve-3d;
+}
+
+.die5Value {
+  grid-area: die5;
+  transition: transform 1s 0s ease-out;
+  transform-style: preserve-3d;
+
+}
+
+
+
+
+
+@keyframes dice-animation {
+  0% {
+    transform: rotateX(0deg);
+  }
+
+  /*
+  30% {
+    transform: rotateX(360deg);
+  }
+
+  60% {
+    transform: rotateX(-180deg);
+  }
+
+  75% {
+    transform: rotateX(0deg);
+  } */
+
+  100% {
+    transform: rotateX(1440deg);
+  }
+
+}
+
+.color-box {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  background-color: red;
+  -webkit-animation-name: color-box-animation;
+  /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 15s;
+  /* Safari 4.0 - 8.0 */
+  animation-name: color-box-animation;
+  animation-duration: 10s;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes color-box-animation {
+  from {
+    background-color: red;
+  }
+
+  to {
+    background-color: yellow;
+  }
+}
+
+/* Standard syntax */
+@keyframes color-box-animation {
+  0% {
+    background-color: red;
+    left: 0px;
+    height: 100px;
+    width: 100px;
+    top: 150px
+  }
+
+  15% {
+    background-color: rgb(255, 255, 255);
+    left: 250px;
+    height: 40px;
+    width: 300px;
+    top: 0px
+  }
+
+  25% {
+    background-color: rgb(231, 81, 199);
+    left: 900px;
+    height: 400px;
+    width: 500px;
+    top: 0px
+  }
+
+  50% {
+    background-color: rgb(248, 248, 245);
+    left: 0px;
+    height: 250px;
+    width: 400px;
+    top: 100px
+  }
+
+  65% {
+    background-color: rgb(104, 22, 70);
+    left: 1200px;
+    height: 1px;
+    width: 1px;
+    top: 0px
+  }
+
+  70% {
+    background-color: rgb(0, 255, 0);
+    left: 200px;
+    height: 1000px;
+    width: 1000px;
+    top: -100x
+  }
+
+  80% {
+    background-color: rgb(249, 253, 249);
+    left: 200px;
+    height: 1000px;
+    width: 1000px;
+    top: -100x
+  }
+
+  100% {
+    background-color: rgb(35, 90, 190);
+    left: 600px;
+    height: 100px;
+    width: 100px;
+    top: 0px
+  }
+}

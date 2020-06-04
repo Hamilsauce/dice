@@ -6,10 +6,10 @@ import {
 //@UI stuff
 const uiState = () => {
   let actionBar = document.querySelector('.action-bar')
-  if (game.gameActive === true) {
+  if (game.gameStarted === true) {
     actionBar.classList.add('fade')
     actionBar.classList.remove('show')
-  } else if (game.gameActive === false) {
+  } else {
     actionBar.classList.remove('fade')
     actionBar.classList.add('show')
   }
@@ -53,20 +53,16 @@ const playerTurn = (player, diceCount) => {
 
     displayMessage(output, 20000)
   } else {
-
-    player.keepDice()
-    player.rollDice();
-    // dice.forEach(die => {
-    //   if (die.kept === true) return;
-    //   die.createDieValue(1, 6, 'rollDisplay');
-    // });
+    dice.forEach(die => {
+      if (die.kept === true) return;
+      die.createDieValue(1, 6, 'rollDisplay');
+    });
+    diceSet.renderRolls('rollDisplay');
   }
 }
 
 document.querySelector('.rollButton')
   .addEventListener('click', e => {
-
-    console.log(game);
     const player = game.activePlayer;
     let diceSet = player.diceSet;
 
@@ -89,18 +85,9 @@ document.querySelector('.rollButton')
       nextPlayerButton.disabled = true;
       nextPlayerButton.style.opacity = '0.7'
 
-      //TODO Refactor: if tie, then game.winner is a string of tied players
-      //TODO if no tie, game.winner is an object of winner
-      if (typeof game.winner == 'string') {
-        let winnerMsg = game.winner
-        displayMessage(winnerMsg, 20000)
-      } else {
-        let winnerMsg = `${game.winner.id} wins with ${game.winner.keptCount} ${game.winner.keptValue}'s`
-        displayMessage(winnerMsg, 20000)
-      }
-      uiState()
+      let winnerMsg = `${game.winner.id} wins with ${game.winner.keptCount} ${game.winner.keptValue}'s`
+      displayMessage(winnerMsg, 20000)
     }
-    console.log(game);
   });
 
 document.querySelector('.nextPlayerButton')
@@ -118,6 +105,8 @@ document.querySelector('.nextPlayerButton')
 
     let msg = `${game.activePlayer.name}'s turn. Roll on!`
     displayMessage(msg, 7000)
+    // console.log(game);
+
 
   });
 
@@ -133,6 +122,7 @@ document.querySelector('.start-button')
 
     let msg = `${game.activePlayer.name}'s turn. Roll on!`
     displayMessage(msg, 7000)
+    // console.log(game);
 
     document.querySelector('.action-bar').classList.toggle('disabled');
   });
