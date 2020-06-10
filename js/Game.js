@@ -124,7 +124,7 @@ export class Game {
       rollButton.disabled = false;
       rollButton.style.opacity = '1';
       rollButton.textContent = 'Roll';
-    }, 1000);
+    }, 800);
 
   }
 

@@ -8,14 +8,15 @@
   grid-template-rows: auto;
   justify-items: center;
   padding: 2rem;
-  perspective: 1;
-  transition: 1s ease;
+  perspective: 900px;
+  transition: 0.8s ease;
   opacity: 1;
 }
 
 .dice.newDice {
-  transform: scale(5);
-  opacity: 0;
+  perspective: 1px;
+  transform: scale(2);
+  opacity: 0.9;
 }
 
 .die-list {
