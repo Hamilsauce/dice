@@ -123,7 +123,7 @@ export class Game {
     dice.classList.add('newDice')
 
 
-    setTimeout(() => {
+    setTimeout(() => { //! wait 1 sec to let newDice animation play, then delete all current die Elemets
       rollDisplay.innerHTML = '';
       this.activePlayer.diceSet.renderDice()
 
@@ -131,7 +131,7 @@ export class Game {
       rollButton.style.opacity = '1';
       rollButton.textContent = 'Roll';
 
-    }, 500);
+    }, 1000);
 
   }
 

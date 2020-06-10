@@ -9,7 +9,7 @@
   justify-items: center;
   padding: 2rem;
   perspective: 1;
-  transition: 0.5s ease;
+  transition: 1s ease;
   opacity: 1;
 }
 
