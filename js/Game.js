@@ -56,8 +56,6 @@ export class Game {
     rollButton.disabled = false;
     rollButton.style.opacity = '1';
     rollButton.textContent = 'Roll';
-
-
     document.querySelector('.rollButton').value = 'Roll'; //TODO Move button stuff into ui module/main.js function
 
   }
@@ -90,8 +88,6 @@ export class Game {
     rollButton.disabled = true;
     rollButton.style.opacity = '0.7';
 
-    // let value = count > 0 ? player.keptDice[0].dataset.roll : 0;
-
     let count = player.keptDice.length
     let value = count >= 1 ? player.keptDice[0].dataset.roll : 0;
     player.finalScore = {
@@ -106,8 +102,7 @@ export class Game {
         return player.hasPlayed === false;
       })
 
-    //! If remaining players exist, set activeplayer to next in array
-    //! else end game
+    //! If remaining players exist, set activeplayer to next in array else end game
     if (remainingPlayers.length > 0) {
       this.activePlayer = remainingPlayers[0];
     } else {
@@ -122,7 +117,6 @@ export class Game {
     let dice = document.querySelector('.dice')
     dice.classList.add('newDice')
 
-
     setTimeout(() => { //! wait 1 sec to let newDice animation play, then delete all current die Elemets
       rollDisplay.innerHTML = '';
       this.activePlayer.diceSet.renderDice()
@@ -130,7 +124,6 @@ export class Game {
       rollButton.disabled = false;
       rollButton.style.opacity = '1';
       rollButton.textContent = 'Roll';
-
     }, 1000);
 
   }

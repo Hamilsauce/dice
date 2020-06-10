@@ -16,8 +16,6 @@ const uiState = () => {
     footerButtons.forEach(btn => {
       btn.classList.remove('hide')
     })
-
-
   } else if (game.gameActive === false) {
     actionBar.classList.remove('fade')
     actionBar.classList.add('show')
@@ -26,7 +24,6 @@ const uiState = () => {
     footerButtons.forEach(btn => {
       btn.classList.add('hide')
     })
-
   }
 }
 
@@ -68,13 +65,8 @@ const playerTurn = (player, diceCount) => {
 
     displayMessage(output, 20000)
   } else {
-
     player.keepDice()
     player.rollDice();
-    // dice.forEach(die => {
-    //   if (die.kept === true) return;
-    //   die.createDieValue(1, 6, 'rollDisplay');
-    // });
   }
 }
 
@@ -100,8 +92,6 @@ document.querySelector('.rollButton')
     if (game.gameOver === true) {
       let nextPlayerButton = document.querySelector('.nextPlayerButton')
       e.target.textContent = 'Game Over'
-      // nextPlayerButton.disabled = true;
-      // nextPlayerButton.style.opacity = '0.7'
 
       //TODO Refactor: if tie, then game.winner is a string of tied players
       //TODO if no tie, game.winner is an object of winner
@@ -122,7 +112,6 @@ document.querySelector('.nextPlayerButton')
     const rollArea = document.querySelector(`.rollDisplay`);
     const keptArea = document.querySelector(`.keptDisplay`);
     let rollButton = document.querySelector('.rollButton')
-    // location.reload();
     rollButton.textContent = 'Roll';
     game.nextPlayer([rollArea, keptArea]);
     e.target.disabled = true;
