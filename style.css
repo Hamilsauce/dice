@@ -16,6 +16,7 @@ body {
 * {
   touch-action: manipulation;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .app {
@@ -25,25 +26,35 @@ body {
   display: grid;
   grid-template-rows: 100px 75px 1fr 50px;
   height: fit-content;
+  background: white;
+  user-select: none;
 }
 
-.footer {
+.footer-container {
+  background: rgb(53, 107, 158);
+  padding: 0;
+  margin: 0;
   position: sticky;
   bottom: 0;
   left: 0;
+}
+
+.footer {
+
   display: grid;
   grid-template-columns: repeat(2, minmax(max-content, 2fr));
   grid-column-gap: 10px;
   justify-content: space-between;
   justify-content: center;
-  padding: 7px 25px;
+  padding: 5px 25px;
   background: #4C4D5A;
   box-shadow: 0 0 12px 1px rgba(0, 0, 0, 0.341);
+  transition: 0.5s;
   border-top: 2px solid #616375F5;
 }
 
-.footer button {
-  height: 30px;
+.footer-button {
+  height: 35px;
   background: #FFFFFFD4;
   color: #4C4D5A;
   font-weight: 700;
@@ -53,21 +64,40 @@ body {
   border: 1px solid #737694;
   outline: none;
   cursor: pointer;
-  min-width: max-content;
+  min-width: 100px;
   transition: 0.3s;
+  opacity: 1;
 }
 
-.footer button:active {
+.footer-button:active {
   transform: scale(1.1);
   background: #FFFFFF;
 }
 
 .nextPlayerButton {}
 
+.footer.hide {
+  height: 0px;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  border: 0px solid #737694;
+  opacity: 0;
+}
+
+.footer-button.hide {
+  height: 0px;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  border: 0px solid #737694;
+  opacity: 0;
+}
+
 .app-header {
   max-width: 700px;
   margin: 0 auto;
-  padding: 0px 6px;
+  padding: 0px 0px 0px 5px;
   height: auto;
 }
 
@@ -77,24 +107,13 @@ body {
 
 .app-title {
   margin: 0px auto 0px auto;
-  font-size: 1.6em;
+  font-size: 1.4em;
 }
 
 .subtitle {
-  margin: 5px;
-  font-size: 1em;
+  margin: 0px;
+  font-size: 0.95em;
 }
-
-/* .selected {
-  border: 3px solid red;
-  color: red;
-  z-index: 3;
-} */
-
-/* .kept {
-  border: 3px solid red;
-  color: red;
-} */
 
 .table-label {
   margin: 0;
@@ -114,7 +133,7 @@ body {
   grid-template-rows: 40px 1fr;
   background: rgb(53, 107, 158);
   color: white;
-  height: 435px;
+  height: 436px;
 }
 
 .scoreDisplay {
@@ -183,6 +202,7 @@ body {
   border-top: 2px solid #616375F5;
   border-bottom: 2px solid #616375F5;
   transition: 0.5s;
+
 }
 
 .action-bar.fade {
@@ -292,20 +312,6 @@ select {
   background: #FFFFFF;
 }
 
-/* .dieItem {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  margin: 0 auto;
-  padding: 7px 5px;
-  max-width: 450px;
-  font-size: 1.2em;
-  font-weight: 500;
-  color: rgb(29, 24, 24);
-} */
-
 .dieItem:first-child {
   box-sizing: border-box;
 }
@@ -314,151 +320,10 @@ select {
   box-sizing: border-box;
 }
 
-.itemLabel {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-evenly;
-  width: 80px;
-}
-
-.label-div {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  width: 100%;
-}
-
-.dieLabel {
-  box-sizing: border-box;
-  color: white;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: left;
-  align-items: center;
-  margin: 10px 10px;
-}
-
-.dieValue {
-  cursor: pointer;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: center;
-  margin: 0px 6px;
-  padding: 15px 25px;
-  background: white;
-  border: 3px solid rgba(148, 146, 146, 0.931);
-  border-radius: 6px;
-  box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.541);
-  font-size: 1.2em;
-  font-weight: 600;
-  /* transition: transform 1s ease-out; */
-  /* transform-style: preserve-3d;
-  transform: rotateX(720deg);
-  animation-name: dice-animation;
-  animation-duration: 1s;
-  animation-direction: normal;
-  animation-iteration-count: initial; */
-}
-
-/* .activeDie {
-  transition: transform 1s ease-out;
-  transform-style: preserve-3d;
-  transform: rotateX(720deg);
-  animation-name: dice-animation;
-  animation-duration: 1s;
-  animation-direction: normal;
-  animation-iteration-count: initial;
-} */
-
-/* .selected {
-  border: 3px solid red;
-  color: red;
-  transition: 0.5s;
-  transform: translateX(150px) scale(1.2);
-} */
-
-/* .keptDie {
-  cursor: pointer;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: center;
-  margin: 10px 15px;
-  padding: 15px 25px;
-  background: white;
-  border: 3px solid rgba(88, 224, 70, 0.931);
-  border-radius: 6px;
-  box-shadow: 0 0 15px 1px rgba(56, 56, 56, 0.514);
-  transform: scale(0.8);
-  transition: transform 0.5s ease-out;
-} */
-
-.dieValue:active {
-  border: 3px solid rgb(224, 50, 27);
-  transition: transform 1s ease-in;
-  transform-style: preserve-3d;
-  transform: scale(1.5);
-}
-
-.die1Value {
-  grid-area: die1;
-  transition: transform 1s 0.0s ease-out;
-  transform-style: preserve-3d;
-}
-
-.die2Value {
-  grid-area: die2;
-  transition: transform 1s 0s ease-out;
-  transform-style: preserve-3d;
-}
-
-.die3Value {
-  grid-area: die3;
-  transition: transform 1s 0s ease-out;
-  transform-style: preserve-3d;
-}
-
-.die4Value {
-  grid-area: die4;
-  transition: transform 1s 0s ease-out;
-  transform-style: preserve-3d;
-}
-
-.die5Value {
-  grid-area: die5;
-  transition: transform 1s 0s ease-out;
-  transform-style: preserve-3d;
-
-}
-
-
-
-
-
 @keyframes dice-animation {
   0% {
     transform: rotateX(0deg);
   }
-
-  /*
-  30% {
-    transform: rotateX(360deg);
-  }
-
-  60% {
-    transform: rotateX(-180deg);
-  }
-
-  75% {
-    transform: rotateX(0deg);
-  } */
 
   100% {
     transform: rotateX(1440deg);

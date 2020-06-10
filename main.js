@@ -5,13 +5,28 @@ import {
 
 //@UI stuff
 const uiState = () => {
+  let footerButtons = document.querySelectorAll('.footer-button')
+  let footer = document.querySelector('.footer')
   let actionBar = document.querySelector('.action-bar')
   if (game.gameActive === true) {
     actionBar.classList.add('fade')
     actionBar.classList.remove('show')
+    footer.classList.remove('hide')
+
+    footerButtons.forEach(btn => {
+      btn.classList.remove('hide')
+    })
+
+
   } else if (game.gameActive === false) {
     actionBar.classList.remove('fade')
     actionBar.classList.add('show')
+    footer.classList.add('hide')
+
+    footerButtons.forEach(btn => {
+      btn.classList.add('hide')
+    })
+
   }
 }
 
@@ -80,14 +95,13 @@ document.querySelector('.rollButton')
     if (player.rollCount == game.rules.rollLimit) { //! test if last turn, update UI
       e.target.textContent = 'End turn'
       displayMessage('Last roll!', 7000)
-      // document.querySelector('.scoreDisplay').textContent = 'Last roll!'
     }
 
     if (game.gameOver === true) {
       let nextPlayerButton = document.querySelector('.nextPlayerButton')
       e.target.textContent = 'Game Over'
-      nextPlayerButton.disabled = true;
-      nextPlayerButton.style.opacity = '0.7'
+      // nextPlayerButton.disabled = true;
+      // nextPlayerButton.style.opacity = '0.7'
 
       //TODO Refactor: if tie, then game.winner is a string of tied players
       //TODO if no tie, game.winner is an object of winner

@@ -13,7 +13,7 @@
   <main class="app">
     <header class="app-header">
       <h1 class="app-title">Roll some dice</h1>
-      <p class="subtitle">Click the roll button, select the dice you want to keep, click the roll button.</p>
+      <p class="subtitle">Enter number of players, click Start. Each player rolls dice, selects the dice to keep, rolls again.</p>
     </header>
     <section class="action-bar show">
       <div class="options-container show">
@@ -37,7 +37,7 @@
     <section class="table">
       <div class="scoreDisplay"></div>
       <div class="display-container container1">
-        <h3 class="table-label">Active Dice</h3>
+        <h3 class="table-label">Table</h3>
         <div class="rollDisplay"></div>
       </div>
       <!-- <div class="display-container container2">
@@ -45,10 +45,12 @@
         <ul class="keptDisplay"></ul>
       </div> -->
     </section>
-    <footer class="footer">
-      <button class="rollButton">Roll</button>
-      <button name="nextPlayerButton" class="nextPlayerButton">Next Player</button>
-    </footer>
+    <section class="footer-container">
+      <footer class="footer hide">
+        <button class="rollButton footer-button hide">Roll</button>
+        <button name="nextPlayerButton" class="nextPlayerButton footer-button hide">Next Player</button>
+      </footer>
+    </section>
   </main>
   <!-- <script src="./mainbackup.js" type="module" charset="utf-8"></script> -->
   <script src="./main.js" type="module" charset="utf-8"></script>

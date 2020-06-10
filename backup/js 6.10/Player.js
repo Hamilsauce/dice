@@ -10,9 +10,7 @@ export class Player {
       this.diceSet = new DiceSet(this.game.rules.diceCount, this),
       this.rollCount = 0,
       this.keptDice = [],
-      this.selectedDice = [],
-      this.hasPlayed = false,
-      this.finalScore = {}
+      this.hasPlayed = false
   }
   createNameFromId() {
     if (this.id == 1) {
@@ -31,7 +29,6 @@ export class Player {
   }
   rollDice() {
     //TODO If this is first roll, then either add event listeners to dice or enable pointerevents
-    //TODO 2) ideally move toggleClasses() into each die object and trigger it from there on each element.
     this.keepDice();
     const rollDisplay = document.querySelector(`.rollDisplay`)
     const dice = [...document.querySelectorAll(".die-list")]
@@ -39,15 +36,9 @@ export class Player {
       return die.dataset.kept != 'true';
     })
 
-    const getRandomNumber = (min, max) => {
-      min = Math.ceil(min);
-      max = Math.floor(max);
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-
-    activeDice.forEach(die => {
-      this.game.toggleRollClasses(die);
-      die.dataset.roll = getRandomNumber(1, 6);
+    activeDice.forEach((die, index) => {
+      this.game.toggleClasses(die);
+      die.dataset.roll = this.game.getRandomNumber(1, 6);
     });
   }
 
@@ -84,6 +75,7 @@ export class Player {
     this.keptDice = kept;
 
   }
+
 }
 
 

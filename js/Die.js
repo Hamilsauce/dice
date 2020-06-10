@@ -7,7 +7,6 @@ export class Die {
       this.selected = false,
       this.diceSet = diceSet,
       this.kept = false
-
   }
   createNameFromId() {
     if (this.id == 1) {
@@ -24,15 +23,19 @@ export class Die {
       return 'Die (No ID)';
     }
   }
-  createDieValue(min, max) {
-    if (this.kept === false) {
-      min = Math.ceil(min);
-      max = Math.floor(max);
-      this.value = Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
-    }
-    return this.value;
-  }
+  // createDieValue(min, max) {
+  //   if (this.kept === false) {
+  //     min = Math.ceil(min);
+  //     max = Math.floor(max);
+  //     this.value = Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
+  //   }
+  //   return this.value;
+  // }
 
+  toggleRollClasses() {
+    this.dieElement.classList.toggle("odd-roll");
+    this.dieElement.classList.toggle("even-roll");
+  }
 
   newTemplate() {
     const oddEven = this.id % 2 == 0 ? 'even-roll' : 'odd-roll';
@@ -57,24 +60,24 @@ export class Die {
       dieList.appendChild(dieSide)
     }
 
-    this.dieElement = dieList;
+    this.dieTemplate = dieList;
   }
-  registerEventListener2() {
-    let el = this.dieElement;
-    el.addEventListener('click', e => {
-      let keptDice = this.diceSet.getKeptDice();
-      let selectedDice = this.diceSet.selectedDice();
+  registerDiceListener(diceSet, player) {
+    this.dieElement.addEventListener('click', e => {
+      let die = this.dieElement
+      let keptDice = player.keptDice;
+      let selectedDice = diceSet.getSelectedDice();
 
-      let keptCheck = keptDice.every(d => {
-        return d.value === this.value;
+      let keptCheck = keptDice.every(d => { //! checks if clicked die has been selected/kept
+        return d.dataset.roll == die.dataset.roll;
       })
 
-      let selectedCheck = selectedDice.every(d => {
-        return d.value === this.value;
+      let selectedCheck = selectedDice.every(d => { //! checks if clicked die has been selected/kept
+        return d.dataset.roll == die.dataset.roll;
       })
 
+      if (keptCheck === true && selectedCheck === true && player.rollCount !== 0) { //! if die isn't already selected/kept AND player has rolled
         die.classList.toggle('selected')
-
         const dieSides = [...die.children];
         dieSides.forEach(child => {
           child.classList.toggle('selected')
@@ -85,48 +88,13 @@ export class Die {
           })
         })
 
-      if (die.classList.contains('selected')) {
-        die.dataset.selected = 'true';
-      } else {
-        die.dataset.selected = 'false';
-      }
-
-    })
-  }
-
-  registerEventListener() {
-    let el = document.querySelector(`.${this.dieValueClass}`);
-
-    el.addEventListener('click', e => {
-      let keptDice = this.diceSet.getKeptDice();
-      let selectedDice = this.diceSet.selectedDice();
-
-      let keptCheck = keptDice.every(d => {
-        return d.value === this.value;
-      })
-
-      let selectedCheck = selectedDice.every(d => {
-        return d.value === this.value;
-      })
-
-      if (keptCheck === false || selectedCheck === false && selectedDice.length !== 0) {
-        this.selected = false;
-        el.classList.remove('selected');
-
-        return;
-      } else if (this.selected) {
-        this.selected = false;
-        el.classList.remove('selected');
-      } else {
-        this.selected = true;
-        el.classList.add('selected');
+        if (die.classList.contains('selected')) {
+          die.dataset.selected = 'true';
+        } else {
+          die.dataset.selected = 'false';
+        }
       }
     })
-  }
-
-  keep() {
-    this.selected == true ? this.kept = true : this.selected = false;
-    this.selected = false;
   }
 }
 

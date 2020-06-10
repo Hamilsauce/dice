@@ -25,24 +25,53 @@ export class DiceSet {
 
     const diceMarkup = document.createElement('div');
     diceMarkup.classList.add('dice')
-    rollArea.appendChild(diceMarkup)
-
-    const diceElement = rollArea.querySelector('.dice')
-    diceMarkup.classList.add('dice')
     this.dice.forEach(die => {
       die.newTemplate();
 
-      diceMarkup.appendChild(die.dieTemplate)
-
-      die.dieElement = diceElement.lastElementChild;
+      diceMarkup.appendChild(die.dieElement)
     })
+    rollArea.appendChild(diceMarkup)
 
     const dieElems = document.querySelectorAll(`.die-list`);
-    // dieElems.forEach(die => {
-    this.dice.forEach(die => {
-      die.registerDiceListener(this, this.player)
+    dieElems.forEach(die => {
+      this.registerDiceListener(die)
     })
 
+  }
+  registerDiceListener(el) {
+    el.addEventListener('click', e => {
+      let keptDice = this.player.keptDice;
+      this.getSelectedDice();
+
+      let keptCheck = keptDice.every(d => {
+        return d.dataset.roll == el.dataset.roll;
+      })
+      let selectedCheck = this.selectedDice.every(d => {
+        return d.dataset.roll == el.dataset.roll;
+      })
+      if (keptCheck === true && selectedCheck === true) {
+
+        el.classList.toggle('selected')
+        if (keptCheck === false) {
+
+        }
+        const dieSides = [...el.children];
+        dieSides.forEach(child => {
+          child.classList.toggle('selected')
+
+          const dots = [...child.children];
+          dots.forEach(dot => {
+            dot.classList.toggle('selected')
+          })
+        })
+
+        if (el.classList.contains('selected')) {
+          el.dataset.selected = 'true';
+        } else {
+          el.dataset.selected = 'false';
+        }
+      }
+    })
   }
 
   getActiveDice() {
@@ -66,8 +95,13 @@ export class DiceSet {
       .filter(die => {
         return die.dataset.selected === 'true';
       })
-    this.player.selectedDice = selected;
+    this.selectedDice = selected
     return selected;
+  }
+
+  getKeptCount() {
+    this.keptCount = this.keptDice.length;
+    return this.keptCount;
   }
 }
 

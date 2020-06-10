@@ -9,6 +9,13 @@
   justify-items: center;
   padding: 2rem;
   perspective: 1;
+  transition: 0.5s ease;
+  opacity: 1;
+}
+
+.dice.newDice {
+  transform: scale(5);
+  opacity: 0;
 }
 
 .die-list {
@@ -269,8 +276,8 @@ ol {
 }
 
 .die-list.kept {
-  background: rgb(255, 255, 255);
-  outline: 5px solid rgb(0, 177, 9);
+  /* background: rgb(255, 255, 255); */
+  /* outline: 5px solid rgb(0, 177, 9); */
   cursor: not-allowed;
 
 }

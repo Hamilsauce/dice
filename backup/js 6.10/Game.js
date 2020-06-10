@@ -12,7 +12,6 @@ export class Game {
       this.gameOver = false,
       this.winner = null
   }
-
   getRules(ruleSet) {
     if (ruleSet.toLowerCase() == 'horses') {
       return {
@@ -33,12 +32,16 @@ export class Game {
     };
     return players;
   }
-
-  toggleRollClasses(die) { //* REMEMBER: this param references actual on-page element, not die object;
+  toggleClasses(die) {
     die.classList.toggle("odd-roll");
     die.classList.toggle("even-roll");
   }
 
+  getRandomNumber(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
   newGame() {
     let nextPlayerButton = document.querySelector('.nextPlayerButton')
     nextPlayerButton.disabled = true;
@@ -46,25 +49,17 @@ export class Game {
 
     this.gameActive = true;
     this.activePlayer = this.players[0];
+    this.nextPlayer()
+    // this.activePlayer.diceSet.renderDice()
 
-    let rollDisplay = document.querySelector('.rollDisplay')
-
-    rollDisplay.innerHTML = '';
-    let rollButton = document.querySelector('.rollButton')
-    this.activePlayer.diceSet.renderDice()
-
-    rollButton.disabled = false;
-    rollButton.style.opacity = '1';
-    rollButton.textContent = 'Roll';
-
-
-    document.querySelector('.rollButton').value = 'Roll'; //TODO Move button stuff into ui module/main.js function
-
+    document.querySelector('.rollButton').value = 'Roll';
   }
 
-  updateState() { //TODO need to add more statey things here
+  updateState() {
     this.activePlayer.keepDice();
     this.activePlayer.diceSet.getKeptDice()
+    this.activePlayer.diceSet.getKeptCount()
+    this.activePlayer.diceSet.getActiveDice()
   }
 
   generateScore() {
@@ -72,15 +67,11 @@ export class Game {
     let player = this.activePlayer;
     let diceSet = player.diceSet;
     let count = player.keptDice.length
-    let value = count > 0 ? player.keptDice[0].dataset.roll : 0;
+    let value = player.keptDice[0].dataset.roll;
 
-    let outputText = count > 0 ? `${player.name} rolled ${count} ${value}'s` : `${player.name} forfeit turn! n00b!`
-    return outputText;
-    // return `${player.name} rolled ${count} ${value}'s`;
+    return `${player.name} rolled ${count} ${value}'s`;
   }
-
-  endTurn() { //TODO Move button stuff into ui module/main.js function
-    const player = this.activePlayer;
+  endTurn() {
     let rollButton = document.querySelector('.rollButton')
     let nextPlayerButton = document.querySelector('.nextPlayerButton')
 
@@ -90,17 +81,12 @@ export class Game {
     rollButton.disabled = true;
     rollButton.style.opacity = '0.7';
 
-    // let value = count > 0 ? player.keptDice[0].dataset.roll : 0;
-
-    let count = player.keptDice.length
-    let value = count >= 1 ? player.keptDice[0].dataset.roll : 0;
-    player.finalScore = {
-      keptCount: count,
-      keptValue: value
+    this.activePlayer.finalScore = {
+      keptCount: this.activePlayer.keptDice.length,
+      keptValue: this.activePlayer.keptDice[0].dataset.roll
     }
+    this.activePlayer.hasPlayed = true;
 
-    player.hasPlayed = true;
-    player.diceSet.length = 0;
     let remainingPlayers = this.players
       .filter(player => {
         return player.hasPlayed === false;
@@ -118,20 +104,16 @@ export class Game {
 
   nextPlayer() {
     let rollDisplay = document.querySelector('.rollDisplay')
+
+
+    rollDisplay.innerHTML = '';
     let rollButton = document.querySelector('.rollButton')
-    let dice = document.querySelector('.dice')
-    dice.classList.add('newDice')
+    this.activePlayer.diceSet.renderDice()
 
+    rollButton.disabled = false;
+    rollButton.style.opacity = '1';
+    rollButton.textContent = 'Roll';
 
-    setTimeout(() => {
-      rollDisplay.innerHTML = '';
-      this.activePlayer.diceSet.renderDice()
-
-      rollButton.disabled = false;
-      rollButton.style.opacity = '1';
-      rollButton.textContent = 'Roll';
-
-    }, 500);
 
   }
 
@@ -172,9 +154,7 @@ export class Game {
     let tieArray = [];
     if (tie >= 1) {
       tieArray = scoreArray.slice(0, tie + 1)
-      let tieString = tieArray.map(pl => {
-        return pl.id
-      }).join(' & ');
+      let tieString = tieArray.map(pl => { return pl.id }).join(' & ');
       this.winner = `${tieString} tie!`
     } else {
 
