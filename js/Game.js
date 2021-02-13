@@ -20,6 +20,12 @@ export class Game {
         diceCount: 5,
         rollLimit: 3
       }
+    } else if (ruleSet.toLowerCase() == 'threes') {
+      return {
+        name: ruleSet,
+        diceCount: 3,
+        rollLimit: 6
+      }
     } else {
       alert('No rules provided. Need dice count and roll limit.');
     }
