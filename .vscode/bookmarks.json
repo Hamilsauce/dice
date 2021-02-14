@@ -3,8 +3,23 @@
 		"path": "$ROOTPATH$\\main.js",
 		"bookmarks": [
 			{
-				"line": 31,
-				"column": 20,
+				"line": 29,
+				"column": 43,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$\\js\\Game.js",
+		"bookmarks": [
+			{
+				"line": 96,
+				"column": 51,
+				"label": ""
+			},
+			{
+				"line": 143,
+				"column": 61,
 				"label": ""
 			}
 		]
