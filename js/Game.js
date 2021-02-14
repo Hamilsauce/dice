@@ -94,12 +94,14 @@ export class Game {
     rollButton.disabled = true;
     rollButton.style.opacity = '0.7';
 
+    //* TODO This is 'Horses' specific, need to move to horses module or add conditional game check
     let count = player.keptDice.length
     let value = count >= 1 ? player.keptDice[0].dataset.roll : 0;
-    player.finalScore = {
+    player.finalScore = { //* 'Threes': final score should be sum of kept dice, with threes = zero
       keptCount: count,
       keptValue: value
     }
+    //* End horses specific
 
     player.hasPlayed = true;
     player.diceSet.length = 0;
@@ -115,7 +117,6 @@ export class Game {
       this.endGame();
     }
   }
-
 
   nextPlayer() {
     let rollDisplay = document.querySelector('.rollDisplay')
@@ -140,6 +141,7 @@ export class Game {
     this.getWinner()
   }
 
+  //* TODO 'getWinner()' is 'Horses' specific, need to move to horses module or add conditional game check
   getWinner() {
     const scoreArray = this.players
       .map(player => {
