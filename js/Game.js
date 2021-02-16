@@ -23,8 +23,8 @@ export class Game {
     } else if (ruleSet.toLowerCase() == 'threes') {
       return {
         name: ruleSet,
-        diceCount: 3,
-        rollLimit: 6
+        diceCount: 5,
+        rollLimit: 5
       }
     } else {
       alert('No rules provided. Need dice count and roll limit.');
@@ -163,13 +163,13 @@ export class Game {
           return 0;
         } else {
           return b.keptValue - a.keptValue;
-
         }
       } else {
         return b.keptCount - a.keptCount
       }
     })
 
+    //TODO Fix tie bug - if one player wins and the losers tie, game calls tie betwen the losers
     let tieArray = [];
     if (tie >= 1) {
       tieArray = scoreArray.slice(0, tie + 1)
@@ -178,7 +178,6 @@ export class Game {
       }).join(' & ');
       this.winner = `${tieString} tie!`
     } else {
-
       this.winner = scoreArray[0];
     }
   }

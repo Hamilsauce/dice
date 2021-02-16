@@ -8,3 +8,8 @@ Each time 'Roll Button' is clicked:
     a) If no new die selected, then do not move on to next rolls and notify player
     b) If die selected, add to keptDice
     c) Update players's remaining rolls = initial rollLimit (5) - keptDiceCount
+
+
+TODO
+1. 2/17/2021 - When 'Threes' is selected: allow user to select dice that have different
+    values than previously selected/kept dice (remove 'horses' selection rules)

@@ -64,9 +64,25 @@ const playerTurn = (player, diceCount) => {
     scoreDisplay.textContent = output;
 
     displayMessage(output, 20000)
-  } else {
+  } else if (game.rules.name == 'horses') {
+    console.log('in horses roll rules');
     player.keepDice()
     player.rollDice();
+  } else if (game.rules.name == 'threes') {
+    console.log('in threes roll rules');
+    // player.selectedDice = diceSet.getSelectedDice()
+    if (player.rollCount == 0) {
+      console.log('threes - first turn');
+      player.keepDice()
+      player.rollDice();
+    } else if (player.selectedCount > 0) {
+      console.log('threes - player selected at least 1 die');
+      player.keepDice()
+      player.rollDice();
+    } else {
+      player.rollCount = player.rollCount - 1;
+      console.log('threes - no die selected for keeping');
+    }
   }
 }
 
@@ -84,6 +100,7 @@ document.querySelector('.rollButton')
     game.updateState();
     player.rollCount += 1;
 
+    //*  This is 'Horses' specific, need to move to horses module or add conditional game check
     if (player.rollCount == game.rules.rollLimit) { //! test if last turn, update UI
       e.target.textContent = 'End turn'
       displayMessage('Last roll!', 7000)

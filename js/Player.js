@@ -11,6 +11,7 @@ export class Player {
       this.rollCount = 0,
       this.keptDice = [],
       this.selectedDice = [],
+      this.selectedCount = 0,
       this.hasPlayed = false,
       this.finalScore = {}
   }
@@ -62,6 +63,8 @@ export class Player {
     let sel = dice.filter(die => {
       return die.dataset.selected == 'true';
     })
+    this.selectedCount = this.selectedCount + sel.length;
+    console.log(this.game);
     sel.forEach(die => {
       const dieSides = [...die.children];
 
