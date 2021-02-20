@@ -143,7 +143,7 @@ document.querySelector('.rollButton')
 					displayMessage(winnerMsg, 20000)
 				} else {
 
-					let winnerMsg = `${game.winner.id} wins with ${game.winner.threesScore} ${game.winner.keptValue}'s`
+					let winnerMsg = `${game.winner.id} wins with ${game.winner.threesScore}`
 					displayMessage(winnerMsg, 20000)
 				}
 			}
