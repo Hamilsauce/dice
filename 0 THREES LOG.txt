@@ -13,3 +13,7 @@ Each time 'Roll Button' is clicked:
 TODO
 1. 2/17/2021 - When 'Threes' is selected: allow user to select dice that have different
     values than previously selected/kept dice (remove 'horses' selection rules)
+    
+2. finish threes game.getWinner 
+
+3. Fix displaying score after player turn

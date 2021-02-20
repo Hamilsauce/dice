@@ -40,7 +40,6 @@ body {
 }
 
 .footer {
-
   display: grid;
   grid-template-columns: repeat(2, minmax(max-content, 2fr));
   grid-column-gap: 10px;
