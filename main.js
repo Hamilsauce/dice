@@ -64,6 +64,8 @@ const playerTurn = (player, diceCount) => {
     scoreDisplay.textContent = output;
 
     displayMessage(output, 20000)
+    
+    //! Game Selection Rules
   } else if (game.rules.name == 'horses') {
     console.log('in horses roll rules');
     player.keepDice()
