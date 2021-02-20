@@ -20,6 +20,7 @@ export class DiceSet {
     };
     return die;
   }
+  
   renderDice() {
     const rollArea = document.querySelector(`.rollDisplay`);
 
@@ -29,6 +30,7 @@ export class DiceSet {
 
     const diceElement = rollArea.querySelector('.dice')
     diceMarkup.classList.add('dice')
+    
     this.dice.forEach(die => {
       die.newTemplate();
 
@@ -37,7 +39,7 @@ export class DiceSet {
       die.dieElement = diceElement.lastElementChild;
     })
 
-    const dieElems = document.querySelectorAll(`.die-list`);
+    // const dieElems = document.querySelectorAll(`.die-list`);
     // dieElems.forEach(die => {
     this.dice.forEach(die => {
       die.registerDiceListener(this, this.player)
