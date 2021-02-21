@@ -31,18 +31,13 @@ export class DiceSet {
     diceMarkup.classList.add('dice')
     this.dice.forEach(die => {
       die.newTemplate();
-
       diceMarkup.appendChild(die.dieTemplate)
-
       die.dieElement = diceElement.lastElementChild;
     })
 
-    const dieElems = document.querySelectorAll(`.die-list`);
-    // dieElems.forEach(die => {
     this.dice.forEach(die => {
       die.registerDiceListener(this, this.player)
     })
-
   }
 
   getActiveDice() {
