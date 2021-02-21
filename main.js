@@ -35,8 +35,8 @@ const displayMessage = (message, displayTime) => {
     return;
   }
   board.classList.remove('show')
-
   board.textContent = '';
+ 
   setTimeout(() => {
     board.textContent = message;
     board.classList.add('show')
@@ -44,7 +44,6 @@ const displayMessage = (message, displayTime) => {
       board.classList.remove('show')
     }, displayTime)
   }, 200)
-
 }
 //@ End UI stuff
 
@@ -55,26 +54,52 @@ const playerTurn = (player, diceCount) => {
   let dice = diceSet.dice;
 
   game.updateState();
-
+	
+	//HORSES
   if (game.rules.name == 'horses') {
-
     if (player.rollCount >= rollLimit || diceCount <= 0) { //! test if roll limit reached, end turn if so
       let scoreDisplay = document.querySelector('.scoreDisplay')
+      
       player.keepDice();
       game.updateState()
+    
       let output = game.generateScore();
       scoreDisplay.textContent = output;
 
       displayMessage(output, 5000)
       game.endTurn()
     } else {
-      console.log('in horses roll rules');
       player.keepDice()
       player.rollDice();
     }
+  
+  //THREES
   } else if (game.rules.name == 'threes') {
     if (player.keptDice.length >= 5) { //! test if roll limit reached, end turn if so
       let scoreDisplay = document.querySelector('.scoreDisplay')
+     
+      player.keepDice();
+      game.updateState()
+      game.endTurn()
+
+      let outputText = `${activePlayer.name} rolled ${activePlayer.finalScore.threesScore}`
+      displayMessage(outputText, 5000)
+    } else if (player.rollCount == 0) {
+      player.keepDice()
+      player.rollDice();
+    }
+
+    if (player.selectedCount > 0) {
+      player.keepDice();
+      player.selectedCount = 0
+      player.rollDice();
+    }
+  
+  //SCC
+  } else if (game.rules.name == 'ship, captain, crew') {
+    if (player.keptDice.length >= 5) { //! test if roll limit reached, end turn if so
+      let scoreDisplay = document.querySelector('.scoreDisplay')
+      
       player.keepDice();
       game.updateState()
       game.endTurn()
@@ -106,7 +131,8 @@ document.querySelector('.rollButton')
 
     game.updateState();
     player.rollCount += 1;
-
+		
+		//HORSES
     if (game.rules.name == 'horses') {
       if (player.rollCount == game.rules.rollLimit) { //! test if last turn, update UI
         e.target.textContent = 'End turn'
@@ -127,7 +153,31 @@ document.querySelector('.rollButton')
           displayMessage(winnerMsg, 7000)
         }
       }
+     
+    //THREES
     } else if (game.rules.name == 'threes') {
+      if (player.keptDice.length >= game.rules.rollLimit - 1) { //! test if last turn, update UI
+        e.target.textContent = 'End turn'
+      }
+
+      if (game.gameOver === true) {
+        let nextPlayerButton = document.querySelector('.nextPlayerButton')
+        e.target.textContent = 'Game Over'
+
+        //TODO Refactor: if tie, then game.winner is a string of tied players
+        //TODO if no tie, game.winner is an object of winner
+        if (typeof game.winner == 'string') {
+          let winnerMsg = game.winner
+          displayMessage(winnerMsg, 20000)
+        } else {
+
+          let winnerMsg = `${game.winner.id} wins with ${game.winner.threesScore}`
+          displayMessage(winnerMsg, 20000)
+        }
+      }
+    
+    //SCC
+    } else if (game.rules.name == 'ship, captain, crew') {
       if (player.keptDice.length >= game.rules.rollLimit - 1) { //! test if last turn, update UI
         e.target.textContent = 'End turn'
       }
@@ -158,9 +208,10 @@ document.querySelector('.nextPlayerButton')
     const rollArea = document.querySelector(`.rollDisplay`);
     const keptArea = document.querySelector(`.keptDisplay`);
     let rollButton = document.querySelector('.rollButton')
+    
     rollButton.textContent = 'Roll';
-    // game.nextPlayer([rollArea, keptArea]);
     game.nextPlayer()
+   
     e.target.disabled = true;
     e.target.style.opacity = '0.7'
 
@@ -168,7 +219,6 @@ document.querySelector('.nextPlayerButton')
 
     let msg = `${game.activePlayer.name}'s turn. Roll on!`
     displayMessage(msg, 7000)
-
   });
 
 document.querySelector('.start-button')
@@ -177,6 +227,7 @@ document.querySelector('.start-button')
 
     let gameRules = gameSelect.options[gameSelect.selectedIndex].value
     let playerCount = document.querySelector('.player-count-input').value;
+   
     gameFactory(playerCount, gameRules);
     game.newGame()
     uiState()

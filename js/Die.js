@@ -23,14 +23,6 @@ export class Die {
 			return 'Die (No ID)';
 		}
 	}
-	// createDieValue(min, max) {
-	//   if (this.kept === false) {
-	//     min = Math.ceil(min);
-	//     max = Math.floor(max);
-	//     this.value = Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
-	//   }
-	//   return this.value;
-	// }
 
 	toggleRollClasses() {
 		this.dieElement.classList.toggle("odd-roll");
@@ -70,9 +62,7 @@ export class Die {
 			let selectedDice = diceSet.getSelectedDice();
 
 			// If game rules = horses, test that same vals are kept      
-			console.log(this.diceSet.player.game.rules.name);
 			if (this.diceSet.player.game.rules.name == 'horses') {
-				console.log('this.diceset.player.game.rules is horses');
 
 				let keptCheck = keptDice.every(d => { //! checks if clicked die has been selected/kept
 					return d.dataset.roll == die.dataset.roll;
@@ -84,6 +74,7 @@ export class Die {
 
 				if (keptCheck === true && selectedCheck === true && player.rollCount !== 0) { //! if die isn't already selected/kept AND player has rolled
 					die.classList.toggle('selected')
+
 					const dieSides = [...die.children];
 					dieSides.forEach(child => {
 						child.classList.toggle('selected')
@@ -100,11 +91,43 @@ export class Die {
 						die.dataset.selected = 'false';
 					}
 				}
+
 				//if threes, no checks to make sure selected dice value matches kept
 			} else if (this.diceSet.player.game.rules.name == 'threes') {
-				// if (keptCheck === true && selectedCheck === true && player.rollCount !== 0) { //! if die isn't already selected/kept AND player has rolled
 				if (player.rollCount != 0) { //! if die isn't already selected/kept AND player has rolled
 					die.classList.toggle('selected')
+
+					const dieSides = [...die.children];
+					dieSides.forEach(child => {
+						child.classList.toggle('selected')
+
+						const dots = [...child.children];
+						dots.forEach(dot => {
+							dot.classList.toggle('selected')
+						})
+					})
+
+					if (die.classList.contains('selected')) {
+						die.dataset.selected = 'true';
+					} else {
+						die.dataset.selected = 'false';
+					}
+				}
+
+			//SCC
+			} else if (this.diceSet.player.game.rules.name == 'ship, captain, crew') {
+		
+				let keptCheck = keptDice.every(d => { //! checks if clicked die has been selected/kept
+					return d.dataset.roll == die.dataset.roll;
+				})
+
+				let selectedCheck = selectedDice.every(d => { //! checks if clicked die has been selected/kept
+					return d.dataset.roll == die.dataset.roll;
+				})
+
+				if (keptCheck === true && selectedCheck === true && player.rollCount !== 0) { //! if die isn't already selected/kept AND player has rolled
+					die.classList.toggle('selected')
+
 					const dieSides = [...die.children];
 					dieSides.forEach(child => {
 						child.classList.toggle('selected')
@@ -122,8 +145,6 @@ export class Die {
 					}
 				}
 			}
-
-
 		})
 	}
 }

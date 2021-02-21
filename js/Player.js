@@ -56,12 +56,14 @@ export class Player {
     this.rollCount += n;
     return this.rollCount;
   }
+  
   keepDice() {
     const dice = [...document.querySelectorAll(".die-list")];
 
     let sel = dice.filter(die => {
       return die.dataset.selected == 'true';
     })
+    
     this.selectedCount = this.selectedCount + sel.length;
     sel.forEach(die => {
       const dieSides = [...die.children];
@@ -80,21 +82,19 @@ export class Player {
 
     let kept = dice.filter(die => {
       return die.dataset.kept == 'true';
-
     })
+    
     this.selectedDice.length = 0;
     this.keptDice = kept;
-    
-    // SELECT RESET NEW
-    // this.selectedCount = 0;
-
   }
+  
   keepDiceThrees() {
     const dice = [...document.querySelectorAll(".die-list")];
 
     let sel = dice.filter(die => {
       return die.dataset.selected == 'true';
     })
+    
     this.selectedCount = this.selectedCount + sel.length;
     console.log(this.game);
     sel.forEach(die => {
@@ -114,10 +114,8 @@ export class Player {
 
     let kept = dice.filter(die => {
       return die.dataset.kept == 'true';
-
     })
     this.keptDice = kept;
-
   }
 }
 
