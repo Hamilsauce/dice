@@ -50,21 +50,16 @@ const displayMessage = (message, displayTime) => {
 const playerTurn = (player, diceCount) => {
   const rollLimit = game.rules.rollLimit;
   let activePlayer = game.activePlayer;
-  let diceSet = activePlayer.diceSet;
-  let dice = diceSet.dice;
 
   game.updateState();
 
-	//HORSES
+  //HORSES
   if (game.rules.name == 'horses') {
     if (player.rollCount >= rollLimit || diceCount <= 0) { //! test if roll limit reached, end turn if so
-      let scoreDisplay = document.querySelector('.scoreDisplay')
-
       player.keepDice();
       game.updateState()
 
       let output = game.generateScore();
-      scoreDisplay.textContent = output;
 
       displayMessage(output, 5000)
       game.endTurn()
@@ -73,11 +68,9 @@ const playerTurn = (player, diceCount) => {
       player.rollDice();
     }
 
-  //THREES
+    //THREES
   } else if (game.rules.name == 'threes') {
     if (player.keptDice.length >= 5) { //! test if roll limit reached, end turn if so
-      let scoreDisplay = document.querySelector('.scoreDisplay')
-
       player.keepDice();
       game.updateState()
       game.endTurn()
@@ -95,10 +88,9 @@ const playerTurn = (player, diceCount) => {
       player.rollDice();
     }
 
-  //SCC
+    //SCC
   } else if (game.rules.name == 'ship, captain, crew') {
     if (player.keptDice.length >= 5) { //! test if roll limit reached, end turn if so
-      let scoreDisplay = document.querySelector('.scoreDisplay')
 
       player.keepDice();
       game.updateState()
@@ -132,7 +124,7 @@ document.querySelector('.rollButton')
     game.updateState();
     player.rollCount += 1;
 
-		//HORSES
+    //* HORSES
     if (game.rules.name == 'horses') {
       if (player.rollCount == game.rules.rollLimit) { //! test if last turn, update UI
         e.target.textContent = 'End turn'
@@ -143,8 +135,7 @@ document.querySelector('.rollButton')
         let nextPlayerButton = document.querySelector('.nextPlayerButton')
         e.target.textContent = 'Game Over'
 
-        //TODO Refactor: if tie, then game.winner is a string of tied players
-        //TODO if no tie, game.winner is an object of winner
+        //!  Refactor: if tie, then game.winner is a string of tied players, else if no tie, game.winner is an object of winner
         if (typeof game.winner == 'string') {
           let winnerMsg = game.winner
           displayMessage(winnerMsg, 7000)
@@ -154,7 +145,7 @@ document.querySelector('.rollButton')
         }
       }
 
-    //THREES
+      //* THREES
     } else if (game.rules.name == 'threes') {
       if (player.keptDice.length >= game.rules.rollLimit - 1) { //! test if last turn, update UI
         e.target.textContent = 'End turn'
@@ -164,35 +155,32 @@ document.querySelector('.rollButton')
         let nextPlayerButton = document.querySelector('.nextPlayerButton')
         e.target.textContent = 'Game Over'
 
-        //TODO Refactor: if tie, then game.winner is a string of tied players
-        //TODO if no tie, game.winner is an object of winner
+        //!  Refactor: if tie, then game.winner is a string of tied players, else if no tie, game.winner is an object of winner
         if (typeof game.winner == 'string') {
           let winnerMsg = game.winner
           displayMessage(winnerMsg, 20000)
         } else {
-
           let winnerMsg = `${game.winner.id} wins with ${game.winner.threesScore}`
           displayMessage(winnerMsg, 20000)
         }
       }
 
-    //SCC
+      //* SCC
     } else if (game.rules.name == 'ship, captain, crew') {
-      if (player.keptDice.length >= game.rules.rollLimit - 1) { //! test if last turn, update UI
-        e.target.textContent = 'End turn'
-      }
+        if (player.rollCount == game.rules.rollLimit) { //! test if last turn, update UI
+          e.target.textContent = 'End turn'
+          displayMessage('Last roll!', 7000)
+        }
 
       if (game.gameOver === true) {
         let nextPlayerButton = document.querySelector('.nextPlayerButton')
         e.target.textContent = 'Game Over'
 
-        //TODO Refactor: if tie, then game.winner is a string of tied players
-        //TODO if no tie, game.winner is an object of winner
+        //!  Refactor: if tie, then game.winner is a string of tied players, else if no tie, game.winner is an object of winner
         if (typeof game.winner == 'string') {
           let winnerMsg = game.winner
           displayMessage(winnerMsg, 20000)
         } else {
-
           let winnerMsg = `${game.winner.id} wins with ${game.winner.threesScore}`
           displayMessage(winnerMsg, 20000)
         }
@@ -205,11 +193,9 @@ document.querySelector('.rollButton')
 
 document.querySelector('.nextPlayerButton')
   .addEventListener('click', e => {
-    const rollArea = document.querySelector(`.rollDisplay`);
-    const keptArea = document.querySelector(`.keptDisplay`);
     let rollButton = document.querySelector('.rollButton')
-
     rollButton.textContent = 'Roll';
+
     game.nextPlayer()
 
     e.target.disabled = true;
@@ -224,15 +210,14 @@ document.querySelector('.nextPlayerButton')
 document.querySelector('.start-button')
   .addEventListener('click', e => {
     let gameSelect = document.querySelector('.game-select')
-
     let gameRules = gameSelect.options[gameSelect.selectedIndex].value
     let playerCount = document.querySelector('.player-count-input').value;
+
     gameFactory(playerCount, gameRules);
     game.newGame()
     uiState()
 
     let msg = `${game.activePlayer.name}'s turn. Roll on!`
     displayMessage(msg, 4000)
-
     document.querySelector('.action-bar').classList.toggle('disabled');
   });
