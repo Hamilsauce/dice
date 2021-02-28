@@ -29,6 +29,7 @@ const uiState = () => {
 }
 
 const displayMessage = (message, displayTime) => {
+
 	let board = document.querySelector('.scoreDisplay')
 	console.log('dislplay msg');
 	if (typeof displayTime != 'number') {
@@ -45,10 +46,12 @@ const displayMessage = (message, displayTime) => {
 			board.classList.remove('show')
 		}, displayTime)
 	}, 200)
+
 }
 //@ End UI stuff
 
 const playerTurn = (player, diceCount) => {
+
 	const rollLimit = game.rules.rollLimit;
 	let activePlayer = game.activePlayer;
 	let diceSet = activePlayer.diceSet;
@@ -147,6 +150,7 @@ document.querySelector('.rollButton')
 
 		game.updateState();
 		player.rollCount += 1;
+
 
 		//HORSES
 		if (game.rules.name == 'horses') {

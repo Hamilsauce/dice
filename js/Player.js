@@ -13,7 +13,7 @@ export class Player {
       this.selectedDice = [],
       this.selectedCount = 0,
       this.hasPlayed = false,
-      this.finalScore
+      this.finalScore = {}
   }
   createNameFromId() {
     if (this.id == 1) {
@@ -72,7 +72,7 @@ export class Player {
     this.rollCount += n;
     return this.rollCount;
   }
-  
+
   keepDice() {
     const dice = [...document.querySelectorAll(".die-list")];
 		this.diceSet.getSelectedDice();
@@ -81,7 +81,7 @@ export class Player {
     let sel = dice.filter(die => {
       return die.dataset.selected == 'true';
     })
-    
+
     this.selectedCount = this.selectedCount + sel.length;
     sel.forEach(die => {
       const dieSides = [...die.children];
@@ -101,18 +101,18 @@ export class Player {
     let kept = dice.filter(die => {
       return die.dataset.kept == 'true';
     })
-    
+
     this.selectedDice.length = 0;
     this.keptDice = kept;
   }
-  
+
   keepDiceThrees() {
     const dice = [...document.querySelectorAll(".die-list")];
 
     let sel = dice.filter(die => {
       return die.dataset.selected == 'true';
     })
-    
+
     this.selectedCount = this.selectedCount + sel.length;
     console.log(this.game);
     sel.forEach(die => {

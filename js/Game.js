@@ -279,6 +279,7 @@ export class Game {
 				.map(player => {
 					let score = Object.entries(player.finalScore);
 					let nameProp = [
+
             ['id', player.name]
           ];
 					return nameProp.concat(score)
@@ -330,6 +331,7 @@ class Horses extends Game {
 	evaluateScores() {
 		//...
 	}
+
 }
 export let game = undefined;
 

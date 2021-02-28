@@ -106,7 +106,7 @@ export class Die {
 			let keptDice = player.keptDice;
 			let selectedDice = this.diceSet.getSelectedDice();
 
-			// If game rules = horses, test that same vals are kept      
+			// If game rules = horses, test that same vals are kept
 			if (this.diceSet.player.game.rules.name == 'horses') {
 
 				let keptCheck = keptDice.every(d => { //! checks if clicked die has been selected/kept
@@ -161,6 +161,7 @@ export class Die {
 
 				//SCC
 			} else if (this.diceSet.player.game.rules.name == 'ship, captain, crew') {
+
 				console.log('in scc cond');
 				console.log(player.rollCount);
 				const rollCheck = this.getRollSum() - 15;
@@ -214,8 +215,6 @@ export class Die {
 					
 				}
 
-
-
 			}
 			this.diceSet.getSelectedDice()
 			console.log('scc die event listener');
@@ -225,5 +224,5 @@ export class Die {
 }
 
 {
-	Die
+  Die
 }
