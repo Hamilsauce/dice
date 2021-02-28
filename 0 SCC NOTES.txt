@@ -1,7 +1,15 @@
+WHEN DIE IS CLICKED
+1. Must check if correct dice are selected/kept
+	before running die event handler
+
+POSSIBLE ALT ROLL LOGIC
+1. If first roll (roll count = 0), allow rolls
+2. If kept/selected dice total only = 6, 
+
 ROLL LOGIC
 1. Get selected dice
 	if sel or kept dice do not contain 6, 5, AND 4
-	then keep selected dice
+	then dont keep selected dice UNLESS (if ) 
 	
 	else if sel or kept dice do not contain a 4
 	then keep none
@@ -30,3 +38,5 @@ else if 5 die kept, then
   2. Repeat 1. for a 5 and a 4
 	3. score = sum of remaining kept dice rolls
 
+
+***TRY THE MINUS BY 15 TO DETERMINE SCORE

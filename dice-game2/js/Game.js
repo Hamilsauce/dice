@@ -12,6 +12,7 @@ export class Game {
       this.gameOver = false,
       this.winner = null
   }
+  
   getRules(ruleSet) {
     if (ruleSet.toLowerCase() == 'horses') {
       return {
@@ -42,6 +43,7 @@ export class Game {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
+  
   newGame() {
     let nextPlayerButton = document.querySelector('.nextPlayerButton')
     nextPlayerButton.disabled = true;
@@ -71,6 +73,7 @@ export class Game {
 
     return `${player.name} rolled ${count} ${value}'s`;
   }
+  
   endTurn() {
     let rollButton = document.querySelector('.rollButton')
     let nextPlayerButton = document.querySelector('.nextPlayerButton')
