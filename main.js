@@ -6,9 +6,13 @@ import {
 
 //@UI stuff
 const uiState = () => {
+	const titleText = document.querySelector('.app-title');
 	let footerButtons = document.querySelectorAll('.footer-button')
 	let footer = document.querySelector('.footer')
 	let actionBar = document.querySelector('.action-bar')
+	
+	titleText.innerText = game.rules.name;
+	
 	if (game.gameActive === true) {
 		actionBar.classList.add('fade')
 		actionBar.classList.remove('show')

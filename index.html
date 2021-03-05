@@ -4,6 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="./new-game-view.css" type="text/css" media="all" />
 	<link rel="stylesheet" href="./style.css" type="text/css" media="all" />
 	<link rel="stylesheet" href="./menu.css" type="text/css" media="all" />
 	<link rel="stylesheet" href="./dice-style.css" type="text/css" media="all" />
@@ -11,18 +12,55 @@
 </head>
 
 <body>
+	<div class="rules-modal hide">
+		<div class="modal-title">Horses</div>
+		<div class="modal-content">Rules Rules Rules</div>
+		<div class="close-modal-container">
+			<div class="close-modal-button app-button">Got it</div>
+		</div>
+	</div>
+	<div class="new-game-view">
+		<header class="header">Dice Games</header>
+		<div class="view-title-container">
+			<h3 class="view-title-text">new game</h3>
+		</div>
+		<div class="game-selection-container select-container">
+			<label for="game-select">Choose a Game</label>
+			<select class="game-select menu-select" name="game-select" id="game-select">
+				<option value="horses">Horses</option>
+				<option value="threes">Threes Away</option>
+				<option value="ship, captain, crew">Ship, Captain, Crew</option>
+			</select>
+			<div class="rule-button option-button">See Rules</div>
+		</div>
+		<div class="player-select-container select-container">
+			<label for="player-select">How Many Players?</label>
+			<select class="player-count-input menu-select" name="player-select" id="player-select">
+				<option value="2">Two</option>
+				<option value="3">Three</option>
+				<option value="4">Four</option>
+				<option value="5">Five</option>
+				<option value="6">Six</option>
+			</select>
+			<div class="name-button option-button">Add Player Names</div>
+		</div>
+		<div class="start-button-container">
+			<div class="modal-start-button start-button app-button">Start</div>
+		</div>
+	</div>
+	<!-- </div> -->
 	<div class="nav1">
 		<div class="nav-head">
 			<div class="close-nav">
 				X
 			</div>
 		</div>
-		<a class="home-link nav-link" href="#">home</a>
-		<a class="projects-link nav-link" href="#">Projects</a>
-		<a class="music-link nav-link" href="https://hamilsauce.github.io/music-library-app/">ham radio</a>
-		<a class="about-link nav-link" href="#">About</a>
-		<a class="contact-link nav-link" href="#">Contact</a>
+		<a class="new-game-menu-button nav-link" href="#">new game</a>
+		<a class="projects-link nav-link" href="#">restart</a>
+		<a class="rules-menu-button nav-link" href="#">rules</a>
+		<a class="contact-link nav-link" href="#">history</a>
 		<a class="github-link nav-link" href="#">github</a>
+		<a class="music-link nav-link" href="https://hamilsauce.github.io/music-library-app/">ham radio</a>
 	</div>
 	<main class="app">
 		<header class="app-header">
@@ -31,25 +69,25 @@
 		</header>
 		<div class="subtitle">Enter number of players, click Start. Each player rolls dice, selects the dice to keep, rolls again.</div>
 		<section class="action-bar show">
-			<div class="options-container show">
+			<!-- <div class="options-container show">
 				<div class="control-group">
 					<label for="player-count-input">Players: </label>
 					<input type="number" name="player-count-input" id="player-count-input" class="player-count-input" value="2">
 				</div>
 				<div class="control-group">
-					<label for="player-count-input">Game: </label>
+					<label for="game-select">Game: </label>
 					<select name="game-select" id="game-select" class="game-select">
 						<option value="ship, captain, crew" class="game-option">Ship, Captain, Crew</option>
 						<option value="horses" class="game-option">Horses</option>
 						<option value="threes" class="game-option">Threes</option>
-						<!-- <option value="" class="game-option"></option>
-          <option value="" class="game-option"></option> -->
+						<option value="" class="game-option"></option>
+						          <option value="" class="game-option"></option>
 					</select>
 				</div>
 				<div class="control-group">
 					<button class="start-button">Start</button>
 				</div>
-			</div>
+			</div>  -->
 		</section>
 		<section class="table">
 			<div class="scoreDisplay"></div>
@@ -76,6 +114,7 @@
 	<!-- <script src="./mainbackup.js" type="module" charset="utf-8"></script> -->
 	<script src="./main.js" type="module" charset="utf-8"></script>
 	<script src="./menu.js" charset="utf-8"></script>
+	<script src="./new-game-view.js" charset="utf-8"></script>
 </body>
 
 </html>
