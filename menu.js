@@ -39,15 +39,16 @@ document.querySelector('.rules-menu-button')
 document.querySelector('.new-game-menu-button')
 	.addEventListener('click', e => {
 		const newGameView = document.querySelector('.new-game-view')
+		let gameView = document.querySelector('.app')
 		toggleNav();
+			// let menuView = document.querySelector('.new-game-view')
 		setTimeout(() => {
-			newGameView.classList.remove('hide')
+			newGameView.classList.remove('hide');
+			gameView.classList.add('hide');
+
+			
 		}, 400)
 
 		
 		// newGameView.classList.remove('hide')
 	})
-
-
-
-window.navigator.vibrate(1000); // 

@@ -3,7 +3,7 @@ const rulesArray = [
 		name: 'Horses',
 		id: 'horses',
 		description: `
-			<p>Each player gets 3 rolls to roll to roll the most dice of the highest value.</p>
+			<p>Each player gets 3 rolls to roll the most dice of the highest value.</p>
 			<br>
 			<p>A player is not required to keep any dice after a roll, but keeping no dice will result in a forfeiture</p>
 			<br>
@@ -16,7 +16,7 @@ const rulesArray = [
 		name: 'Threes Away',
 		id: 'threes',
 		description: `
-			<p>Each player gets 3 rolls to roll to roll the most dice of the highest value.</p>
+			<p>Each player gets 3 rolls to roll the most dice of the highest value.</p>
 			<br>
 			<p>A player is not required to keep any dice after a roll, but keeping no dice will result in a forfeiture</p>
 			<br>
@@ -29,7 +29,7 @@ const rulesArray = [
 		name: 'Ship, Captain, Crew',
 		id: 'ship, captain, crew',
 		description: `
-			<p>Each player gets 3 rolls to roll to roll the most dice of the highest value.</p>
+			<p>Each player gets 3 rolls to roll the most dice of the highest value.</p>
 			<br>
 			<p>A player is not required to keep any dice after a roll, but keeping no dice will result in a forfeiture</p>
 			<br>
@@ -66,11 +66,15 @@ document.querySelector('.close-modal-button')
 		let rulesModal = document.querySelector('.rules-modal')
 		rulesModal.classList.toggle('hide')
 	})
+	
 document.querySelector('.modal-start-button')
 	.addEventListener('click', e => {
 		let menuView = document.querySelector('.new-game-view')
+		let gameView = document.querySelector('.app')
 		setTimeout(() => {
-			menuView.classList.toggle('hide')
+			menuView.classList.add('hide');
+			gameView.classList.remove('hide');
+			
 		}, 200)
 
 	})

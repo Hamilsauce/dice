@@ -21,19 +21,20 @@ body {
 	/* height: 100%; */
 }
 
-
-
 .app {
 	max-width: 700px;
 	margin: 0 auto;
-	/* padding: 5px; */
 	display: grid;
 	grid-template-rows: 50px 70px 75px 1fr 50px;
-	/* height: 100%; */
 	background: #4C4D5A;
 	user-select: none;
 	overflow: hidden;
+	opacity: 1;
+	transition: 0.7s ease;
 	z-index: -2;
+}
+.app.hide {
+	opacity: 0;
 }
 
 .footer-container {
@@ -47,7 +48,6 @@ body {
 }
 
 .footer {
-
 	display: grid;
 	grid-template-columns: repeat(2, minmax(max-content, 2fr));
 	grid-column-gap: 10px;
