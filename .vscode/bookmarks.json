@@ -1,32 +1,39 @@
-[
-	{
-		"path": "$ROOTPATH$\\main.js",
-		"bookmarks": [
-			{
-				"line": 29,
-				"column": 43,
-				"label": ""
-			},
-			{
-				"line": 85,
-				"column": 80,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$\\js\\Game.js",
-		"bookmarks": [
-			{
-				"line": 96,
-				"column": 51,
-				"label": ""
-			},
-			{
-				"line": 143,
-				"column": 61,
-				"label": ""
-			}
-		]
-	}
-]
+{
+	"files": [
+		{
+			"path": "main.js",
+			"bookmarks": [
+				{
+					"line": 29,
+					"column": 43,
+					"label": ""
+				},
+				{
+					"line": 126,
+					"column": 12,
+					"label": ""
+				},
+				{
+					"line": 147,
+					"column": 16,
+					"label": ""
+				},
+				{
+					"line": 167,
+					"column": 11,
+					"label": ""
+				}
+			]
+		},
+		{
+			"path": "js/Game.js",
+			"bookmarks": [
+				{
+					"line": 143,
+					"column": 61,
+					"label": ""
+				}
+			]
+		}
+	]
+}

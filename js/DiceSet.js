@@ -20,7 +20,6 @@ export class DiceSet {
     };
     return die;
   }
-  
   renderDice() {
     const rollArea = document.querySelector(`.rollDisplay`);
 
@@ -30,7 +29,6 @@ export class DiceSet {
 
     const diceElement = rollArea.querySelector('.dice')
     diceMarkup.classList.add('dice')
-    
     this.dice.forEach(die => {
       die.newTemplate();
       diceMarkup.appendChild(die.dieTemplate)
