@@ -37,7 +37,7 @@ body {}
 	box-shadow: 0px 0px 150px 0px inset #965236B8;
 	/* background-image: url("/new-game-view.jpg"); */
 	/* background-size: cover; */
-	transition: opacity 0.3s ease, height 0.5s ease;
+	transition: opacity 1s ease, height 0.1s ease;
 	z-index: 2;
 	
 }

@@ -9,7 +9,7 @@ const rulesArray = [
 			<br>
 			<p>Once a die is kept, the player can only keep dice of same value over their remaining turns</p>
 			<br>
-			<p>A player's final score can only be beat by another player rolling a set of dice either greater in count or same in count but with higher dice values.</p>
+			<p>A player's final score can only be beat by another player rolling a set of dice either equal in values and greater in count or same in count but with higher dice values.</p>
 		`
 	},
 	{
@@ -22,7 +22,7 @@ const rulesArray = [
 			<br>
 			<p>Once a die is kept, the player can only keep dice of same value over their remaining turns</p>
 			<br>
-			<p>A player's final score can only be beat by another player rolling a set of dice either greater in count or same in count but with higher dice values.</p>
+			<p>A player's final score can only be beat by another player rolling a set of dice either equal in values and greater in count or same in count but with higher dice values.</p>
 		`
 	},
 	{
@@ -35,7 +35,7 @@ const rulesArray = [
 			<br>
 			<p>Once a die is kept, the player can only keep dice of same value over their remaining turns</p>
 			<br>
-			<p>A player's final score can only be beat by another player rolling a set of dice either greater in count or same in count but with higher dice values.</p>
+			<p>A player's final score can only be beat by another player rolling a set of dice either equal in values and greater in count or same in count but with higher dice values.</p>
 		`
 	}
 ]
@@ -66,7 +66,7 @@ document.querySelector('.close-modal-button')
 		let rulesModal = document.querySelector('.rules-modal')
 		rulesModal.classList.toggle('hide')
 	})
-	
+
 document.querySelector('.modal-start-button')
 	.addEventListener('click', e => {
 		let menuView = document.querySelector('.new-game-view')
@@ -74,7 +74,7 @@ document.querySelector('.modal-start-button')
 		setTimeout(() => {
 			menuView.classList.add('hide');
 			gameView.classList.remove('hide');
-			
+
 		}, 200)
 
 	})
