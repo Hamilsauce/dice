@@ -10,15 +10,15 @@
 
 html,
 body {
-	box-sizing: border-box;
+	/* box-sizing: border-box; */
 	padding: 0;
 	margin: 0 auto;
 	width: 100vw;
-	font-family: 'Dosis', sans-serif;
+	/* font-family: 'Dosis', sans-serif; */
 }
 
 body {
-	height: 100%;
+	/* height: 100%; */
 }
 
 
@@ -26,22 +26,24 @@ body {
 .app {
 	max-width: 700px;
 	margin: 0 auto;
-	padding: 0;
+	/* padding: 5px; */
 	display: grid;
-	grid-template-rows: 45px 70px 75px 1fr 50px;
+	grid-template-rows: 50px 70px 75px 1fr 50px;
 	/* height: 100%; */
-	background: white;
+	background: #4C4D5A;
 	user-select: none;
 	overflow: hidden;
+	z-index: -2;
 }
 
 .footer-container {
-	background: rgb(53, 107, 158);
+	/* background: rgb(53, 107, 158); */
 	padding: 0;
 	margin: 0;
 	position: sticky;
 	bottom: 0;
 	left: 0;
+	z-index: 0;
 }
 
 .footer {
@@ -107,7 +109,11 @@ body {
 	/* max-width: 700px; */
 	width: 100%;
 	margin: 0px auto;
-	padding: 5px 5px 5px 5px;
+	padding: 5px 5px 5px 15px;
+	color: white;
+	background: #4C4D5A;
+	
+	
 	/* height: fit-content; */
 	/* background: #CCCCCC; */
 
@@ -122,6 +128,12 @@ body {
 	font-size: 1.4em;
 	/* background: #CCCCCC; */
 	text-align: left;
+	/* padding: 10px 15px 15px 15px; */
+	color: #DEDEDE;
+	font-size: 1.3em;
+	font-weight: 300;
+	letter-spacing: 2px;
+	opacity: 0.9;
 }
 
 .subtitle {
@@ -160,7 +172,7 @@ body {
 		"s s"
 		"r r";
 	grid-template-rows: 40px 1fr;
-	background: rgb(53, 107, 158);
+	/* background: rgb(53, 107, 158); */
 	color: white;
 	/* height: 436px; */
 	min-height: 415px;
@@ -174,14 +186,15 @@ body {
 	font-size: 1.5em;
 	font-weight: 600;
 	padding: 0px 15px;
-	background-color: white;
+	/* background-color: white; */
 	color: rgba(59, 156, 42, 0);
+	color: white;
 	transition: 0.2s;
 	/* height: 40px; */
 }
 
 .scoreDisplay.show {
-	color: rgba(59, 156, 42, 1);
+	/* color: rgba(59, 156, 42, 1); */
 }
 
 .rollDisplay {
