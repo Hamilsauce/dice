@@ -32,15 +32,20 @@ document.querySelector('.close-nav')
 document.querySelector('.rules-menu-button')
 	.addEventListener('click', e => {
 		const rulesModal = document.querySelector('.rules-modal')
-		rulesModal.classList.toggle('hide')
 		toggleNav();
+		rulesModal.classList.toggle('hide')
 	})
-	
+
 document.querySelector('.new-game-menu-button')
 	.addEventListener('click', e => {
 		const newGameView = document.querySelector('.new-game-view')
-		newGameView.classList.toggle('hide')
 		toggleNav();
+		setTimeout(() => {
+			newGameView.classList.remove('hide')
+		}, 400)
+
+		
+		// newGameView.classList.remove('hide')
 	})
 
 

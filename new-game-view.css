@@ -32,15 +32,20 @@ body {}
 	height: 100vh;
 	grid-gap: 20px;
 	background: #BA5B5B;
-	box-shadow: 0px 0px 150px 0px inset #D9AB8CB8;
+	opacity: 1;
+	/* box-shadow: 0px 0px 150px 0px inset #D9A28C8F; */
+	box-shadow: 0px 0px 150px 0px inset #965236B8;
 	/* background-image: url("/new-game-view.jpg"); */
 	/* background-size: cover; */
+	transition: opacity 0.3s ease, height 0.5s ease;
 	z-index: 2;
 	
 }
 .new-game-view.hide {
+	z-index: -3;
 	height: 0;
-	display: none;
+	opacity: 0;
+	/* display: none; */
 }
 
 .header {

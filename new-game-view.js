@@ -45,5 +45,8 @@ document.querySelector('.close-modal-button')
 document.querySelector('.modal-start-button')
 	.addEventListener('click', e => {
 		let menuView = document.querySelector('.new-game-view')
-		menuView.classList.toggle('hide')
+		setTimeout(() => {
+			menuView.classList.toggle('hide')
+		}, 200)
+
 	})

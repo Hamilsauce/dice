@@ -39,17 +39,20 @@
 	color: #FFFFFF00;
 	border-right: 1px solid #FFFFFF78;
 	overflow-x: hidden;
-	transition: 0.4s ease-out;
+	transition: width 0.3s ease, color 1s;
 	backdrop-filter: blur(2.5px);
 	z-index: 4;
 	user-select: none;
 }
 
 .navExpand {
-	width: 100%;
+	width: 300px;
 	/* padding-right: 10px; */
 	color: white;
 	box-shadow: 3px 0px 10px #60606070;
+	transition: width 0.3s ease, color 1s;
+
+	
 }
 
 .nav-head {
@@ -89,7 +92,7 @@
 }
 
 .nav-link:hover {
-	background: #9191A050;
+	background: #BBBBBF50;
 	justify-self: flex-end;
 	margin-right: 0px;
 	/* text-align: right; */
