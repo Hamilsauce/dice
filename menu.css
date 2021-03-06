@@ -6,9 +6,7 @@
 	justify-content: space-between;
 	height: 50px;
 	padding: 5px 10px;
-	/* background: #7C7E95; */
 	color: white;
-	/* box-shadow: 0 2px 10px #60606070; */
 }
 
 .menu-button {
@@ -34,7 +32,6 @@
 	flex-direction: column;
 	width: 0px;
 	height: 100%;
-	/* background: #7C7E95; */
 	background: #4C4C5850;
 	color: #FFFFFF00;
 	border-right: 1px solid #FFFFFF78;
@@ -47,18 +44,14 @@
 
 .navExpand {
 	width: 300px;
-	/* padding-right: 10px; */
 	color: white;
 	box-shadow: 3px 0px 10px #60606070;
 	transition: width 0.3s ease, color 1s;
-
-	
 }
 
 .nav-head {
 	display: flex;
 	justify-content: flex-end;
-	/* background: #4C4C58; */
 	height: 40px;
 	width: 100%;
 }
@@ -95,7 +88,6 @@
 	background: #BBBBBF50;
 	justify-self: flex-end;
 	margin-right: 0px;
-	/* text-align: right; */
 	transition: 0.2s ease;
 }
 
