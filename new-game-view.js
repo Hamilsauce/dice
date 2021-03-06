@@ -2,17 +2,41 @@ const rulesArray = [
 	{
 		name: 'Horses',
 		id: 'horses',
-		description: 'Roll real good'
+		description: `
+			<p>Each player gets 3 rolls to roll to roll the most dice of the highest value.</p>
+			<br>
+			<p>A player is not required to keep any dice after a roll, but keeping no dice will result in a forfeiture</p>
+			<br>
+			<p>Once a die is kept, the player can only keep dice of same value over their remaining turns</p>
+			<br>
+			<p>A player's final score can only be beat by another player rolling a set of dice either greater in count or same in count but with higher dice values.</p>
+		`
 	},
 	{
 		name: 'Threes Away',
 		id: 'threes',
-		description: 'Roll real good 2'
+		description: `
+			<p>Each player gets 3 rolls to roll to roll the most dice of the highest value.</p>
+			<br>
+			<p>A player is not required to keep any dice after a roll, but keeping no dice will result in a forfeiture</p>
+			<br>
+			<p>Once a die is kept, the player can only keep dice of same value over their remaining turns</p>
+			<br>
+			<p>A player's final score can only be beat by another player rolling a set of dice either greater in count or same in count but with higher dice values.</p>
+		`
 	},
 	{
 		name: 'Ship, Captain, Crew',
 		id: 'ship, captain, crew',
-		description: 'Roll real good'
+		description: `
+			<p>Each player gets 3 rolls to roll to roll the most dice of the highest value.</p>
+			<br>
+			<p>A player is not required to keep any dice after a roll, but keeping no dice will result in a forfeiture</p>
+			<br>
+			<p>Once a die is kept, the player can only keep dice of same value over their remaining turns</p>
+			<br>
+			<p>A player's final score can only be beat by another player rolling a set of dice either greater in count or same in count but with higher dice values.</p>
+		`
 	}
 ]
 
