@@ -54,6 +54,7 @@ export class Game {
 	}
 
 	newGame() {
+		//HTML/DOM manip shouldnt be in game
 		let nextPlayerButton = document.querySelector('.nextPlayerButton')
 		nextPlayerButton.disabled = true;
 		nextPlayerButton.style.opacity = '0.7';
@@ -71,6 +72,8 @@ export class Game {
 		rollButton.style.opacity = '1';
 		rollButton.textContent = 'Roll';
 		document.querySelector('.rollButton').value = 'Roll'; //TODO Move button stuff into ui module/main.js function
+		
+		game.startTime = Date.now()
 	}
 
 	updateState() { //TODO need to add more statey things here
@@ -100,6 +103,7 @@ export class Game {
 		const player = this.activePlayer;
 		console.log('inside endturn(), activeplayer at start:');
 		console.log(this.activePlayer);
+
 
 		//TODO move this to main.js/ui function
 		let rollButton = document.querySelector('.rollButton')
@@ -189,6 +193,10 @@ export class Game {
 	}
 
 	endGame() {
+		game.stopTime = Date.now()
+		game.gameTime = (((game.stopTime - game.startTime) % 60000) / 1000).toFixed(0);
+		console.log('sex');
+		console.log(game.gameTime);
 		this.gameOver = true;
 		this.gameActive = false;
 		this.getWinner()

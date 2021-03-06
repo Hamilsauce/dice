@@ -3,6 +3,7 @@ import {
 	gameFactory
 } from './js/Game.js';
 
+//TODO Record game length
 
 //@UI stuff
 const uiState = () => {
@@ -10,9 +11,9 @@ const uiState = () => {
 	let footerButtons = document.querySelectorAll('.footer-button')
 	let footer = document.querySelector('.footer')
 	let actionBar = document.querySelector('.action-bar')
-	
+
 	titleText.innerText = game.rules.name;
-	
+
 	if (game.gameActive === true) {
 		actionBar.classList.add('fade')
 		actionBar.classList.remove('show')
@@ -33,9 +34,7 @@ const uiState = () => {
 }
 
 const displayMessage = (message, displayTime) => {
-
 	let board = document.querySelector('.scoreDisplay')
-	console.log('dislplay msg');
 	if (typeof displayTime != 'number') {
 		board.classList.add('show')
 		return;
@@ -55,7 +54,6 @@ const displayMessage = (message, displayTime) => {
 //@ End UI stuff
 
 const playerTurn = (player, diceCount) => {
-
 	const rollLimit = game.rules.rollLimit;
 	let activePlayer = game.activePlayer;
 	let diceSet = activePlayer.diceSet;
@@ -201,7 +199,7 @@ document.querySelector('.rollButton')
 
 			//SCC
 		} else if (game.rules.name == 'ship, captain, crew') {
-			if (player.keptDice.length == 5 || player.rollCount >= game.rules.rollLimit ) { //! test if last turn, update UI
+			if (player.keptDice.length == 5 || player.rollCount >= game.rules.rollLimit) { //! test if last turn, update UI
 				e.target.textContent = 'End turn'
 			}
 
@@ -246,11 +244,10 @@ document.querySelector('.nextPlayerButton')
 document.querySelector('.start-button')
 	.addEventListener('click', e => {
 		let gameSelect = document.querySelector('.game-select')
-
 		let gameRules = gameSelect.options[gameSelect.selectedIndex].value
 		let playerCountInput = document.querySelector('.player-count-input');
 		let playerCount = playerCountInput.value;
-	
+
 		if (playerCount < 2) {
 			playerCountInput.select();
 			let msg = 'Must have at least two players'
