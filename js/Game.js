@@ -194,17 +194,13 @@ export class Game {
 
 	endGame() {
 		game.stopTime = Date.now()
-		game.gameTime = (((game.stopTime - game.startTime) % 60000) / 1000).toFixed(0);
-		console.log('sex');
-		console.log(game.gameTime);
+		game.gameTime = (((game.stopTime - game.stopTime) % 60000) / 1000).toFixed(0);
 		this.gameOver = true;
 		this.gameActive = false;
 		this.getWinner()
 	}
 
-	//* TODO 'getWinner()' is 'Horses' specific, need to move to horses module or add conditional game check
 	getWinner() {
-
 		//HORSES
 		if (this.rules.name == 'horses') {
 			const scoreArray = this.players
@@ -332,7 +328,6 @@ class Horses extends Game {
 			winConditions() {
 				//...need to 1) compare number of dice kept, 2) then compare the values of the kept dice;
 			}
-
 		}
 	}
 
@@ -347,8 +342,8 @@ export const gameFactory = (playerCount, rules) => {
 	game = new Game(playerCount, rules);
 	game.newGame()
 	return game
+	//* TODO 
 }
-
 
 {
 	gameFactory
