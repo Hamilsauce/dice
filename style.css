@@ -37,7 +37,7 @@ body {
 }
 
 .footer-container {
-	background: rgb(53, 107, 158);
+	/* background: rgb(53, 107, 158); */
 	padding: 0;
 	margin: 0;
 	position: sticky;

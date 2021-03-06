@@ -27,10 +27,10 @@ body {}
 	"psel"
 	"start"; */
 	/* grid-template-columns: auto; */
-	grid-template-rows: 100px 100px 150px 150px 120px;
+	grid-template-rows: 100px 75px 130px 130px 120px;
 	width: 100vw;
 	height: 100vh;
-	grid-gap: 0px;
+	grid-gap: 20px;
 	background: #BA5B5B;
 	box-shadow: 0px 0px 150px 0px inset #D9AB8CB8;
 	/* background-image: url("/new-game-view.jpg"); */
