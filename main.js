@@ -247,6 +247,12 @@ document.querySelector('.start-button')
 		let gameRules = gameSelect.options[gameSelect.selectedIndex].value
 		let playerCountInput = document.querySelector('.player-count-input');
 		let playerCount = playerCountInput.value;
+	
+	//TODO	let nameArray = getPlayerNames();
+		console.log('start')
+		// let playerCount = nameArray.length		
+	// console.log(nameArray)
+	console.log(playerCount)
 
 		if (playerCount < 2) {
 			playerCountInput.select();
@@ -260,6 +266,7 @@ document.querySelector('.start-button')
 			let msg = `${game.activePlayer.name}'s turn. Roll on!`
 			displayMessage(msg, 4000)
 
-			document.querySelector('.action-bar').classList.toggle('disabled');
+			document.querySelector('.new-game-view').classList.toggle('hide');
+			document.querySelector('.app').classList.toggle('hide');
 		}
 	});

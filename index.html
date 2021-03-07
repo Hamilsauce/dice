@@ -4,21 +4,45 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="./new-game-view.css" type="text/css" media="all" />
 	<link rel="stylesheet" href="./style.css" type="text/css" media="all" />
 	<link rel="stylesheet" href="./menu.css" type="text/css" media="all" />
 	<link rel="stylesheet" href="./dice-style.css" type="text/css" media="all" />
+	<link rel="stylesheet" href="./new-game-view.css" type="text/css" media="all" />
 	<title>Roll some dice</title>
 </head>
 
 <body>
-
 	<div class="rules-modal hide">
 		<div class="modal-title">Horses</div>
 		<div class="modal-content">Rules Rules Rules</div>
 		<div class="close-modal-container">
 			<div class="close-modal-button app-button">Got it</div>
 		</div>
+	</div>
+	<div class="name-modal hide">
+		<div class="modal-title">Name the Players</div>
+		<div class="modal-content">
+			<!-- <div class="name-input-container">
+				<label for="name-input">Name: </label>
+				<input type="text" class="name-input player-one" name="name-input-1" data-player-number="1" id="name-input" value="" />
+			</div> -->
+		</div>
+		<div class="close-modal-container">
+			<div class="close-modal-button app-button">Got it</div>
+		</div>
+	</div>
+	<div class="nav1">
+		<div class="nav-head">
+			<div class="close-nav">
+				X
+			</div>
+		</div>
+		<a class="new-game-menu-button nav-link" href="#">new game</a>
+		<a class="projects-link nav-link" href="#">restart</a>
+		<a class="rules-menu-button nav-link" href="#">rules</a>
+		<a class="contact-link nav-link" href="#">history</a>
+		<a class="github-link nav-link" href="#">github</a>
+		<a class="music-link nav-link" href="https://hamilsauce.github.io/music-library-app/">ham radio</a>
 	</div>
 	<div class="new-game-view">
 		<header class="header">Dice Games</header>
@@ -50,20 +74,6 @@
 		</div>
 	</div>
 	<!-- </div> -->
-
-	<div class="nav1">
-		<div class="nav-head">
-			<div class="close-nav">
-				X
-			</div>
-		</div>
-		<a class="new-game-menu-button nav-link" href="#">new game</a>
-		<a class="projects-link nav-link" href="#">restart</a>
-		<a class="rules-menu-button nav-link" href="#">rules</a>
-		<a class="contact-link nav-link" href="#">history</a>
-		<a class="github-link nav-link" href="#">github</a>
-		<a class="music-link nav-link" href="https://hamilsauce.github.io/music-library-app/">ham radio</a>
-	</div>
 	<main class="app hide">
 		<div class="end-game-modal hide">
 			<div class="end-game-model-title">
@@ -74,7 +84,6 @@
 			</div>
 			<div class="players-display">
 				Player One
-				
 			</div>
 			<div class="game-time-display">
 				18 seconds
@@ -131,9 +140,7 @@
 	<!-- <script src="./mainbackup.js" type="module" charset="utf-8"></script> -->
 	<script src="./main.js" type="module" charset="utf-8"></script>
 	<script src="./menu.js" charset="utf-8"></script>
-
 	<script src="./new-game-view.js" charset="utf-8"></script>
-
 </body>
 
 </html>

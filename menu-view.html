@@ -16,7 +16,6 @@
 			box-sizing: border-box;
 			user-select: none;
 			z-index: 1;
-
 		}
 
 		html {
@@ -164,6 +163,34 @@
 			z-index: 0;
 		}
 
+		.name-modal {
+			position: fixed;
+			top: 0;
+			left: 0;
+			display: grid;
+			grid-template-columns: 1fr;
+			grid-template-rows: 1fr 2fr 1fr;
+			justify-items: center;
+			height: 100vh;
+			width: 100vw;
+			background: #FFFFFFCF;
+			backdrop-filter: blur(2.5px);
+			opacity: 1;
+			box-shadow: 0px 0px 80px 5px inset #42445A3D;
+			transition: opacity 0.3s;
+			user-select: none;
+			z-index: 5;
+		}
+
+		.name-modal.hide {
+			opacity: 0;
+			height: 0px;
+			padding: 5px 30px;
+			margin: 0;
+			transition: opacity 0.3s ease-in-out, height 0.1s;
+			z-index: -3;
+		}
+
 		.modal-title {
 			display: flex;
 			flex-direction: row;
@@ -175,6 +202,18 @@
 </head>
 
 <body>
+	<div class="name-modal hide">
+		<div class="modal-title">Name the Players</div>
+		<div class="modal-content">
+			<!-- <div class="name-input-container">
+				<label for="name-input-1">Player 1: </label>
+				<input type="text" class="name-input player-one" name="name-input-1" data-player-number="1" id="name-input" value="" />
+			</div> -->
+		</div>
+		<div class="close-modal-container">
+			<div class="close-modal-button app-button">Got it</div>
+		</div>
+	</div>
 	<div class="rules-modal hide">
 		<div class="modal-title">Horses</div>
 		<div class="modal-content">Rules Rules Rules</div>
@@ -237,7 +276,6 @@
 				.find(r => {
 					return r.id.toLowerCase() == gameSelection.toLowerCase();
 				})
-			console.log(rulesObject)
 			return rulesObject
 		}
 
@@ -252,12 +290,54 @@
 
 				rulesModal.classList.toggle('hide')
 			})
-
-		document.querySelector('.close-modal-button')
+			
+		//Rules modal close
+		document.querySelector('.rules-modal').querySelector('.close-modal-button')
 			.addEventListener('click', e => {
-				let rulesModal = document.querySelector('.rules-modal')
-				rulesModal.classList.toggle('hide')
+				e.target.parentElement.parentElement.classList.toggle('hide')
 			})
+
+		document.querySelector('.name-button')
+			.addEventListener('click', e => {
+				let nameModal = document.querySelector('.name-modal');
+				let playerSelect = document.querySelector('.player-select');
+				const modalContent = nameModal.querySelector('.modal-content')
+			
+				createNameInputs(playerSelect.value, modalContent)
+				nameModal.classList.toggle('hide');
+			})
+
+		//name modal close
+		document.querySelector('.name-modal').querySelector('.close-modal-button')
+			.addEventListener('click', e => {
+				e.target.parentElement.parentElement.classList.toggle('hide')
+			})
+
+		const createNameInputs = (playerCount, parentEl) => {
+			playerCount = parseInt(playerCount);
+
+			for (let i = 1; i <= playerCount; ++i) {
+				const classAndName = ['name-input', `name-input-${i}`];
+
+				const container = document.createElement('div');
+				container.classList.add('name-input-container');
+
+				const nameLabel = document.createElement('label');
+				nameLabel.classList.add('name-label');
+				nameLabel.setAttribute('for', classAndName[1])
+				nameLabel.innerText = `Player ${i}`;
+
+				const nameInput = document.createElement('input');
+				nameInput.type = 'text';
+				nameInput.setAttribute('name', classAndName[1]);
+				nameInput.classList.add(classAndName[0]);
+				nameInput.dataset.playerNumber = `${i}`;
+
+				container.appendChild(nameLabel);
+				container.appendChild(nameInput);
+				parentEl.appendChild(container)
+			}
+		}
 	</script>
 </body>
 
