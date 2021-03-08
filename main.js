@@ -227,7 +227,7 @@ document.querySelector('.rollButton')
 
 			//SCC
 		} else if (game.rules.name == 'ship, captain, crew') {
-			if (player.keptDice.length == 5 || player.rollCount >= game.rules.rollLimit + 1) { //! test if last turn, update UI
+			if (player.keptDice.length == 5 || player.rollCount >= game.rules.rollLimit) { //! test if last turn, update UI
 				e.target.textContent = 'End turn'
 			}
 
