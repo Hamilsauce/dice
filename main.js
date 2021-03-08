@@ -124,7 +124,7 @@ const playerTurn = (player, diceCount) => {
 
 		//SCC
 	} else if (game.rules.name == 'ship, captain, crew') {
-		if (player.rollCount == rollLimit || player.keptDice.length == 5) { //! test if roll limit reached, end turn if so
+		if (player.rollCount == (rollLimit) || player.keptDice.length == 5) { //! test if roll limit reached, end turn if so
 
 			let scoreDisplay = document.querySelector('.scoreDisplay')
 
@@ -161,9 +161,7 @@ const playerTurn = (player, diceCount) => {
 			*/
 			player.keepDice()
 			player.rollDice();
-		}
-
-		if (player.selectedDice.length == 0) {
+		} else if (player.selectedDice.length == 0) {
 			player.keepDice();
 			// player.selectedCount = 0
 			player.rollDice();
