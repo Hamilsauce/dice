@@ -39,7 +39,9 @@
 			width: auto;
 			height: 100vh;
 			grid-gap: 0px;
-			background: #BA5B5B;
+			/* background: #BA5B5B; */
+			/* background: #35B0F1; */
+			/* box-shadow: 0px 0px 130px 0px inset #4093BF; */
 			/* background-image: url("/menu-view.jpg"); */
 			background-size: cover;
 		}
@@ -115,10 +117,15 @@
 		.start-button-container {
 			grid-area: 'start';
 			display: flex;
-			justify-content: center;
+			flex-direction: column;
+			justify-content: space-between;
 			align-items: center;
 		}
 
+		.start-button {
+			z-index: 0;
+		}
+		
 		.player-select {}
 
 		.app-button {
@@ -135,9 +142,6 @@
 			box-shadow: 0px 0px 0px 0px #42445A50;
 		}
 
-		.start-button {
-			z-index: 0;
-		}
 
 		.rules-modal {
 			position: fixed;
@@ -221,7 +225,7 @@
 			<div class="close-modal-button app-button">Got it</div>
 		</div>
 	</div>
-	<main class="menu-view">
+	<main class="menu-view" id="menu-view">
 		<header class="header">Dice Games</header>
 		<div class="view-title-container">
 			<h3 class="view-title-text">new game</h3>
@@ -249,9 +253,12 @@
 		</div>
 		<div class="start-button-container">
 			<div class="start-button app-button">Start</div>
+			<div class="color-toggle">Switch Theme</div>
 		</div>
+		
 		<!-- </div> -->
 	</main>
+	
 <!-- 	<script type="text/javascript" charset="utf-8">
 	const rulesArray = [
 		{

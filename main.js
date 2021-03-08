@@ -271,3 +271,4 @@ document.querySelector('.start-button')
 			document.querySelector('.app').classList.toggle('hide');
 		}
 	});
+	

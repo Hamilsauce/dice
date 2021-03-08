@@ -38,6 +38,8 @@ const rulesArray = [
 		`
 	}
 ]
+document.querySelector('.new-game-view').style.backgroundColor = '#BA5B5B'
+// document.getElementById('menu-view').style.backgroundColor = '#35B0F1'
 
 const getRuleData = gameSelection => {
 	const rulesObject = rulesArray
@@ -50,19 +52,19 @@ const getRuleData = gameSelection => {
 const getPlayerNames = () => {
 	const nameInputs = document.querySelectorAll('.name-input');
 	const pNames = [];
-	
+
 	if (nameInputs.length > 0) {
-			nameInputs.forEach(input => {
-				let playerName = input.value ? input.value : `Player ${input.dataset.playerNumber}`;
-				console.log(playerName);
-				pNames.push(playerName)
-			})
-			return pNames
+		nameInputs.forEach(input => {
+			let playerName = input.value ? input.value : `Player ${input.dataset.playerNumber}`;
+			console.log(playerName);
+			pNames.push(playerName)
+		})
+		return pNames
 	} else {
 		const playerCount = document.querySelector('.player-count-input').value
 		for (var i = 1; i <= playerCount; i++) {
 			const playerName = `Player ${i}`;
-				pNames.push(playerName)
+			pNames.push(playerName)
 		}
 		return pNames
 	}
@@ -106,6 +108,26 @@ document.querySelector('.name-modal').querySelector('.close-modal-button')
 		e.target.parentElement.parentElement.classList.toggle('hide')
 	})
 
+document.querySelector('.color-toggle')
+	.addEventListener('click', e => {
+		const colors = ['rgb(186, 91, 91)', 'rgb(53, 176, 241)', 'rgb(142, 191, 64)']
+		// const newGameView = document.querySelector('.menu-view')
+		const newGameView = document.querySelector('.new-game-view')
+		let currentBackground = newGameView.style.backgroundColor
+		let colorIndex = colors.indexOf(currentBackground)
+		console.log(colorIndex);
+		console.log('colora lebgth');
+		console.log(colors.length);
+		let nextColorIndex = colorIndex >= (colors.length - 1) ? 0 : colorIndex + 1;
+		console.log('before change');
+		console.log(currentBackground);
+		console.log('next color');
+		console.log(nextColorIndex);
+		newGameView.style.backgroundColor = colors[nextColorIndex]
+		console.log(newGameView);
+	})
+
+
 const createNameInputs = (playerCount, parentEl) => {
 	playerCount = parseInt(playerCount);
 
@@ -134,4 +156,8 @@ const createNameInputs = (playerCount, parentEl) => {
 		container.appendChild(nameInput);
 		parentEl.appendChild(container)
 	}
+}
+
+const setBackgroundColor = (el, colorString) => {
+	el.style.backgroundColor = colorString
 }
