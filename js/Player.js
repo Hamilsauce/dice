@@ -3,10 +3,11 @@ import {
 } from './DiceSet.js'
 
 export class Player {
-  constructor(id, game) {
+  constructor(playerName, id, game) {
     this.game = game,
       this.id = id,
-      this.name = this.createNameFromId(),
+      this.name = playerName,
+      // this.name = this.createNameFromId(),
       this.diceSet = new DiceSet(this.game.rules.diceCount, this),
       this.rollCount = 0,
       this.keptDice = [],

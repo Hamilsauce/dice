@@ -50,11 +50,22 @@ const getRuleData = gameSelection => {
 const getPlayerNames = () => {
 	const nameInputs = document.querySelectorAll('.name-input');
 	const pNames = [];
-	nameInputs.forEach(input => {
-		let playerName = input.value.length > 0 ? pNames.push(input.value) : pNames.push(`Player ${input.dataset.playerNumber}`)
-		console.log(playerName);
-		pNames.push(playerName)
-	})
+	
+	if (nameInputs.length > 0) {
+			nameInputs.forEach(input => {
+				let playerName = input.value ? input.value : `Player ${input.dataset.playerNumber}`;
+				console.log(playerName);
+				pNames.push(playerName)
+			})
+			return pNames
+	} else {
+		const playerCount = document.querySelector('.player-count-input').value
+		for (var i = 1; i <= playerCount; i++) {
+			const playerName = `Player ${i}`;
+				pNames.push(playerName)
+		}
+		return pNames
+	}
 	return pNames
 }
 
@@ -90,6 +101,8 @@ document.querySelector('.name-button')
 //name modal close
 document.querySelector('.name-modal').querySelector('.close-modal-button')
 	.addEventListener('click', e => {
+		const namesArray = getPlayerNames()
+		console.log(namesArray);
 		e.target.parentElement.parentElement.classList.toggle('hide')
 	})
 

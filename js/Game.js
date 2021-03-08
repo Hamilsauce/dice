@@ -3,10 +3,10 @@ import {
 } from './Player.js'
 
 export class Game {
-	constructor(playerCount, rules) {
-		this.playerCount = playerCount,
+	constructor(playerNames, rules) {
+		this.playerCount = playerNames.length,
 			this.rules = this.getRules(rules),
-			this.players = this.createPlayers(this.playerCount).map(id => new Player(id, this)),
+			this.players = playerNames.map((n, id) => new Player(n, ++id, this)),
 			this.activePlayer = null,
 			this.gameActive = false,
 			this.gameOver = false,
@@ -39,15 +39,6 @@ export class Game {
 		}
 	}
 
-	createPlayers(count) {
-		let players = [];
-		for (let i = 1; i <= count; i++) {
-			let id = i;
-			players.push(id);
-		};
-		return players;
-	}
-
 	toggleRollClasses(die) { //* REMEMBER: this param references actual on-page element, not die object;
 		die.classList.toggle("odd-roll");
 		die.classList.toggle("even-roll");
@@ -72,8 +63,8 @@ export class Game {
 		rollButton.style.opacity = '1';
 		rollButton.textContent = 'Roll';
 		document.querySelector('.rollButton').value = 'Roll'; //TODO Move button stuff into ui module/main.js function
-		
-		game.startTime = Date.now()
+
+		this.startTime = performance.now()
 	}
 
 	updateState() { //TODO need to add more statey things here
@@ -146,7 +137,7 @@ export class Game {
 					let value = die.dataset.roll
 					return sum + parseInt(value)
 				}, 0);
-			player.finalScore = { 
+			player.finalScore = {
 				sccScore: sumRolls - 15
 			}
 		}
@@ -159,7 +150,8 @@ export class Game {
 				return player.hasPlayed === false;
 			})
 
-		if (remainingPlayers.length == 0) {
+		if (remainingPlayers.length == 0) { // && (this.activePlayer.rollCount >= this.rules.rollLimit || this.rules.diceCount > this.activePlayer.keptDice.length)
+		console.log('endgame');
 			this.endGame();
 		}
 	}
@@ -172,7 +164,7 @@ export class Game {
 
 		if (remainingPlayers.length > 0) {
 			this.activePlayer = remainingPlayers[0];
-		} else {
+		} else if (this.activePlayer.rollCount > this.rules.rollLimit || this.rules.diceCount > this.activePlayer.keptDice.length) {
 			this.endGame();
 		}
 
@@ -193,8 +185,8 @@ export class Game {
 	}
 
 	endGame() {
-		game.stopTime = Date.now()
-		game.gameTime = (((game.stopTime - game.stopTime) % 60000) / 1000).toFixed(0);
+		this.stopTime = performance.now()
+		this.gameTimeSeconds = parseInt(((this.stopTime - this.startTime) / 1000).toFixed(0))
 		this.gameOver = true;
 		this.gameActive = false;
 		this.getWinner()
@@ -338,8 +330,9 @@ class Horses extends Game {
 }
 export let game = undefined;
 
-export const gameFactory = (playerCount, rules) => {
-	game = new Game(playerCount, rules);
+export const gameFactory = (players, rules) => {
+	game = new Game(players, rules);
+	// game = new Game(playerCount, rules);
 	game.newGame()
 	return game
 	//* TODO 

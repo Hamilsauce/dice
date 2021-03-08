@@ -248,10 +248,11 @@ document.querySelector('.start-button')
 		let playerCountInput = document.querySelector('.player-count-input');
 		let playerCount = playerCountInput.value;
 	
-	//TODO	let nameArray = getPlayerNames();
+	//in newgameview js
+	const nameArray = getPlayerNames();
 		console.log('start')
 		// let playerCount = nameArray.length		
-	// console.log(nameArray)
+	console.log(nameArray)
 	console.log(playerCount)
 
 		if (playerCount < 2) {
@@ -259,7 +260,7 @@ document.querySelector('.start-button')
 			let msg = 'Must have at least two players'
 			displayMessage(msg, 4000)
 		} else {
-			gameFactory(playerCount, gameRules);
+			gameFactory(nameArray, gameRules);
 			game.newGame()
 			uiState()
 
