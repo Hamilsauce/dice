@@ -108,8 +108,29 @@ export class Game {
 					let value = die.dataset.roll
 					return sum + parseInt(value)
 				}, 0);
-			player.finalScore = {
-				sccScore: sumRolls - 15
+			 
+			const adjustedSum = sumRolls - 15;
+			
+			if (adjustedSum  > 0) {
+				player.finalScore = {
+					sccScore: adjustedSum
+				}
+			} else if (adjustedSum  == 0) {
+				player.finalScore = {
+					sccScore: 'Ship, Captain and Crew'
+				}
+			} else if (adjustedSum  == -4) {
+				player.finalScore = {
+					sccScore: 'Ship and Captain'
+				}
+			} else if (adjustedSum  == -9) {
+				player.finalScore = {
+					sccScore: 'Ship'
+				}
+			} else if (adjustedSum  == -15) {
+				player.finalScore = {
+					sccScore: 'Nothing'
+				}
 			}
 		}
 
@@ -246,7 +267,6 @@ export class Game {
 				.map(player => {
 					let score = Object.entries(player.finalScore);
 					let nameProp = [
-
             ['id', player.name]
           ];
 					return nameProp.concat(score)
@@ -257,11 +277,11 @@ export class Game {
 				});
 			let tie = 0;
 			scoreArray.sort((a, b) => {
-				if (a.sccScore - b.sccScore == 0) {
+				if (b.sccScore - a.sccScore == 0) {
 					tie += 1
 					return 0;
 				} else {
-					return a.sccScore - b.sccScore;
+					return b.sccScore - a.sccScore;
 				}
 			});
 
