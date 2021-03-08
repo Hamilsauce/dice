@@ -74,6 +74,18 @@ const playerTurn = (player, diceCount) => {
 
 			displayMessage(output, 5000)
 			game.endTurn()
+
+			
+
+			let rollButton = document.querySelector('.rollButton')
+			let nextPlayerButton = document.querySelector('.nextPlayerButton')
+
+			nextPlayerButton.disabled = false;
+			nextPlayerButton.style.opacity = '1';
+
+			rollButton.disabled = true;
+			rollButton.style.opacity = '0.7';
+
 		} else {
 			player.keepDice()
 			player.rollDice();
@@ -87,6 +99,15 @@ const playerTurn = (player, diceCount) => {
 			player.keepDice();
 			game.updateState()
 			game.endTurn()
+
+			let rollButton = document.querySelector('.rollButton')
+			let nextPlayerButton = document.querySelector('.nextPlayerButton')
+
+			nextPlayerButton.disabled = false;
+			nextPlayerButton.style.opacity = '1';
+
+			rollButton.disabled = true;
+			rollButton.style.opacity = '0.7';
 
 			let outputText = `${activePlayer.name} rolled ${activePlayer.finalScore.threesScore}`
 			displayMessage(outputText, 5000)
@@ -103,13 +124,22 @@ const playerTurn = (player, diceCount) => {
 
 		//SCC
 	} else if (game.rules.name == 'ship, captain, crew') {
-		if (player.rollCount == rollLimit - 1 || player.keptDice.length == 5) { //! test if roll limit reached, end turn if so
+		if (player.rollCount == rollLimit || player.keptDice.length == 5) { //! test if roll limit reached, end turn if so
 
 			let scoreDisplay = document.querySelector('.scoreDisplay')
 
 			player.keepDice();
 			game.updateState()
 			game.endTurn()
+
+			let rollButton = document.querySelector('.rollButton')
+			let nextPlayerButton = document.querySelector('.nextPlayerButton')
+
+			nextPlayerButton.disabled = false;
+			nextPlayerButton.style.opacity = '1';
+
+			rollButton.disabled = true;
+			rollButton.style.opacity = '0.7';
 
 			let outputText = `${activePlayer.name} rolled ${activePlayer.finalScore.sccScore}`
 			displayMessage(outputText, 5000)
@@ -199,7 +229,7 @@ document.querySelector('.rollButton')
 
 			//SCC
 		} else if (game.rules.name == 'ship, captain, crew') {
-			if (player.keptDice.length == 5 || player.rollCount >= game.rules.rollLimit) { //! test if last turn, update UI
+			if (player.keptDice.length == 5 || player.rollCount >= game.rules.rollLimit + 1) { //! test if last turn, update UI
 				e.target.textContent = 'End turn'
 			}
 
@@ -220,7 +250,6 @@ document.querySelector('.rollButton')
 		}
 
 		uiState()
-		console.log(game);
 	});
 
 document.querySelector('.nextPlayerButton')
@@ -245,24 +274,33 @@ document.querySelector('.start-button')
 	.addEventListener('click', e => {
 		let gameSelect = document.querySelector('.game-select')
 		let gameRules = gameSelect.options[gameSelect.selectedIndex].value
-		let playerCountInput = document.querySelector('.player-count-input');
-		let playerCount = playerCountInput.value;
-	
-	//in newgameview js
-	const nameArray = getPlayerNames();
-		console.log('start')
-		// let playerCount = nameArray.length		
-	console.log(nameArray)
-	console.log(playerCount)
+		let playerCount = document.querySelector('.player-count-input').value;
 
+		//in newgameview js
+		const nameArray = getPlayerNames();
 		if (playerCount < 2) {
 			playerCountInput.select();
 			let msg = 'Must have at least two players'
 			displayMessage(msg, 4000)
 		} else {
 			gameFactory(nameArray, gameRules);
+
+			let rollDisplay = document.querySelector('.rollDisplay')
+			rollDisplay.innerHTML = '';
+
+			let rollButton = document.querySelector('.rollButton')
+			rollButton.disabled = false;
+			rollButton.style.opacity = '1';
+			rollButton.textContent = 'Roll';
+
 			game.newGame()
 			uiState()
+
+			//..//
+			let nextPlayerButton = document.querySelector('.nextPlayerButton')
+			nextPlayerButton.disabled = true;
+			nextPlayerButton.style.opacity = '0.7';
+
 
 			let msg = `${game.activePlayer.name}'s turn. Roll on!`
 			displayMessage(msg, 4000)
@@ -271,4 +309,3 @@ document.querySelector('.start-button')
 			document.querySelector('.app').classList.toggle('hide');
 		}
 	});
-	

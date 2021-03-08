@@ -102,13 +102,13 @@ body {}
 	margin-bottom: 20px;
 }
 
-	.start-button-container {
-			grid-area: 'start';
-			display: flex;
-			flex-direction: column;
-			justify-content: space-between;
-			align-items: center;
-		}
+.start-button-container {
+	grid-area: 'start';
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
 
 
 .player-select {}
@@ -185,6 +185,16 @@ body {}
 	margin: 0;
 	transition: opacity 0.3s ease-in-out, height 0.1s;
 	z-index: -3;
+}
+
+.name-input {
+	padding: 5px 5px 5px 10px;
+	font-size: 1.1em;
+	font-weight: 400;
+	border-radius: 18px;
+	background: #FAF5E7;
+	outline: none;
+	border: 2px solid #B2B2B8;
 }
 
 .modal-content {

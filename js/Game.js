@@ -45,29 +45,14 @@ export class Game {
 	}
 
 	newGame() {
-		//HTML/DOM manip shouldnt be in game
-		let nextPlayerButton = document.querySelector('.nextPlayerButton')
-		nextPlayerButton.disabled = true;
-		nextPlayerButton.style.opacity = '0.7';
-
 		this.gameActive = true;
 		this.activePlayer = this.players[0];
-
-		let rollDisplay = document.querySelector('.rollDisplay')
-
-		rollDisplay.innerHTML = '';
-		let rollButton = document.querySelector('.rollButton')
 		this.activePlayer.diceSet.renderDice()
-
-		rollButton.disabled = false;
-		rollButton.style.opacity = '1';
-		rollButton.textContent = 'Roll';
-		document.querySelector('.rollButton').value = 'Roll'; //TODO Move button stuff into ui module/main.js function
-
 		this.startTime = performance.now()
 	}
 
 	updateState() { //TODO need to add more statey things here
+		this.activePlayer.diceSet.getSelectedDice()
 		this.activePlayer.keepDice();
 		this.activePlayer.diceSet.getKeptDice()
 	}
@@ -92,25 +77,11 @@ export class Game {
 
 	endTurn() { //TODO Move button stuff into ui module/main.js function
 		const player = this.activePlayer;
-		console.log('inside endturn(), activeplayer at start:');
-		console.log(this.activePlayer);
-
-
-		//TODO move this to main.js/ui function
-		let rollButton = document.querySelector('.rollButton')
-		let nextPlayerButton = document.querySelector('.nextPlayerButton')
-
-		nextPlayerButton.disabled = false;
-		nextPlayerButton.style.opacity = '1';
-
-		rollButton.disabled = true;
-		rollButton.style.opacity = '0.7';
-		//TODO End todo
 
 		if (this.rules.name == 'horses') {
 			let count = player.keptDice.length
 			let value = count >= 1 ? player.keptDice[0].dataset.roll : 0;
-			player.finalScore = { //* 'Threes': final score should be sum of kept dice, with threes = zero
+			player.finalScore = { 
 				keptCount: count,
 				keptValue: value
 			}
@@ -126,7 +97,7 @@ export class Game {
 						return sum + parseInt(value)
 					}
 				}, 0);
-			player.finalScore = { //* 'Threes': final score should be sum of kept dice, with threes = zero
+			player.finalScore = {
 				threesScore: sumRolls
 			}
 
@@ -167,21 +138,21 @@ export class Game {
 		} else if (this.activePlayer.rollCount > this.rules.rollLimit || this.rules.diceCount > this.activePlayer.keptDice.length) {
 			this.endGame();
 		}
+	//TODO move this button stuff to main.js or ui module
+	let rollDisplay = document.querySelector('.rollDisplay')
+	let rollButton = document.querySelector('.rollButton')
+	let dice = document.querySelector('.dice')
+	dice.classList.add('newDice')
 
-		//TODO move this button stuff to main.js or ui module
-		let rollDisplay = document.querySelector('.rollDisplay')
-		let rollButton = document.querySelector('.rollButton')
-		let dice = document.querySelector('.dice')
-		dice.classList.add('newDice')
-
-		setTimeout(() => { //! wait 1 sec to let newDice animation play, then delete all current die Elemets
-			rollDisplay.innerHTML = '';
+	setTimeout(() => { //! wait 1 sec to let newDice animation play, then delete all current die Elemets
+		rollDisplay.innerHTML = '';
 			this.activePlayer.diceSet.renderDice()
 
-			rollButton.disabled = false;
-			rollButton.style.opacity = '1';
-			rollButton.textContent = 'Roll';
-		}, 800);
+		rollButton.disabled = false;
+		rollButton.style.opacity = '1';
+		rollButton.textContent = 'Roll';
+	}, 800);
+	
 	}
 
 	endGame() {
@@ -308,7 +279,6 @@ export class Game {
 		}
 
 	}
-
 }
 
 class Horses extends Game {
@@ -326,7 +296,6 @@ class Horses extends Game {
 	evaluateScores() {
 		//...
 	}
-
 }
 export let game = undefined;
 

@@ -77,8 +77,6 @@ export class Player {
   keepDice() {
     const dice = [...document.querySelectorAll(".die-list")];
 		this.diceSet.getSelectedDice();
-		console.log('keep dice game');
-		console.log(this.game);
     let sel = dice.filter(die => {
       return die.dataset.selected == 'true';
     })
