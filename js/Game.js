@@ -81,7 +81,7 @@ export class Game {
 		if (this.rules.name == 'horses') {
 			let count = player.keptDice.length
 			let value = count >= 1 ? player.keptDice[0].dataset.roll : 0;
-			player.finalScore = { 
+			player.finalScore = {
 				keptCount: count,
 				keptValue: value
 			}
@@ -108,26 +108,26 @@ export class Game {
 					let value = die.dataset.roll
 					return sum + parseInt(value)
 				}, 0);
-			 
+
 			const adjustedSum = sumRolls - 15;
-			
-			if (adjustedSum  > 0) {
+
+			if (adjustedSum > 0) {
 				player.finalScore = {
 					sccScore: adjustedSum
 				}
-			} else if (adjustedSum  == 0) {
+			} else if (adjustedSum == 0) {
 				player.finalScore = {
 					sccScore: 'Ship, Captain and Crew'
 				}
-			} else if (adjustedSum  == -4) {
+			} else if (adjustedSum == -4) {
 				player.finalScore = {
 					sccScore: 'Ship and Captain'
 				}
-			} else if (adjustedSum  == -9) {
+			} else if (adjustedSum == -9) {
 				player.finalScore = {
 					sccScore: 'Ship'
 				}
-			} else if (adjustedSum  == -15) {
+			} else if (adjustedSum == -15) {
 				player.finalScore = {
 					sccScore: 'Nothing'
 				}
@@ -143,7 +143,7 @@ export class Game {
 			})
 
 		if (remainingPlayers.length == 0) { // && (this.activePlayer.rollCount >= this.rules.rollLimit || this.rules.diceCount > this.activePlayer.keptDice.length)
-		console.log('endgame');
+			console.log('endgame');
 			this.endGame();
 		}
 	}
@@ -159,21 +159,21 @@ export class Game {
 		} else if (this.activePlayer.rollCount > this.rules.rollLimit || this.rules.diceCount > this.activePlayer.keptDice.length) {
 			this.endGame();
 		}
-	//TODO move this button stuff to main.js or ui module
-	let rollDisplay = document.querySelector('.rollDisplay')
-	let rollButton = document.querySelector('.rollButton')
-	let dice = document.querySelector('.dice')
-	dice.classList.add('newDice')
 
-	setTimeout(() => { //! wait 1 sec to let newDice animation play, then delete all current die Elemets
-		rollDisplay.innerHTML = '';
+		//TODO move this button stuff to main.js or ui module
+		let rollDisplay = document.querySelector('.rollDisplay')
+		let rollButton = document.querySelector('.rollButton')
+		let dice = document.querySelector('.dice')
+		dice.classList.add('newDice')
+
+		setTimeout(() => { //! wait 1 sec to let newDice animation play, then delete all current die Elemets
+			rollDisplay.innerHTML = '';
 			this.activePlayer.diceSet.renderDice()
 
-		rollButton.disabled = false;
-		rollButton.style.opacity = '1';
-		rollButton.textContent = 'Roll';
-	}, 800);
-	
+			rollButton.disabled = false;
+			rollButton.style.opacity = '1';
+			rollButton.textContent = 'Roll';
+		}, 800);
 	}
 
 	endGame() {
@@ -297,7 +297,6 @@ export class Game {
 				this.winner = scoreArray[0];
 			}
 		}
-
 	}
 }
 
@@ -321,10 +320,8 @@ export let game = undefined;
 
 export const gameFactory = (players, rules) => {
 	game = new Game(players, rules);
-	// game = new Game(playerCount, rules);
 	game.newGame()
 	return game
-	//* TODO 
 }
 
 {

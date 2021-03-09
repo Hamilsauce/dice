@@ -20,6 +20,7 @@ export class DiceSet {
     };
     return die;
   }
+  
   renderDice() {
     const rollArea = document.querySelector(`.rollDisplay`);
 

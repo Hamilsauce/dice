@@ -9,8 +9,8 @@ import {
 //TODO Record game length
 // const store = undefined;
 
-	const store = new Store();
-	console.log(store);
+const store = new Store();
+console.log(store);
 window.onload = e => {
 	store.getLocalStorage('diceGameHistory');
 	console.log('store state');
@@ -30,13 +30,11 @@ const uiState = () => {
 		actionBar.classList.add('fade')
 		actionBar.classList.remove('show')
 		footer.classList.remove('hide')
-		
-		
 
 		footerButtons.forEach(btn => {
 			btn.classList.remove('hide')
 		})
-		
+
 	} else if (game.gameActive === false) {
 		actionBar.classList.remove('fade')
 		actionBar.classList.add('show')
@@ -47,18 +45,20 @@ const uiState = () => {
 		})
 	}
 	if (game.gameOver == true) {
-			setTimeout(() => {
-				document.querySelector('.nav').classList.toggle('navExpand')
-			}, 2000)
+		setTimeout(() => {
+			document.querySelector('.nav').classList.toggle('navExpand')
+		}, 2000)
 	}
 }
 
 const displayMessage = (message, displayTime) => {
 	let board = document.querySelector('.scoreDisplay')
+
 	if (typeof displayTime != 'number') {
 		board.classList.add('show')
 		return;
 	}
+
 	board.classList.remove('show')
 	board.textContent = '';
 
@@ -69,7 +69,6 @@ const displayMessage = (message, displayTime) => {
 			board.classList.remove('show')
 		}, displayTime)
 	}, 200)
-
 }
 //@ End UI stuff
 
@@ -85,6 +84,8 @@ const playerTurn = (player, diceCount) => {
 	if (game.rules.name == 'horses') {
 		if (player.rollCount >= rollLimit || diceCount <= 0) { //! test if roll limit reached, end turn if so
 			let scoreDisplay = document.querySelector('.scoreDisplay')
+			let rollButton = document.querySelector('.rollButton')
+			let nextPlayerButton = document.querySelector('.nextPlayerButton')
 
 			player.keepDice();
 			game.updateState()
@@ -94,11 +95,6 @@ const playerTurn = (player, diceCount) => {
 
 			displayMessage(output, 5000)
 			game.endTurn()
-
-
-
-			let rollButton = document.querySelector('.rollButton')
-			let nextPlayerButton = document.querySelector('.nextPlayerButton')
 
 			nextPlayerButton.disabled = false;
 			nextPlayerButton.style.opacity = '1';
@@ -145,7 +141,6 @@ const playerTurn = (player, diceCount) => {
 		//SCC
 	} else if (game.rules.name == 'ship, captain, crew') {
 		if (player.rollCount == (rollLimit) || player.keptDice.length == 5) { //! test if roll limit reached, end turn if so
-
 			let scoreDisplay = document.querySelector('.scoreDisplay')
 
 			player.keepDice();
@@ -164,26 +159,10 @@ const playerTurn = (player, diceCount) => {
 			let outputText = `${activePlayer.name} rolled ${activePlayer.finalScore.sccScore}`
 			displayMessage(outputText, 5000)
 		} else if (player.rollCount == 0) {
-
-			//TODO CHECK FOR 6,5 4 SELECTED
-			/*
-			      if (player.selectedDice has a 6, 5, 4) {
-			      	
-			      } else if (player.selectedDice has a 6, 5) {
-			      	
-			      
-			      } else if (player.selectedDice has a 6) {
-			      	
-			      
-			      } else if (...) {
-			      	
-			      }
-			*/
 			player.keepDice()
 			player.rollDice();
 		} else if (player.selectedDice.length == 0) {
 			player.keepDice();
-			// player.selectedCount = 0
 			player.rollDice();
 		}
 	}
@@ -201,7 +180,6 @@ document.querySelector('.rollButton')
 		game.updateState();
 		player.rollCount += 1;
 
-
 		//HORSES
 		if (game.rules.name == 'horses') {
 			if (player.rollCount == game.rules.rollLimit) { //! test if last turn, update UI
@@ -212,14 +190,10 @@ document.querySelector('.rollButton')
 			if (game.gameOver === true) {
 				let nextPlayerButton = document.querySelector('.nextPlayerButton')
 				e.target.textContent = 'Game Over'
-						console.log('end game state');
-						console.log(store);
+				console.log('end game state');
+				console.log(store);
+				console.log(store.state.gameHistory);
 				
-					// if (game.gameOver === true) {
-						// store.setLocalStorage('diceGameHistory', game)
-						// store.getLocalStorage('diceGameHistory')
-					// }
-					console.log(store.state.gameHistory);
 				//TODO Refactor: if tie, then game.winner is a string of tied players
 				//TODO if no tie, game.winner is an object of winner
 				if (typeof game.winner == 'string') {
@@ -274,9 +248,7 @@ document.querySelector('.rollButton')
 			}
 		}
 		uiState()
-	
 	});
-		// console.log(store);
 
 document.querySelector('.nextPlayerButton')
 	.addEventListener('click', e => {
@@ -291,7 +263,6 @@ document.querySelector('.nextPlayerButton')
 		e.target.style.opacity = '0.7'
 
 		uiState()
-
 		let msg = `${game.activePlayer.name}'s turn. Roll on!`
 		displayMessage(msg, 7000)
 	});
@@ -322,11 +293,9 @@ document.querySelector('.start-button')
 			game.newGame()
 			uiState()
 
-			//..//
 			let nextPlayerButton = document.querySelector('.nextPlayerButton')
 			nextPlayerButton.disabled = true;
 			nextPlayerButton.style.opacity = '0.7';
-
 
 			let msg = `${game.activePlayer.name}'s turn. Roll on!`
 			displayMessage(msg, 4000)
