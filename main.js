@@ -30,10 +30,13 @@ const uiState = () => {
 		actionBar.classList.add('fade')
 		actionBar.classList.remove('show')
 		footer.classList.remove('hide')
+		
+		
 
 		footerButtons.forEach(btn => {
 			btn.classList.remove('hide')
 		})
+		
 	} else if (game.gameActive === false) {
 		actionBar.classList.remove('fade')
 		actionBar.classList.add('show')
@@ -42,6 +45,11 @@ const uiState = () => {
 		footerButtons.forEach(btn => {
 			btn.classList.add('hide')
 		})
+	}
+	if (game.gameOver == true) {
+			setTimeout(() => {
+				document.querySelector('.nav').classList.toggle('navExpand')
+			}, 2000)
 	}
 }
 

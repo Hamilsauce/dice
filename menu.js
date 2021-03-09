@@ -1,5 +1,5 @@
 const toggleNav = () => {
-	const nav = document.querySelector('.nav1');
+	const nav = document.querySelector('.nav');
 	// nav.style.width = '250px';
 	if (nav.classList.contains('navExpand')) {
 		setTimeout(() => {
@@ -12,7 +12,7 @@ const toggleNav = () => {
 	}
 }
 const closeNav = () => {
-	const nav = document.querySelector('.nav1');
+	const nav = document.querySelector('.nav');
 	// nav.style.width = '0px';
 	nav.classList.toggle('navExpand')
 
