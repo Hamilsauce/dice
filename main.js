@@ -2,8 +2,20 @@ import {
 	game,
 	gameFactory
 } from './js/Game.js';
+import {
+	Store
+} from './js/store.js';
 
 //TODO Record game length
+// const store = undefined;
+
+	const store = new Store();
+	console.log(store);
+window.onload = e => {
+	store.getLocalStorage('diceGameHistory');
+	console.log('store state');
+	console.log(store.state.gameHistory);
+};
 
 //@UI stuff
 const uiState = () => {
@@ -75,7 +87,7 @@ const playerTurn = (player, diceCount) => {
 			displayMessage(output, 5000)
 			game.endTurn()
 
-			
+
 
 			let rollButton = document.querySelector('.rollButton')
 			let nextPlayerButton = document.querySelector('.nextPlayerButton')
@@ -192,7 +204,14 @@ document.querySelector('.rollButton')
 			if (game.gameOver === true) {
 				let nextPlayerButton = document.querySelector('.nextPlayerButton')
 				e.target.textContent = 'Game Over'
-
+						console.log('end game state');
+						console.log(store);
+				
+					// if (game.gameOver === true) {
+						// store.setLocalStorage('diceGameHistory', game)
+						// store.getLocalStorage('diceGameHistory')
+					// }
+					console.log(store.state.gameHistory);
 				//TODO Refactor: if tie, then game.winner is a string of tied players
 				//TODO if no tie, game.winner is an object of winner
 				if (typeof game.winner == 'string') {
@@ -246,9 +265,10 @@ document.querySelector('.rollButton')
 				}
 			}
 		}
-
 		uiState()
+	
 	});
+		// console.log(store);
 
 document.querySelector('.nextPlayerButton')
 	.addEventListener('click', e => {
