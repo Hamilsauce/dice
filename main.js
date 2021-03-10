@@ -276,6 +276,20 @@ document.querySelector('.nextPlayerButton')
 
 		rollButton.textContent = 'Roll';
 		game.nextPlayer()
+		
+	 	 	let rollDisplay = document.querySelector('.rollDisplay')
+	 	 	// let rollButton = document.querySelector('.rollButton')
+	 	 	let dice = document.querySelector('.dice')
+	 	 	dice.classList.add('newDice')
+	 
+	 	 	setTimeout(() => { //! wait 1 sec to let newDice animation play, then delete all current die Elemets
+	 	 		rollDisplay.innerHTML = '';
+	 	 		game.activePlayer.diceSet.renderDice()
+	 
+	 	 		rollButton.disabled = false;
+	 	 		rollButton.style.opacity = '1';
+	 	 		rollButton.textContent = 'Roll';
+	 	 	}, 800);
 
 		e.target.disabled = true;
 		e.target.style.opacity = '0.7'

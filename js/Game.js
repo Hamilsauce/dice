@@ -5,7 +5,6 @@ import {
 	store
 } from './store.js';
 
-
 export class Game {
 	constructor(playerNames, rules) {
 		this.playerCount = playerNames.length,
@@ -24,14 +23,12 @@ export class Game {
 				diceCount: 5,
 				rollLimit: 3
 			}
-
 		} else if (ruleSet.toLowerCase() == 'threes') {
 			return {
 				name: ruleSet,
 				diceCount: 5,
 				rollLimit: 5
 			}
-
 		} else if (ruleSet.toLowerCase() == 'ship, captain, crew') {
 			return {
 				name: ruleSet,
@@ -123,19 +120,23 @@ export class Game {
 				}
 			} else if (adjustedSum == 0) {
 				player.finalScore = {
-					sccScore: 'Ship, Captain and Crew'
+					sccScore: 'Ship, Captain and Crew',
+					sccScoreValue: adjustedSum
 				}
 			} else if (adjustedSum == -4) {
 				player.finalScore = {
-					sccScore: 'Ship and Captain'
+					sccScore: 'Ship and Captain',
+					sccScoreValue: adjustedSum
 				}
 			} else if (adjustedSum == -9) {
 				player.finalScore = {
-					sccScore: 'Ship'
+					sccScore: 'Ship',
+					sccScoreValue: adjustedSum
 				}
 			} else if (adjustedSum == -15) {
 				player.finalScore = {
-					sccScore: 'Nothing'
+					sccScore: 'Nothing',
+					sccScoreValue: adjustedSum
 				}
 			}
 		}
@@ -165,21 +166,6 @@ export class Game {
 		} else if (this.activePlayer.rollCount > this.rules.rollLimit || this.rules.diceCount > this.activePlayer.keptDice.length) {
 			this.endGame();
 		}
-
-		//TODO move this button stuff to main.js or ui module
-		let rollDisplay = document.querySelector('.rollDisplay')
-		let rollButton = document.querySelector('.rollButton')
-		let dice = document.querySelector('.dice')
-		dice.classList.add('newDice')
-
-		setTimeout(() => { //! wait 1 sec to let newDice animation play, then delete all current die Elemets
-			rollDisplay.innerHTML = '';
-			this.activePlayer.diceSet.renderDice()
-
-			rollButton.disabled = false;
-			rollButton.style.opacity = '1';
-			rollButton.textContent = 'Roll';
-		}, 800);
 	}
 
 	endGame() {
@@ -197,7 +183,11 @@ export class Game {
 			winner: this.winner
 		}
 		store.saveGameToHistory(gameRecord)
+		console.log('end of game');
+		console.log(game);
+		
 	}
+	
 
 	getWinner() {
 		//HORSES
@@ -293,11 +283,11 @@ export class Game {
 				
 			let tie = 0;
 			scoreArray.sort((a, b) => {
-				if (b.sccScore - a.sccScore == 0) {
+				if (a.sccScoreValue - b.sccScoreValue == 0) {
 					tie += 1
 					return 0;
 				} else {
-					return b.sccScore - a.sccScore;
+					return a.sccScoreValue - b.sccScoreValue;
 				}
 			});
 
