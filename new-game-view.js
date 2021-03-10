@@ -56,7 +56,6 @@ const getPlayerNames = () => {
 	if (nameInputs.length > 0) {
 		nameInputs.forEach(input => {
 			let playerName = input.value ? input.value : `Player ${input.dataset.playerNumber}`;
-			console.log(playerName);
 			pNames.push(playerName)
 		})
 		return pNames
@@ -71,14 +70,55 @@ const getPlayerNames = () => {
 	return pNames
 }
 
+const createNameInputs = (playerCount, parentEl) => {
+	playerCount = parseInt(playerCount);
+
+	while (parentEl.firstChild) {
+		parentEl.removeChild(parentEl.firstChild);
+	}
+
+	for (let i = 1; i <= playerCount; ++i) {
+		const classAndName = ['name-input', `name-input-${i}`];
+
+		const container = document.createElement('div');
+		container.classList.add('name-input-container');
+
+		const nameLabel = document.createElement('label');
+		nameLabel.classList.add('name-label');
+		nameLabel.setAttribute('for', classAndName[1])
+		nameLabel.innerText = `Player ${i}`;
+
+		const nameInput = document.createElement('input');
+		nameInput.type = 'text';
+		nameInput.setAttribute('name', classAndName[1]);
+		nameInput.classList.add(classAndName[0]);
+		nameInput.dataset.playerNumber = `${i}`;
+
+		container.appendChild(nameLabel);
+		container.appendChild(nameInput);
+		parentEl.appendChild(container)
+	}
+}
+
+
+const setRulesModal = () => {
+	let rulesModal = document.querySelector('.rules-modal')
+	let gameSelect = document.querySelector('.game-select')
+	let ruleData = getRuleData(gameSelect.value)
+
+	rulesModal.querySelector('.modal-title').innerHTML = ruleData.name
+	rulesModal.querySelector('.modal-content').innerHTML = ruleData.description
+}
+
+window.onload = e => {
+	let rulesModal = document.querySelector('.rules-modal')
+	setRulesModal();
+}
+
 document.querySelector('.rule-button')
 	.addEventListener('click', e => {
+		setRulesModal();
 		let rulesModal = document.querySelector('.rules-modal')
-		let gameSelect = document.querySelector('.game-select')
-		let ruleData = getRuleData(gameSelect.value)
-
-		rulesModal.querySelector('.modal-title').innerHTML = ruleData.name
-		rulesModal.querySelector('.modal-content').innerHTML = ruleData.description
 		rulesModal.classList.toggle('hide')
 	})
 
@@ -115,48 +155,11 @@ document.querySelector('.color-toggle')
 		const newGameView = document.querySelector('.new-game-view')
 		let currentBackground = newGameView.style.backgroundColor
 		let colorIndex = colors.indexOf(currentBackground)
-		console.log(colorIndex);
-		console.log('colora lebgth');
-		console.log(colors.length);
 		let nextColorIndex = colorIndex >= (colors.length - 1) ? 0 : colorIndex + 1;
-		console.log('before change');
-		console.log(currentBackground);
-		console.log('next color');
-		console.log(nextColorIndex);
 		newGameView.style.backgroundColor = colors[nextColorIndex]
-		console.log(newGameView);
 	})
 
 
-const createNameInputs = (playerCount, parentEl) => {
-	playerCount = parseInt(playerCount);
-
-	while (parentEl.firstChild) {
-		parentEl.removeChild(parentEl.firstChild);
-	}
-
-	for (let i = 1; i <= playerCount; ++i) {
-		const classAndName = ['name-input', `name-input-${i}`];
-
-		const container = document.createElement('div');
-		container.classList.add('name-input-container');
-
-		const nameLabel = document.createElement('label');
-		nameLabel.classList.add('name-label');
-		nameLabel.setAttribute('for', classAndName[1])
-		nameLabel.innerText = `Player ${i}`;
-
-		const nameInput = document.createElement('input');
-		nameInput.type = 'text';
-		nameInput.setAttribute('name', classAndName[1]);
-		nameInput.classList.add(classAndName[0]);
-		nameInput.dataset.playerNumber = `${i}`;
-
-		container.appendChild(nameLabel);
-		container.appendChild(nameInput);
-		parentEl.appendChild(container)
-	}
-}
 
 const setBackgroundColor = (el, colorString) => {
 	el.style.backgroundColor = colorString

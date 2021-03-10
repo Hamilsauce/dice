@@ -1,8 +1,14 @@
+//TODO Parse 
+
 export class Store {
 	constructor() {
 		this.state = {
 			gameHistory: []
 		}
+	}
+	saveGameToHistory(gameData) {
+		this.state.gameHistory.push(gameData);
+		this.setLocalStorage('diceGameHistory', this.state.gameHistory)
 	}
 	getLocalStorage(key) {
 		const lStore = localStorage;
@@ -16,15 +22,24 @@ export class Store {
 	}
 
 	setLocalStorage(key, data) {
-		const lStore = localStorage;
+		// const lStore = localStorage;
 		const newHistoryData = JSON.stringify(data)
 		console.log(newHistoryData);
-		lStore.setItem(key, newHistoryData)
+		localStorage.setItem(key, newHistoryData)
 
-		return 'data successfully stored'
+		// return 'data y/successfully stored'
 	}
 }
 
+export let store = undefined;
+
+export const storeFactory = () => {
+	store = new Store();
+	return store
+}
+
+
+
 {
-	Store
+	storeFactory
 }

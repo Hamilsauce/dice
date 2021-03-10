@@ -3,15 +3,33 @@ import {
 	gameFactory
 } from './js/Game.js';
 import {
-	Store
+	store,
+	storeFactory
 } from './js/store.js';
 
 //TODO Record game length
 // const store = undefined;
 
-const store = new Store();
-console.log(store);
+
+// const store = new Store();
+// const setLocalStorage = (key, data) => {
+// 	const lStore = localStorage;
+// 	const newHistoryData = JSON.stringify(data)
+// 	console.log(newHistoryData);
+// 	lStore.setItem(key, newHistoryData)
+
+// 	return 'data successfully stored'
+// }
+
+// store.state.test = {
+// 	fuck: 'fuck'
+// }
+
+// localStorage.setItem('test', JSON.stringify(['fuck me', 'fuck ypu']))
+
+// console.log(store);
 window.onload = e => {
+	storeFactory();
 	store.getLocalStorage('diceGameHistory');
 	console.log('store state');
 	console.log(store.state.gameHistory);
@@ -190,9 +208,9 @@ document.querySelector('.rollButton')
 			if (game.gameOver === true) {
 				let nextPlayerButton = document.querySelector('.nextPlayerButton')
 				e.target.textContent = 'Game Over'
-				console.log('end game state');
-				console.log(store);
-				console.log(store.state.gameHistory);
+				// console.log('end game state');
+				// console.log(store);
+				// console.log(store.state.gameHistory);
 				
 				//TODO Refactor: if tie, then game.winner is a string of tied players
 				//TODO if no tie, game.winner is an object of winner
@@ -272,7 +290,9 @@ document.querySelector('.start-button')
 		let gameSelect = document.querySelector('.game-select')
 		let gameRules = gameSelect.options[gameSelect.selectedIndex].value
 		let playerCount = document.querySelector('.player-count-input').value;
-
+		
+		setRulesModal();
+		
 		//in newgameview js
 		const nameArray = getPlayerNames();
 		if (playerCount < 2) {

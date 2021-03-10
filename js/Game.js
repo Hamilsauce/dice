@@ -1,6 +1,10 @@
 import {
 	Player
-} from './Player.js'
+} from './Player.js';
+import {
+	store
+} from './store.js';
+
 
 export class Game {
 	constructor(playerNames, rules) {
@@ -111,6 +115,8 @@ export class Game {
 
 			const adjustedSum = sumRolls - 15;
 
+//TODO MOVE THIS SO SCC SCORE REPLACED WITH 
+//NAMES AFTER SCORE COMPARISON
 			if (adjustedSum > 0) {
 				player.finalScore = {
 					sccScore: adjustedSum
@@ -182,6 +188,15 @@ export class Game {
 		this.gameOver = true;
 		this.gameActive = false;
 		this.getWinner()
+	
+		const gameRecord = {
+			gameDate: new Date().toISOString(),
+			gameName: this.rules.name,
+			playerCount: this.playerCount,
+			gameTime: this.gameTimeSeconds,
+			winner: this.winner
+		}
+		store.saveGameToHistory(gameRecord)
 	}
 
 	getWinner() {
@@ -275,6 +290,7 @@ export class Game {
 							return obj;
 						}, {});
 				});
+				
 			let tie = 0;
 			scoreArray.sort((a, b) => {
 				if (b.sccScore - a.sccScore == 0) {
@@ -320,7 +336,7 @@ export let game = undefined;
 
 export const gameFactory = (players, rules) => {
 	game = new Game(players, rules);
-	game.newGame()
+	// game.newGame()
 	return game
 }
 
