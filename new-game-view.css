@@ -13,6 +13,7 @@ html {
 body {}
 
 .new-game-view {
+	font-family: 'Roboto', sans-serif;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -91,6 +92,7 @@ body {}
 	font-size: 0.9em;
 	font-weight: 300;
 	text-decoration: underline;
+	text-align: center;
 }
 
 .option-button:active {
@@ -207,4 +209,9 @@ body {}
 	align-items: center;
 	font-size: 1.5em;
 	font-weight: 700;
+}
+
+.color-toggle {
+	text-align: center;
+	
 }

@@ -282,19 +282,20 @@ export class Game {
 				});
 				
 			let tie = 0;
+			console.log(scoreArray);
 			scoreArray.sort((a, b) => {
-				if (a.sccScoreValue - b.sccScoreValue == 0) {
+				if (b.sccScoreValue - a.sccScoreValue == 0) {
 					tie += 1
 					return 0;
 				} else {
-					return a.sccScoreValue - b.sccScoreValue;
+					return parseInt(b.sccScoreValue) - parseInt(a.sccScoreValue);
 				}
 			});
 
 			//TODO Fix tie bug - if one player wins and the losers tie, game calls tie betwen the losers
 			let tieArray = [];
 			if (tie >= 1) {
-				tieArray = scoreArray.slice(0, tie + 1)
+				tieArray = scoreArray.slice(0, tie)
 				let tieString = tieArray.map(pl => {
 					return pl.id
 				}).join(' & ');

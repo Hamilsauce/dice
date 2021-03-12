@@ -15,7 +15,7 @@
 			margin: 0;
 			box-sizing: border-box;
 			user-select: none;
-			z-index: 1;
+			/* z-index: 1; */
 		}
 
 		html {
@@ -40,7 +40,7 @@
 			height: 100vh;
 			grid-gap: 0px;
 			/* background: #BA5B5B; */
-			/* background: #35B0F1; */
+			background: #35B0F1;
 			/* box-shadow: 0px 0px 130px 0px inset #4093BF; */
 			/* background-image: url("/menu-view.jpg"); */
 			background-size: cover;
@@ -125,7 +125,7 @@
 		.start-button {
 			z-index: 0;
 		}
-		
+
 		.player-select {}
 
 		.app-button {
@@ -202,17 +202,135 @@
 			font-size: 1.5em;
 			font-weight: 700;
 		}
+
+		.end-game-modal-dimmer {
+			position: absolute;
+			top: 0;
+			left: 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 100vw;
+			height: 100vh;
+			background: #939393D6;
+			/* backdrop-filter: blur(2.5px); */
+			z-index: 5;
+		}
+
+		.end-game-modal {
+			/* position: absolute;
+			top: 10%;
+			left: 10%; */
+			display: grid;
+			grid-template-rows: 125px 1fr 75px;
+			justify-content: center;
+			width: 80%;
+			height: 80%;
+			max-width: 600px;
+			max-length: 600px;
+			padding: 25px 15px;
+			border-radius: 5px;
+			text-align: center;
+			background: #D6D6D6;
+			z-index: 6;
+		}
+
+		.end-modal-header {
+			grid-area: 'ehead';
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			/* text-align: center; */
+		}
+
+		.end-modal-winner {
+			margin-bottom: 15px;
+
+		}
+
+		.end-modal-details {
+			grid-area: 'edets';
+			line-height: 20px;
+			font-size: 0.9em;
+		}
+
+		.end-modal-player-list {
+			grid-area: 'elist';
+			display: flex;
+			flex-direction: column;
+			width: 100%;
+		}
+		.player-list-header {
+			margin-bottom: 5px;
+			border-bottom: 2px solid black;
+		}
+		.player-list-body {
+			overflow-y: scroll;
+		}
+
+		.player-list-item {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			margin-bottom: 2px;
+			padding: 10px 5px;
+			background: white;
+			min-width: 250px;
+		}
+
+		.end-modal-buttons {
+			grid-area: 'ebutt';
+			display: flex;
+			flex-direction: row;
+			justify-content: space-evenly;
+			align-items: center;
+		}
+		.end-modal-button {
+			padding: 10px;
+			background: white;
+		}
 	</style>
 </head>
 
 <body>
+	<div class="end-game-modal-dimmer">
+		<div class="end-game-modal">
+			<div class="end-modal-header">
+				<h2 class="end-modal-winner">Player 1 Wins</h2>
+				<div class="end-modal-details">
+					<div class="game-name-display">Game: Horses</div>
+					<div class="game-time-display">Time: 39 Seconds</div>
+				</div>
+			</div>
+			<div class="end-modal-player-list">
+				<div class="player-list-header">Scores</div>
+				<div class="player-list-body">
+					<div class="player-list-item">
+						<div class="player-item-rank">1st</div>
+						<div class="player-item-name">Player 1</div>
+						<div class="player-item-score">5 Sixes</div>
+					</div>
+					<div class="player-list-item">
+						<div class="player-item-rank">2nd</div>
+						<div class="player-item-name">Player 3</div>
+						<div class="player-item-score">3 Sixes</div>
+					</div>
+				</div>
+			</div>
+			<div class="end-modal-buttons">
+				<div class="end-new-button end-modal-button">New Game</div>
+				<div class="end-replay-button end-modal-button">Replay</div>
+			</div>
+		</div>
+	</div>
+	<!-- - -->
 	<div class="name-modal hide">
 		<div class="modal-title">Name the Players</div>
 		<div class="modal-content">
-			<!-- <div class="name-input-container">
+			<div class="name-input-container">
 				<label for="name-input-1">Player 1: </label>
 				<input type="text" class="name-input player-one" name="name-input-1" data-player-number="1" id="name-input" value="" />
-			</div> -->
+			</div>
 		</div>
 		<div class="close-modal-container">
 			<div class="close-modal-button app-button">Got it</div>
@@ -239,7 +357,7 @@
 			</select>
 			<div class="rule-button option-button">See Rules</div>
 		</div>
-		<!-- </div> -->
+		</div>
 		<div class="player-select-container select-container">
 			<label for="player-select">How Many Players?</label>
 			<select class="player-select menu-select" name="player-select" id="player-select">
@@ -255,99 +373,96 @@
 			<div class="start-button app-button">Start</div>
 			<div class="color-toggle">Switch Theme</div>
 		</div>
-		
-		<!-- </div> -->
+		</div>
 	</main>
-	
-<!-- 	<script type="text/javascript" charset="utf-8">
-	const rulesArray = [
-		{
-			name: 'Horses',
-			id: 'horses',
-			description: 'Roll real good'
+	<script type="text/javascript" charset="utf-8">
+		const rulesArray = [
+			{
+				name: 'Horses',
+				id: 'horses',
+				description: 'Roll real good'
 		},
-		{
-			name: 'Threes Away',
-			id: 'threes',
-			description: 'Roll real good 2'
+			{
+				name: 'Threes Away',
+				id: 'threes',
+				description: 'Roll real good 2'
 		},
-		{
-			name: 'Ship, Captain, Crew',
-			id: 'scc',
-			description: 'Roll real good'
+			{
+				name: 'Ship, Captain, Crew',
+				id: 'scc',
+				description: 'Roll real good'
 		}
 	]
 
-	const getRuleData = gameSelection => {
-		const rulesObject = rulesArray
-			.find(r => {
-				return r.id.toLowerCase() == gameSelection.toLowerCase();
-			})
-		return rulesObject
-	}
-
-	document.querySelector('.rule-button')
-		.addEventListener('click', e => {
-			let rulesModal = document.querySelector('.rules-modal')
-			let gameSelect = document.querySelector('.game-select')
-			let ruleData = getRuleData(gameSelect.value)
-
-			rulesModal.querySelector('.modal-title').innerHTML = ruleData.name
-			rulesModal.querySelector('.modal-content').innerHTML = ruleData.description
-
-			rulesModal.classList.toggle('hide')
-		})
-		
-	//Rules modal close
-	document.querySelector('.rules-modal').querySelector('.close-modal-button')
-		.addEventListener('click', e => {
-			e.target.parentElement.parentElement.classList.toggle('hide')
-		})
-
-	document.querySelector('.name-button')
-		.addEventListener('click', e => {
-			let nameModal = document.querySelector('.name-modal');
-			let playerSelect = document.querySelector('.player-select');
-			const modalContent = nameModal.querySelector('.modal-content')
-		
-			createNameInputs(playerSelect.value, modalContent)
-			nameModal.classList.toggle('hide');
-		})
-
-	//name modal close
-	document.querySelector('.name-modal').querySelector('.close-modal-button')
-		.addEventListener('click', e => {
-			e.target.parentElement.parentElement.classList.toggle('hide')
-		})
-
-	const createNameInputs = (playerCount, parentEl) => {
-		playerCount = parseInt(playerCount);
-
-		for (let i = 1; i <= playerCount; ++i) {
-			const classAndName = ['name-input', `name-input-${i}`];
-
-			const container = document.createElement('div');
-			container.classList.add('name-input-container');
-
-			const nameLabel = document.createElement('label');
-			nameLabel.classList.add('name-label');
-			nameLabel.setAttribute('for', classAndName[1])
-			nameLabel.innerText = `Player ${i}`;
-
-			const nameInput = document.createElement('input');
-			nameInput.type = 'text';
-			nameInput.setAttribute('name', classAndName[1]);
-			nameInput.classList.add(classAndName[0]);
-			nameInput.dataset.playerNumber = `${i}`;
-
-			container.appendChild(nameLabel);
-			container.appendChild(nameInput);
-			parentEl.appendChild(container)
+		const getRuleData = gameSelection => {
+			const rulesObject = rulesArray
+				.find(r => {
+					return r.id.toLowerCase() == gameSelection.toLowerCase();
+				})
+			return rulesObject
 		}
-	}
-</script> -->
+
+		document.querySelector('.rule-button')
+			.addEventListener('click', e => {
+				let rulesModal = document.querySelector('.rules-modal')
+				let gameSelect = document.querySelector('.game-select')
+				let ruleData = getRuleData(gameSelect.value)
+
+				rulesModal.querySelector('.modal-title').innerHTML = ruleData.name
+				rulesModal.querySelector('.modal-content').innerHTML = ruleData.description
+
+				rulesModal.classList.toggle('hide')
+			})
+
+		//Rules modal close
+		document.querySelector('.rules-modal').querySelector('.close-modal-button')
+			.addEventListener('click', e => {
+				e.target.parentElement.parentElement.classList.toggle('hide')
+			})
+
+		document.querySelector('.name-button')
+			.addEventListener('click', e => {
+				let nameModal = document.querySelector('.name-modal');
+				let playerSelect = document.querySelector('.player-select');
+				const modalContent = nameModal.querySelector('.modal-content')
+
+				createNameInputs(playerSelect.value, modalContent)
+				nameModal.classList.toggle('hide');
+			})
+
+		//name modal close
+		document.querySelector('.name-modal').querySelector('.close-modal-button')
+			.addEventListener('click', e => {
+				e.target.parentElement.parentElement.classList.toggle('hide')
+			})
+
+		const createNameInputs = (playerCount, parentEl) => {
+			playerCount = parseInt(playerCount);
+
+			for (let i = 1; i <= playerCount; ++i) {
+				const classAndName = ['name-input', `name-input-${i}`];
+
+				const container = document.createElement('div');
+				container.classList.add('name-input-container');
+
+				const nameLabel = document.createElement('label');
+				nameLabel.classList.add('name-label');
+				nameLabel.setAttribute('for', classAndName[1])
+				nameLabel.innerText = `Player ${i}`;
+
+				const nameInput = document.createElement('input');
+				nameInput.type = 'text';
+				nameInput.setAttribute('name', classAndName[1]);
+				nameInput.classList.add(classAndName[0]);
+				nameInput.dataset.playerNumber = `${i}`;
+
+				container.appendChild(nameLabel);
+				container.appendChild(nameInput);
+				parentEl.appendChild(container)
+			}
+		}
+	</script>
 	<script src="./new-game-view.js" type="text/javascript" charset="utf-8"></script>
-	
 </body>
 
 </html>
