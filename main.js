@@ -6,6 +6,9 @@ import {
 	store,
 	storeFactory
 } from './js/store.js';
+import {
+	EndGameModal
+} from './js/EndModal.js';
 
 //TODO Record game length
 // const store = undefined;

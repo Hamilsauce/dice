@@ -112,8 +112,8 @@ export class Game {
 
 			const adjustedSum = sumRolls - 15;
 
-//TODO MOVE THIS SO SCC SCORE REPLACED WITH 
-//NAMES AFTER SCORE COMPARISON
+			//TODO MOVE THIS SO SCC SCORE REPLACED WITH 
+			//NAMES AFTER SCORE COMPARISON
 			if (adjustedSum > 0) {
 				player.finalScore = {
 					sccScore: adjustedSum
@@ -174,7 +174,7 @@ export class Game {
 		this.gameOver = true;
 		this.gameActive = false;
 		this.getWinner()
-	
+
 		const gameRecord = {
 			gameDate: new Date().toISOString(),
 			gameName: this.rules.name,
@@ -185,9 +185,9 @@ export class Game {
 		store.saveGameToHistory(gameRecord)
 		console.log('end of game');
 		console.log(game);
-		
+
 	}
-	
+
 
 	getWinner() {
 		//HORSES
@@ -233,7 +233,7 @@ export class Game {
 			//THREES
 		} else if (this.rules.name == 'threes') {
 			const scoreArray = this.players
-				.map(player => {
+				.map((player, i) => {
 					let score = Object.entries(player.finalScore);
 					let nameProp = [
             ['id', player.name]
@@ -245,7 +245,7 @@ export class Game {
 						}, {});
 				});
 			let tie = 0;
-			scoreArray.sort((a, b) => {
+			store.state.scoreArray = scoreArray.sort((a, b) => {
 				if (b.threesScore - a.threesScore == 0) {
 					tie += 1
 					return 0;
@@ -253,6 +253,9 @@ export class Game {
 					return a.threesScore - b.threesScore;
 				}
 			});
+			console.log(store.state.scoreArray)
+			console.log(store);
+
 
 			//TODO Fix tie bug - if one player wins and the losers tie, game calls tie betwen the losers
 			let tieArray = [];
@@ -280,7 +283,7 @@ export class Game {
 							return obj;
 						}, {});
 				});
-				
+
 			let tie = 0;
 			console.log(scoreArray);
 			scoreArray.sort((a, b) => {
@@ -296,9 +299,10 @@ export class Game {
 			let tieArray = [];
 			if (tie >= 1) {
 				tieArray = scoreArray.slice(0, tie)
-				let tieString = tieArray.map(pl => {
-					return pl.id
-				}).join(' & ');
+				let tieString = tieArray
+					.map(pl => {
+						return pl.id
+					}).join(' & ');
 				this.winner = `${tieString} tie!`
 			} else {
 				this.winner = scoreArray[0];

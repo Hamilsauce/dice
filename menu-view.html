@@ -216,6 +216,11 @@
 			/* backdrop-filter: blur(2.5px); */
 			z-index: 5;
 		}
+		.end-game-modal-dimmer.hide {
+			/* display: none; */
+			/* z-index: -3; */
+			
+		}
 
 		.end-game-modal {
 			/* position: absolute;
@@ -293,7 +298,7 @@
 </head>
 
 <body>
-	<div class="end-game-modal-dimmer">
+	<div class="end-game-modal-dimmer hide">
 		<div class="end-game-modal">
 			<div class="end-modal-header">
 				<h2 class="end-modal-winner">Player 1 Wins</h2>
@@ -375,94 +380,95 @@
 		</div>
 		</div>
 	</main>
-	<script type="text/javascript" charset="utf-8">
-		const rulesArray = [
-			{
-				name: 'Horses',
-				id: 'horses',
-				description: 'Roll real good'
-		},
-			{
-				name: 'Threes Away',
-				id: 'threes',
-				description: 'Roll real good 2'
-		},
-			{
-				name: 'Ship, Captain, Crew',
-				id: 'scc',
-				description: 'Roll real good'
+<!-- 	<script type="text/javascript" charset="utf-8">
+	const rulesArray = [
+		{
+			name: 'Horses',
+			id: 'horses',
+			description: 'Roll real good'
+	},
+		{
+			name: 'Threes Away',
+			id: 'threes',
+			description: 'Roll real good 2'
+	},
+		{
+			name: 'Ship, Captain, Crew',
+			id: 'scc',
+			description: 'Roll real good'
+	}
+]
+
+	const getRuleData = gameSelection => {
+		const rulesObject = rulesArray
+			.find(r => {
+				return r.id.toLowerCase() == gameSelection.toLowerCase();
+			})
+		return rulesObject
+	}
+
+	document.querySelector('.rule-button')
+		.addEventListener('click', e => {
+			let rulesModal = document.querySelector('.rules-modal')
+			let gameSelect = document.querySelector('.game-select')
+			let ruleData = getRuleData(gameSelect.value)
+
+			rulesModal.querySelector('.modal-title').innerHTML = ruleData.name
+			rulesModal.querySelector('.modal-content').innerHTML = ruleData.description
+
+			rulesModal.classList.toggle('hide')
+		})
+
+	//Rules modal close
+	document.querySelector('.rules-modal').querySelector('.close-modal-button')
+		.addEventListener('click', e => {
+			e.target.parentElement.parentElement.classList.toggle('hide')
+		})
+
+	document.querySelector('.name-button')
+		.addEventListener('click', e => {
+			let nameModal = document.querySelector('.name-modal');
+			let playerSelect = document.querySelector('.player-select');
+			const modalContent = nameModal.querySelector('.modal-content')
+
+			createNameInputs(playerSelect.value, modalContent)
+			nameModal.classList.toggle('hide');
+		})
+
+	//name modal close
+	document.querySelector('.name-modal').querySelector('.close-modal-button')
+		.addEventListener('click', e => {
+			e.target.parentElement.parentElement.classList.toggle('hide')
+		})
+
+	const createNameInputs = (playerCount, parentEl) => {
+		playerCount = parseInt(playerCount);
+
+		for (let i = 1; i <= playerCount; ++i) {
+			const classAndName = ['name-input', `name-input-${i}`];
+
+			const container = document.createElement('div');
+			container.classList.add('name-input-container');
+
+			const nameLabel = document.createElement('label');
+			nameLabel.classList.add('name-label');
+			nameLabel.setAttribute('for', classAndName[1])
+			nameLabel.innerText = `Player ${i}`;
+
+			const nameInput = document.createElement('input');
+			nameInput.type = 'text';
+			nameInput.setAttribute('name', classAndName[1]);
+			nameInput.classList.add(classAndName[0]);
+			nameInput.dataset.playerNumber = `${i}`;
+
+			container.appendChild(nameLabel);
+			container.appendChild(nameInput);
+			parentEl.appendChild(container)
 		}
-	]
-
-		const getRuleData = gameSelection => {
-			const rulesObject = rulesArray
-				.find(r => {
-					return r.id.toLowerCase() == gameSelection.toLowerCase();
-				})
-			return rulesObject
-		}
-
-		document.querySelector('.rule-button')
-			.addEventListener('click', e => {
-				let rulesModal = document.querySelector('.rules-modal')
-				let gameSelect = document.querySelector('.game-select')
-				let ruleData = getRuleData(gameSelect.value)
-
-				rulesModal.querySelector('.modal-title').innerHTML = ruleData.name
-				rulesModal.querySelector('.modal-content').innerHTML = ruleData.description
-
-				rulesModal.classList.toggle('hide')
-			})
-
-		//Rules modal close
-		document.querySelector('.rules-modal').querySelector('.close-modal-button')
-			.addEventListener('click', e => {
-				e.target.parentElement.parentElement.classList.toggle('hide')
-			})
-
-		document.querySelector('.name-button')
-			.addEventListener('click', e => {
-				let nameModal = document.querySelector('.name-modal');
-				let playerSelect = document.querySelector('.player-select');
-				const modalContent = nameModal.querySelector('.modal-content')
-
-				createNameInputs(playerSelect.value, modalContent)
-				nameModal.classList.toggle('hide');
-			})
-
-		//name modal close
-		document.querySelector('.name-modal').querySelector('.close-modal-button')
-			.addEventListener('click', e => {
-				e.target.parentElement.parentElement.classList.toggle('hide')
-			})
-
-		const createNameInputs = (playerCount, parentEl) => {
-			playerCount = parseInt(playerCount);
-
-			for (let i = 1; i <= playerCount; ++i) {
-				const classAndName = ['name-input', `name-input-${i}`];
-
-				const container = document.createElement('div');
-				container.classList.add('name-input-container');
-
-				const nameLabel = document.createElement('label');
-				nameLabel.classList.add('name-label');
-				nameLabel.setAttribute('for', classAndName[1])
-				nameLabel.innerText = `Player ${i}`;
-
-				const nameInput = document.createElement('input');
-				nameInput.type = 'text';
-				nameInput.setAttribute('name', classAndName[1]);
-				nameInput.classList.add(classAndName[0]);
-				nameInput.dataset.playerNumber = `${i}`;
-
-				container.appendChild(nameLabel);
-				container.appendChild(nameInput);
-				parentEl.appendChild(container)
-			}
-		}
-	</script>
-	<script src="./new-game-view.js" type="text/javascript" charset="utf-8"></script>
+	}
+</script> -->
+	<!-- <script src="./new-game-view.js" type="module" charset="utf-8"></script> -->
+	<script src="./end-modal.js" type="module" charset="utf-8"></script>
 </body>
 
 </html>

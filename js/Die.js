@@ -56,7 +56,7 @@ export class Die {
 
 	newTemplate() {
 		const oddEven = this.id % 2 == 0 ? 'even-roll' : 'odd-roll';
-		
+
 		const dieList = document.createElement('ol');
 		dieList.classList.add('die-list', oddEven);
 		dieList.setAttribute('id', `die-${this.id}`);
@@ -65,12 +65,12 @@ export class Die {
 		dieList.dataset.kept = 'false';
 
 		let sideCount = 6;
-		for (let i = 1; i <= sideCount; i++) {
+		for (let i = 1; i <= sideCount; i++) { //create a side of the die until 6 is reached
 			const dieSide = document.createElement('li');
 			dieSide.classList.add('die-item');
 			dieSide.dataset.side = i;
 
-			for (let j = 1; j <= i; j++) {
+			for (let j = 1; j <= i; j++) { //create one dot up to the die side number/index
 				const dot = document.createElement('span');
 				dot.classList.add('dot');
 				dieSide.appendChild(dot);
@@ -91,13 +91,13 @@ export class Die {
 				let value = die.dataset.roll
 				return sum + parseInt(value)
 			}, 0);
-			
+
 		let sumSelectedRolls = selectedDice
 			.reduce((sum, die) => {
 				let value = die.dataset.roll
 				return sum + parseInt(value)
 			}, 0);
-		
+
 		let sumRoll = sumKeptRolls + sumSelectedRolls
 		return sumRoll
 	}
@@ -107,8 +107,8 @@ export class Die {
 			let die = this.dieElement
 			let keptDice = player.keptDice;
 			let selectedDice = this.diceSet.getSelectedDice();
-	    const ruleSet = this.diceSet.player.game.rules;
-		
+			const ruleSet = this.diceSet.player.game.rules;
+
 			if (ruleSet.name == 'horses') {
 				let keptCheck = keptDice.every(d => { //! checks if clicked die has been selected/kept
 					return d.dataset.roll == die.dataset.roll;
@@ -168,7 +168,7 @@ export class Die {
 				} else if (rollCheck == -15 && die.dataset.roll == 6) {
 					this.toggleDieSelect()
 				} else {
-					
+
 				}
 			}
 			this.diceSet.getSelectedDice()
@@ -177,5 +177,5 @@ export class Die {
 }
 
 {
-  Die
+	Die
 }
