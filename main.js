@@ -31,6 +31,7 @@ import {
 // localStorage.setItem('test', JSON.stringify(['fuck me', 'fuck ypu']))
 
 // console.log(store);
+
 window.onload = e => {
 	storeFactory();
 	store.getLocalStorage('diceGameHistory');
@@ -67,8 +68,20 @@ const uiState = () => {
 	}
 	if (game.gameOver == true) {
 		setTimeout(() => {
-			document.querySelector('.nav').classList.toggle('navExpand')
-		}, 2000)
+			console.log('game over uiState');
+			console.log(store.state.scoreArray);
+			// const listBody = document.querySelector('.player-list-body')
+			const endModal = new EndGameModal(document.querySelector('.player-list-body'), store.state.scoreArray, game.rules.name, game.gameTimeSeconds);
+
+			endModal.createWinnerHeader()
+			endModal.createGameNameText()
+			endModal.createGameTimeText()
+			endModal.createListItems();
+			document.querySelector('.end-game-modal-dimmer').classList.toggle('hide')
+			// endModal.replayGame();
+
+			// document.querySelector('.nav').classList.toggle('navExpand')
+		}, 1000)
 	}
 }
 
@@ -112,7 +125,7 @@ const playerTurn = (player, diceCount) => {
 			game.updateState()
 
 			let output = game.generateScore();
-			scoreDisplay.textContent = output;
+			// scoreDisplay.textContent = output;
 
 			displayMessage(output, 5000)
 			game.endTurn()
@@ -214,14 +227,15 @@ document.querySelector('.rollButton')
 				// console.log('end game state');
 				// console.log(store);
 				// console.log(store.state.gameHistory);
-				
+
 				//TODO Refactor: if tie, then game.winner is a string of tied players
 				//TODO if no tie, game.winner is an object of winner
 				if (typeof game.winner == 'string') {
 					let winnerMsg = game.winner
 					displayMessage(winnerMsg, 7000)
 				} else {
-					let winnerMsg = `${game.winner.id} wins with ${game.winner.keptCount} ${game.winner.keptValue}'s`
+					// let winnerMsg = `${game.winner.name} wins with ${game.winner.keptCount} ${game.winner.keptValue}'s`
+					let winnerMsg = `${game.winner.name} wins with ${game.winner.score}`
 					displayMessage(winnerMsg, 7000)
 				}
 			}
@@ -242,7 +256,7 @@ document.querySelector('.rollButton')
 					let winnerMsg = game.winner
 					displayMessage(winnerMsg, 20000)
 				} else {
-					let winnerMsg = `${game.winner.id} wins with ${game.winner.threesScore}`
+					let winnerMsg = `${game.winner.name} wins with ${game.winner.score}`
 					displayMessage(winnerMsg, 20000)
 				}
 			}
@@ -263,11 +277,12 @@ document.querySelector('.rollButton')
 					let winnerMsg = game.winner
 					displayMessage(winnerMsg, 20000)
 				} else {
-					let winnerMsg = `${game.winner.id} wins with ${game.winner.sccScore}`
+					let winnerMsg = `${game.winner.name} wins with ${game.winner.score}`
 					displayMessage(winnerMsg, 20000)
 				}
 			}
 		}
+
 		uiState()
 	});
 
@@ -279,20 +294,20 @@ document.querySelector('.nextPlayerButton')
 
 		rollButton.textContent = 'Roll';
 		game.nextPlayer()
-		
-	 	 	let rollDisplay = document.querySelector('.rollDisplay')
-	 	 	// let rollButton = document.querySelector('.rollButton')
-	 	 	let dice = document.querySelector('.dice')
-	 	 	dice.classList.add('newDice')
-	 
-	 	 	setTimeout(() => { //! wait 1 sec to let newDice animation play, then delete all current die Elemets
-	 	 		rollDisplay.innerHTML = '';
-	 	 		game.activePlayer.diceSet.renderDice()
-	 
-	 	 		rollButton.disabled = false;
-	 	 		rollButton.style.opacity = '1';
-	 	 		rollButton.textContent = 'Roll';
-	 	 	}, 800);
+
+		let rollDisplay = document.querySelector('.rollDisplay')
+		// let rollButton = document.querySelector('.rollButton')
+		let dice = document.querySelector('.dice')
+		dice.classList.add('newDice')
+
+		setTimeout(() => { //! wait 1 sec to let newDice animation play, then delete all current die Elemets
+			rollDisplay.innerHTML = '';
+			game.activePlayer.diceSet.renderDice()
+
+			rollButton.disabled = false;
+			rollButton.style.opacity = '1';
+			rollButton.textContent = 'Roll';
+		}, 800);
 
 		e.target.disabled = true;
 		e.target.style.opacity = '0.7'
@@ -307,9 +322,9 @@ document.querySelector('.start-button')
 		let gameSelect = document.querySelector('.game-select')
 		let gameRules = gameSelect.options[gameSelect.selectedIndex].value
 		let playerCount = document.querySelector('.player-count-input').value;
-		
+
 		setRulesModal();
-		
+
 		//in newgameview js
 		const nameArray = getPlayerNames();
 		if (playerCount < 2) {
@@ -337,7 +352,69 @@ document.querySelector('.start-button')
 			let msg = `${game.activePlayer.name}'s turn. Roll on!`
 			displayMessage(msg, 4000)
 
-			document.querySelector('.new-game-view').classList.toggle('hide');
+			document.querySelector('.new-game-view').classList.add('hide');
 			document.querySelector('.app').classList.toggle('hide');
 		}
 	});
+document.querySelector('.end-replay-button')
+	.addEventListener('click', e => {
+		let gameSelect = document.querySelector('.game-select')
+		let gameRules = gameSelect.options[gameSelect.selectedIndex].value
+		let playerCount = document.querySelector('.player-count-input').value;
+
+		// setRulesModal();
+
+		//in newgameview js
+		const nameArray = getPlayerNames();
+		if (playerCount < 2) {
+			playerCountInput.select();
+			let msg = 'Must have at least two players'
+			displayMessage(msg, 4000)
+		} else {
+			// gameFactory(nameArray, gameRules);
+
+			let rollDisplay = document.querySelector('.rollDisplay')
+			rollDisplay.innerHTML = '';
+
+			let rollButton = document.querySelector('.rollButton')
+			rollButton.disabled = false;
+			rollButton.style.opacity = '1';
+			rollButton.textContent = 'Roll';
+
+			game.newGame()
+			uiState()
+			console.log('game in replay');
+			console.log(game);
+
+			let nextPlayerButton = document.querySelector('.nextPlayerButton')
+			nextPlayerButton.disabled = true;
+			nextPlayerButton.style.opacity = '0.7';
+
+			let msg = `${game.activePlayer.name}'s turn. Roll on!`
+			displayMessage(msg, 4000)
+
+			// document.querySelector('.new-game-view').classList.toggle('hide');
+			document.querySelector('.end-game-modal-dimmer').classList.toggle('hide');
+		}
+	});
+
+document.querySelector('.end-new-button')
+	.addEventListener('click', e => {
+		const newGameView = document.querySelector('.new-game-view')
+		let gameView = document.querySelector('.app')
+		toggleNav();
+		// let menuView = document.querySelector('.new-game-view')
+		setTimeout(() => {
+			newGameView.classList.remove('hide');
+			gameView.classList.add('hide');
+
+
+		}, 400)
+	})
+
+// document.querySelector('.end-replay-button')
+// 	.addEventListener('click', e => {
+// 		console.log('end modal');
+// 		console.log(endModal);
+// 		endModal.replayGame()
+// 	})

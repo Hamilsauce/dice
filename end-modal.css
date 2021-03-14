@@ -1,0 +1,94 @@
+
+		.end-game-modal-dimmer {
+			position: fixed;
+			top: 0;
+			left: 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 100vw;
+			height: 100vh;
+			background: #939393D6;
+			/* backdrop-filter: blur(2.5px); */
+			z-index: 5;
+			/* display: none; */
+		}
+		.end-game-modal-dimmer.hide {
+			display: none;
+			height: 0;
+			/* z-index: -3; */
+			
+		}
+
+		.end-game-modal {
+			position: absolute;
+			top: 10%;
+			left: 10%;
+			display: grid;
+			grid-template-rows: 125px 1fr 75px;
+			justify-content: center;
+			width: 80%;
+			height: 80%;
+			max-width: 600px;
+			max-length: 600px;
+			padding: 25px 15px;
+			border-radius: 5px;
+			text-align: center;
+			background: #D6D6D6;
+			z-index: 6;
+		}
+
+		.end-modal-header {
+			grid-area: 'ehead';
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			/* text-align: center; */
+		}
+
+		.end-modal-winner {
+			margin-bottom: 5px;
+
+		}
+
+		.end-modal-details {
+			grid-area: 'edets';
+			line-height: 20px;
+			font-size: 0.9em;
+		}
+
+		.end-modal-player-list {
+			grid-area: 'elist';
+			display: flex;
+			flex-direction: column;
+			width: 100%;
+		}
+		.player-list-header {
+			margin-bottom: 5px;
+			border-bottom: 2px solid black;
+		}
+		.player-list-body {
+			overflow-y: scroll;
+		}
+
+		.player-list-item {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			margin-bottom: 2px;
+			padding: 10px 5px;
+			background: white;
+			min-width: 250px;
+		}
+
+		.end-modal-buttons {
+			grid-area: 'ebutt';
+			display: flex;
+			flex-direction: row;
+			justify-content: space-evenly;
+			align-items: center;
+		}
+		.end-modal-button {
+			padding: 10px;
+			background: white;
+		}

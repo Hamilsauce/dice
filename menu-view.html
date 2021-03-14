@@ -163,7 +163,7 @@
 
 		.rules-modal.hide {
 			opacity: 0;
-			/* height: 0; */
+			height: 0;
 			z-index: 0;
 		}
 
@@ -215,9 +215,11 @@
 			background: #939393D6;
 			/* backdrop-filter: blur(2.5px); */
 			z-index: 5;
+			/* display: none; */
 		}
 		.end-game-modal-dimmer.hide {
-			/* display: none; */
+			display: none;
+			height: 0;
 			/* z-index: -3; */
 			
 		}
@@ -298,29 +300,18 @@
 </head>
 
 <body>
-	<div class="end-game-modal-dimmer hide">
+	<div class="end-game-modal-dimmer">
 		<div class="end-game-modal">
 			<div class="end-modal-header">
-				<h2 class="end-modal-winner">Player 1 Wins</h2>
+				<h2 class="end-modal-winner"></h2>
 				<div class="end-modal-details">
-					<div class="game-name-display">Game: Horses</div>
-					<div class="game-time-display">Time: 39 Seconds</div>
+					<div class="game-name-display"></div>
+					<div class="game-time-display"></div>
 				</div>
 			</div>
 			<div class="end-modal-player-list">
 				<div class="player-list-header">Scores</div>
-				<div class="player-list-body">
-					<div class="player-list-item">
-						<div class="player-item-rank">1st</div>
-						<div class="player-item-name">Player 1</div>
-						<div class="player-item-score">5 Sixes</div>
-					</div>
-					<div class="player-list-item">
-						<div class="player-item-rank">2nd</div>
-						<div class="player-item-name">Player 3</div>
-						<div class="player-item-score">3 Sixes</div>
-					</div>
-				</div>
+				<div class="player-list-body"></div>
 			</div>
 			<div class="end-modal-buttons">
 				<div class="end-new-button end-modal-button">New Game</div>

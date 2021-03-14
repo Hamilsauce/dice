@@ -1,6 +1,9 @@
 import {
 	store
 } from './store.js';
+import {
+	game
+} from './Game.js';
 
 export class EndGameModal {
 	constructor(listBodyElement, playerRanks, gameName, gameTime) {
@@ -42,34 +45,51 @@ export class EndGameModal {
 			el.textContent = content;
 			return el;
 		}
-
-		let scoreProp = this.gameName.toLowerCase() == 'horses' ?
-			'score' :
-			'threes' ? 'threesScore' :
-			'ship, captain, crew' || 'scc' ? 'sccScore' : 'score'
+		// let scoreProp = this.gameName.toLowerCase();
+		
+		while (this.listBodyElement.firstChild) { // Remove all current task item elements
+			this.listBodyElement.removeChild(this.listBodyElement.firstChild);
+		}
 
 		this.playerRanks.forEach((pl, i) => {
-			
 			const listItem = this.buildElement('div', this.listItemClassName)
 			let rankValue = i + 1;
-			let rankOut = `${rankValue}).`
-		
+			let rankOut = `${rankValue})`
+
 			const rankEl = newItemProperty('div', this.itemRankClassName, rankOut)
 			listItem.appendChild(rankEl)
-			
+
 			let nameOut = pl.name
 			const nameEl = newItemProperty('div', this.itemNameClassName, nameOut)
 			listItem.appendChild(nameEl)
+
+			let scoreOut = pl['score']
+			console.log(scoreOut);
+			const scoreEl = newItemProperty('div', this.itemScoreClassName, scoreOut)
+			listItem.appendChild(scoreEl)
 			
-		this.listBodyElement.appendChild(listItem)
-			
+			this.listBodyElement.appendChild(listItem)
+	console.log('game in endmodal');
+	console.log(game);
 		})
 	}
-
-	showModal(dimmerEl) {
-
-
-	}
+	replayGame() {
+		// document.querySelector('.end-replay-button')
+			// .addEventListener('click', e => {
+				// console.log('end modal');
+				// console.log(endModal);
+				// endModal.replayGame()
+		const dimmer = document.querySelector('.end-game-modal-dimmer')
+		dimmer.classList.toggle('hide')
+		console.log('new game replay button');
+		game.newGame();
+		console.log(game);
+		// uiState
+		
+				
+				
+			// })
+	} 
 }
 
 {

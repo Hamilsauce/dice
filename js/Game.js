@@ -47,6 +47,7 @@ export class Game {
 
 	newGame() {
 		this.gameActive = true;
+		this.gameOver = false;
 		this.activePlayer = this.players[0];
 		this.activePlayer.diceSet.renderDice()
 		this.startTime = performance.now()
@@ -83,6 +84,7 @@ export class Game {
 			let count = player.keptDice.length
 			let value = count >= 1 ? player.keptDice[0].dataset.roll : 0;
 			player.finalScore = {
+				score: `${value} x ${count}`,
 				keptCount: count,
 				keptValue: value
 			}
@@ -99,7 +101,7 @@ export class Game {
 					}
 				}, 0);
 			player.finalScore = {
-				threesScore: sumRolls
+				score: sumRolls
 			}
 
 			//SCC
@@ -116,27 +118,28 @@ export class Game {
 			//NAMES AFTER SCORE COMPARISON
 			if (adjustedSum > 0) {
 				player.finalScore = {
-					sccScore: adjustedSum
+					score: adjustedSum,
+					scoreValue: adjustedSum
 				}
 			} else if (adjustedSum == 0) {
 				player.finalScore = {
-					sccScore: 'Ship, Captain and Crew',
-					sccScoreValue: adjustedSum
+					score: 'Ship, Captain, Crew',
+					scoreValue: adjustedSum
 				}
 			} else if (adjustedSum == -4) {
 				player.finalScore = {
-					sccScore: 'Ship and Captain',
-					sccScoreValue: adjustedSum
+					score: 'Ship & Captain',
+					scoreValue: adjustedSum
 				}
 			} else if (adjustedSum == -9) {
 				player.finalScore = {
-					sccScore: 'Ship',
-					sccScoreValue: adjustedSum
+					score: 'Ship',
+					scoreValue: adjustedSum
 				}
 			} else if (adjustedSum == -15) {
 				player.finalScore = {
-					sccScore: 'Nothing',
-					sccScoreValue: adjustedSum
+					score: 'Nothing',
+					scoreValue: adjustedSum
 				}
 			}
 		}
@@ -180,7 +183,9 @@ export class Game {
 			gameName: this.rules.name,
 			playerCount: this.playerCount,
 			gameTime: this.gameTimeSeconds,
-			winner: this.winner
+			winner: this.winner,
+			scoreArray: store.state.scoreArray
+
 		}
 		store.saveGameToHistory(gameRecord)
 		console.log('end of game');
@@ -196,7 +201,7 @@ export class Game {
 				.map(player => {
 					let score = Object.entries(player.finalScore);
 					let nameProp = [
-            ['id', player.name]
+            ['name', player.name]
           ];
 					return nameProp.concat(score)
 						.reduce((obj, prop) => {
@@ -205,7 +210,7 @@ export class Game {
 						}, {});
 				});
 			let tie = 0;
-			scoreArray.sort((a, b) => {
+			store.state.scoreArray = scoreArray.sort((a, b) => {
 				if (b.keptCount - a.keptCount == 0) {
 					if (b.keptValue - a.keptValue == 0) {
 						tie += 1
@@ -236,7 +241,7 @@ export class Game {
 				.map((player, i) => {
 					let score = Object.entries(player.finalScore);
 					let nameProp = [
-            ['id', player.name]
+            ['name', player.name]
           ];
 					return nameProp.concat(score)
 						.reduce((obj, prop) => {
@@ -246,13 +251,14 @@ export class Game {
 				});
 			let tie = 0;
 			store.state.scoreArray = scoreArray.sort((a, b) => {
-				if (b.threesScore - a.threesScore == 0) {
+				if (b.score - a.score == 0) {
 					tie += 1
 					return 0;
 				} else {
-					return a.threesScore - b.threesScore;
+					return a.score - b.score;
 				}
 			});
+			console.log('get winner store state');
 			console.log(store.state.scoreArray)
 			console.log(store);
 
@@ -275,7 +281,7 @@ export class Game {
 				.map(player => {
 					let score = Object.entries(player.finalScore);
 					let nameProp = [
-            ['id', player.name]
+            ['name', player.name]
           ];
 					return nameProp.concat(score)
 						.reduce((obj, prop) => {
@@ -286,12 +292,12 @@ export class Game {
 
 			let tie = 0;
 			console.log(scoreArray);
-			scoreArray.sort((a, b) => {
-				if (b.sccScoreValue - a.sccScoreValue == 0) {
+			store.state.scoreArray = scoreArray.sort((a, b) => {
+				if (b.scoreValue - a.scoreValue == 0) {
 					tie += 1
 					return 0;
 				} else {
-					return parseInt(b.sccScoreValue) - parseInt(a.sccScoreValue);
+					return parseInt(b.scoreValue) - parseInt(a.scoreValue);
 				}
 			});
 

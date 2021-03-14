@@ -8,10 +8,30 @@
 	<link rel="stylesheet" href="./menu.css" type="text/css" media="all" />
 	<link rel="stylesheet" href="./dice-style.css" type="text/css" media="all" />
 	<link rel="stylesheet" href="./new-game-view.css" type="text/css" media="all" />
+	<link rel="stylesheet" href="./end-modal.css" type="text/css" media="all" />
 	<title>Roll some dice</title>
 </head>
 
 <body>
+		<div class="end-game-modal-dimmer hide">
+			<div class="end-game-modal">
+				<div class="end-modal-header">
+					<h2 class="end-modal-winner"></h2>
+					<div class="end-modal-details">
+						<div class="game-name-display"></div>
+						<div class="game-time-display"></div>
+					</div>
+				</div>
+				<div class="end-modal-player-list">
+					<div class="player-list-header">Scores</div>
+					<div class="player-list-body"></div>
+				</div>
+				<div class="end-modal-buttons">
+					<div class="end-new-button end-modal-button">New Game</div>
+					<div class="end-replay-button end-modal-button">Replay</div>
+				</div>
+			</div>
+		</div>
 	<div class="rules-modal hide">
 		<div class="modal-title">Horses</div>
 		<div class="modal-content">Rules Rules Rules</div>
@@ -22,15 +42,12 @@
 	<div class="name-modal hide">
 		<div class="modal-title">Name the Players</div>
 		<div class="modal-content">
-			<!-- <div class="name-input-container">
-				<label for="name-input">Name: </label>
-				<input type="text" class="name-input player-one" name="name-input-1" data-player-number="1" id="name-input" value="" />
-			</div> -->
 		</div>
 		<div class="close-modal-container">
 			<div class="close-modal-button app-button">Got it</div>
 		</div>
 	</div>
+	<!-- - -->
 	<div class="nav nav1">
 		<div class="nav-head">
 			<div class="close-nav">
@@ -44,6 +61,7 @@
 		<a class="github-link nav-link" href="#">github</a>
 		<a class="music-link nav-link" href="https://hamilsauce.github.io/music-library-app/">ham radio</a>
 	</div>
+	<!-- - -->
 	<div class="new-game-view">
 		<header class="header">Dice Games</header>
 		<div class="view-title-container">
