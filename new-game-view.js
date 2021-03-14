@@ -1,3 +1,8 @@
+import {
+	store
+} from './js/store.js'
+
+console.log(store);
 const rulesArray = [
 	{
 		name: 'Horses',
@@ -49,7 +54,7 @@ const getRuleData = gameSelection => {
 	return rulesObject
 }
 
-const getPlayerNames = () => {
+export const getPlayerNames = () => {
 	const nameInputs = document.querySelectorAll('.name-input');
 	const pNames = [];
 
@@ -101,7 +106,7 @@ const createNameInputs = (playerCount, parentEl) => {
 }
 
 
-const setRulesModal = () => {
+export const setRulesModal = () => {
 	let rulesModal = document.querySelector('.rules-modal')
 	let gameSelect = document.querySelector('.game-select')
 	let ruleData = getRuleData(gameSelect.value)
@@ -167,13 +172,31 @@ document.querySelector('.color-toggle')
 		// const newGameView = document.querySelector('.menu-view')
 		const newGameView = document.querySelector('.new-game-view')
 		let currentBackground = newGameView.style.backgroundColor
+		console.log(currentBackground);
 		let colorIndex = colors.indexOf(currentBackground)
 		let nextColorIndex = colorIndex >= (colors.length - 1) ? 0 : colorIndex + 1;
-		newGameView.style.backgroundColor = colors[nextColorIndex]
+		store.state.themeColor = colors[nextColorIndex]
+		newGameView.style.backgroundColor = store.state.themeColor;
+
 	})
 
+// window.onload = e => {
+// 	setTimeout(() => {
+// 	const colors = ['rgb(186, 91, 91)', 'rgb(53, 176, 241)', 'rgb(142, 191, 64)']
+// 		let colorIndex = colors.indexOf(currentBackground)
+// 		store.state.themeColor = 'rgb(186, 91, 91)';
+// 		newGameView.style.backgroundColor = store.state.themeColor;
+// console.log(store);
+		
+// 	}, 1000)
+// }
 
 
 const setBackgroundColor = (el, colorString) => {
 	el.style.backgroundColor = colorString
+}
+
+{
+	setRulesModal,
+	getPlayerNames
 }

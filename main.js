@@ -7,6 +7,10 @@ import {
 	storeFactory
 } from './js/store.js';
 import {
+	setRulesModal,
+	getPlayerNames
+} from './new-game-view.js';
+import {
 	EndGameModal
 } from './js/EndModal.js';
 
@@ -32,12 +36,14 @@ import {
 
 // console.log(store);
 
-window.onload = e => {
+// window.onload = e => {
 	storeFactory();
 	store.getLocalStorage('diceGameHistory');
 	console.log('store state');
+		store.state.themeColor = 'rgb(186, 91, 91)';
+		// newGameView.style.backgroundColor = store.state.themeColor;
 	console.log(store.state.gameHistory);
-};
+// };
 
 //@UI stuff
 const uiState = () => {
@@ -417,7 +423,9 @@ document.querySelector('.start-button')
 		let gameSelect = document.querySelector('.game-select')
 		let gameRules = gameSelect.options[gameSelect.selectedIndex].value
 		let playerCount = document.querySelector('.player-count-input').value;
-
+		
+		const app = document.querySelector('.app')
+		app.style.backgroundColor = store.state.themeColor;
 		setRulesModal();
 
 		//in newgameview js
