@@ -46,7 +46,7 @@ export class EndGameModal {
 			return el;
 		}
 		// let scoreProp = this.gameName.toLowerCase();
-		
+
 		while (this.listBodyElement.firstChild) { // Remove all current task item elements
 			this.listBodyElement.removeChild(this.listBodyElement.firstChild);
 		}
@@ -54,7 +54,37 @@ export class EndGameModal {
 		this.playerRanks.forEach((pl, i) => {
 			const listItem = this.buildElement('div', this.listItemClassName)
 			let rankValue = i + 1;
-			let rankOut = `${rankValue})`
+			let rankOut = '';
+
+			switch (rankValue) {
+				case 1:
+					rankOut = '1st';
+					listItem.classList.add('firstPlace');
+					break;
+				case 2:
+					rankOut = '2nd';
+					break;
+				case 3:
+					rankOut = '3rd';
+					break;
+				case 4:
+					rankOut = '4th';
+					break;
+				case 5:
+					rankOut = '5th';
+					break;
+				case 6:
+					rankOut = '6th';
+					break;
+				default:
+					rankOut = 'na'
+					break;
+			}
+
+			if (rankValue == 1) {
+				// listItem.style.fontWeight = 'bold';
+				// listItem.classList.add('firstPlace')
+			}
 
 			const rankEl = newItemProperty('div', this.itemRankClassName, rankOut)
 			listItem.appendChild(rankEl)
@@ -64,32 +94,31 @@ export class EndGameModal {
 			listItem.appendChild(nameEl)
 
 			let scoreOut = pl['score']
-			console.log(scoreOut);
 			const scoreEl = newItemProperty('div', this.itemScoreClassName, scoreOut)
 			listItem.appendChild(scoreEl)
-			
+
 			this.listBodyElement.appendChild(listItem)
-	console.log('game in endmodal');
-	console.log(game);
+			console.log('game in endmodal');
+			console.log(game);
 		})
 	}
 	replayGame() {
 		// document.querySelector('.end-replay-button')
-			// .addEventListener('click', e => {
-				// console.log('end modal');
-				// console.log(endModal);
-				// endModal.replayGame()
+		// .addEventListener('click', e => {
+		// console.log('end modal');
+		// console.log(endModal);
+		// endModal.replayGame()
 		const dimmer = document.querySelector('.end-game-modal-dimmer')
 		dimmer.classList.toggle('hide')
 		console.log('new game replay button');
 		game.newGame();
 		console.log(game);
 		// uiState
-		
-				
-				
-			// })
-	} 
+
+
+
+		// })
+	}
 }
 
 {

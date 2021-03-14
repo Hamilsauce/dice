@@ -22,12 +22,8 @@ export class Store {
 	}
 
 	setLocalStorage(key, data) {
-		// const lStore = localStorage;
 		const newHistoryData = JSON.stringify(data)
-		console.log(newHistoryData);
 		localStorage.setItem(key, newHistoryData)
-
-		// return 'data y/successfully stored'
 	}
 }
 

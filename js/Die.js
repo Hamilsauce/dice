@@ -55,6 +55,7 @@ export class Die {
 	}
 
 	newTemplate() {
+		
 		const oddEven = this.id % 2 == 0 ? 'even-roll' : 'odd-roll';
 
 		const dieList = document.createElement('ol');
@@ -104,6 +105,8 @@ export class Die {
 
 	registerDiceListener(diceSet, player) {
 		this.dieElement.addEventListener('click', e => {
+			// e.stopPropagation()
+			// e.preventDefault()
 			let die = this.dieElement
 			let keptDice = player.keptDice;
 			let selectedDice = this.diceSet.getSelectedDice();

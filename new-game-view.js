@@ -112,20 +112,33 @@ const setRulesModal = () => {
 
 window.onload = e => {
 	let rulesModal = document.querySelector('.rules-modal')
+	rulesModal.style.display = 'none';
 	setRulesModal();
 }
 
 document.querySelector('.rule-button')
 	.addEventListener('click', e => {
-		setRulesModal();
 		let rulesModal = document.querySelector('.rules-modal')
-		rulesModal.classList.toggle('hide')
+		setRulesModal();
+		rulesModal.style.display = 'grid';
+
+		setTimeout(() => {
+			rulesModal.classList.remove('hide')
+
+		}, 100)
 	})
 
 //Rules modal close
 document.querySelector('.rules-modal').querySelector('.close-modal-button')
 	.addEventListener('click', e => {
-		e.target.parentElement.parentElement.classList.toggle('hide')
+		const rulesModal = e.target.parentElement.parentElement;
+		rulesModal.classList.add('hide')
+
+		setTimeout(() => {
+			rulesModal.style.display = 'none';
+
+		}, 100)
+		// e.target.parentElement.parentElement.classList.toggle('hide')
 	})
 
 document.querySelector('.name-button')

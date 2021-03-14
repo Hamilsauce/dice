@@ -36,6 +36,7 @@
 			text-align: center;
 			background: #D6D6D6;
 			z-index: 6;
+			user-select: none;
 		}
 
 		.end-modal-header {
@@ -53,7 +54,7 @@
 
 		.end-modal-details {
 			grid-area: 'edets';
-			line-height: 20px;
+			line-height: 25px;
 			font-size: 0.9em;
 		}
 
@@ -78,7 +79,11 @@
 			margin-bottom: 2px;
 			padding: 10px 5px;
 			background: white;
+			text-align: center;
 			min-width: 250px;
+		}
+		.player-list-item.firstPlace {
+			font-weight: bold;
 		}
 
 		.end-modal-buttons {
@@ -87,6 +92,8 @@
 			flex-direction: row;
 			justify-content: space-evenly;
 			align-items: center;
+			min-width: 250px;
+			
 		}
 		.end-modal-button {
 			padding: 10px;
