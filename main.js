@@ -212,7 +212,7 @@ document.querySelector('.table')
 			e.preventDefault()
 			return
 		}
-		
+
 		const player = game.activePlayer;
 		let diceSet = player.diceSet;
 		const rollButton = document.querySelector('.rollButton')
@@ -252,12 +252,13 @@ document.querySelector('.table')
 			//THREES
 		} else if (game.rules.name == 'threes') {
 			if (player.keptDice.length >= game.rules.rollLimit - 1) { //! test if last turn, update UI
-				e.target.textContent = 'End turn'
+				rollButton.textContent = 'End turn'
+
 			}
 
 			if (game.gameOver === true) {
 				let nextPlayerButton = document.querySelector('.nextPlayerButton')
-				e.target.textContent = 'Game Over'
+				rollButton.textContent = 'Game Over'
 
 				//TODO Refactor: if tie, then game.winner is a string of tied players
 				//TODO if no tie, game.winner is an object of winner
@@ -273,12 +274,12 @@ document.querySelector('.table')
 			//SCC
 		} else if (game.rules.name == 'ship, captain, crew') {
 			if (player.keptDice.length == 5 || player.rollCount >= game.rules.rollLimit) { //! test if last turn, update UI
-				e.target.textContent = 'End turn'
+				rollButton.textContent = 'End turn'
 			}
 
 			if (game.gameOver === true) {
 				let nextPlayerButton = document.querySelector('.nextPlayerButton')
-				e.target.textContent = 'Game Over'
+				rollButton.textContent = 'Game Over'
 
 				//TODO Refactor: if tie, then game.winner is a string of tied players
 				//TODO if no tie, game.winner is an object of winner
@@ -291,7 +292,6 @@ document.querySelector('.table')
 				}
 			}
 		}
-
 		uiState()
 	});
 
@@ -451,47 +451,6 @@ document.querySelector('.start-button')
 			document.querySelector('.app').classList.toggle('hide');
 		}
 	});
-// document.querySelector('.end-replay-button')
-// 	.addEventListener('click', e => {
-// 		let gameSelect = document.querySelector('.game-select')
-// 		let gameRules = gameSelect.options[gameSelect.selectedIndex].value
-// 		let playerCount = document.querySelector('.player-count-input').value;
-
-// 		// setRulesModal();
-
-// 		//in newgameview js
-// 		const nameArray = getPlayerNames();
-// 		if (playerCount < 2) {
-// 			playerCountInput.select();
-// 			let msg = 'Must have at least two players'
-// 			displayMessage(msg, 4000)
-// 		} else {
-// 			// gameFactory(nameArray, gameRules);
-
-// 			let rollDisplay = document.querySelector('.rollDisplay')
-// 			rollDisplay.innerHTML = '';
-
-// 			let rollButton = document.querySelector('.rollButton')
-// 			rollButton.disabled = false;
-// 			rollButton.style.opacity = '1';
-// 			rollButton.textContent = 'Roll';
-
-// 			game.newGame()
-// 			uiState()
-// 			console.log('game in replay');
-// 			console.log(game);
-
-// 			let nextPlayerButton = document.querySelector('.nextPlayerButton')
-// 			nextPlayerButton.disabled = true;
-// 			nextPlayerButton.style.opacity = '0.7';
-
-// 			let msg = `${game.activePlayer.name}'s turn. Roll on!`
-// 			displayMessage(msg, 4000)
-
-// 			// document.querySelector('.new-game-view').classList.toggle('hide');
-// 			document.querySelector('.end-game-modal-dimmer').classList.toggle('hide');
-// 		}
-// 	});
 
 document.querySelector('.end-new-button')
 	.addEventListener('click', e => {
@@ -507,6 +466,49 @@ document.querySelector('.end-new-button')
 
 		}, 400)
 	})
+	
+	// document.querySelector('.end-replay-button')
+	// .addEventListener('click', e => {
+	// 	let gameSelect = document.querySelector('.game-select')
+	// 	let gameRules = gameSelect.options[gameSelect.selectedIndex].value
+	// 	let playerCount = document.querySelector('.player-count-input').value;
+
+	// 	// setRulesModal();
+
+	// 	//in newgameview js
+	// 	const nameArray = getPlayerNames();
+	// 	if (playerCount < 2) {
+	// 		playerCountInput.select();
+	// 		let msg = 'Must have at least two players'
+	// 		displayMessage(msg, 4000)
+	// 	} else {
+	// 		// gameFactory(nameArray, gameRules);
+
+	// 		let rollDisplay = document.querySelector('.rollDisplay')
+	// 		rollDisplay.innerHTML = '';
+
+	// 		let rollButton = document.querySelector('.rollButton')
+	// 		rollButton.disabled = false;
+	// 		rollButton.style.opacity = '1';
+	// 		rollButton.textContent = 'Roll';
+
+	// 		game.newGame()
+	// 		uiState()
+	// 		console.log('game in replay');
+	// 		console.log(game);
+
+	// 		let nextPlayerButton = document.querySelector('.nextPlayerButton')
+	// 		nextPlayerButton.disabled = true;
+	// 		nextPlayerButton.style.opacity = '0.7';
+
+	// 		let msg = `${game.activePlayer.name}'s turn. Roll on!`
+	// 		displayMessage(msg, 4000)
+
+	// 		// document.querySelector('.new-game-view').classList.toggle('hide');
+	// 		document.querySelector('.end-game-modal-dimmer').classList.toggle('hide');
+	// 	}
+	// });
+
 
 // document.querySelector('.end-replay-button')
 // 	.addEventListener('click', e => {
