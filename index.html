@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="./style.css" type="text/css" media="all" />
-	<link rel="stylesheet" href="./menu.css" type="text/css" media="all" />
+	<link rel="stylesheet" href="./nav.css" type="text/css" media="all" />
 	<link rel="stylesheet" href="./dice-style.css" type="text/css" media="all" />
 	<link rel="stylesheet" href="./new-game-view.css" type="text/css" media="all" />
 	<link rel="stylesheet" href="./end-modal.css" type="text/css" media="all" />
@@ -63,7 +63,10 @@
 	</div>
 	<!-- - -->
 	<div class="new-game-view">
-		<header class="header">Dice Games</header>
+		<header class="header">
+			<div class="app-header-title">Dice Games</div>
+			<div class="menu-button">Options</div>
+		</header>
 		<div class="view-title-container">
 			<h3 class="view-title-text">new game</h3>
 		</div>
@@ -93,7 +96,6 @@
 		</div>
 	</div>
 	<!-- </div> -->
-	<div class="menu-button">Options</div>
 	<main class="app hide">
 		<div class="end-game-modal hide">
 			<div class="end-game-model-title">
@@ -111,11 +113,13 @@
 		</div>
 		<header class="app-header">
 			<h1 class="app-title">Roll some dice</h1>
+			<div class="menu-button">Options</div>
 			<!-- <div class="menu-button">Options</div> -->
 		</header>
-		<div class="subtitle">Enter number of players, click Start. Each player rolls dice, selects the dice to keep, rolls again.</div>
-		<section class="action-bar show">
-			<!-- <div class="options-container show">
+		<div class="subtitle">Enter number of players, click Start. Each player rolls dice, selects the dice to keep, rolls
+			again.</div>
+		<!-- <section class="action-bar show">
+			<div class="options-container show">
 				<div class="control-group">
 					<label for="player-count-input">Players: </label>
 					<input type="number" name="player-count-input" id="player-count-input" class="player-count-input" value="2">
@@ -133,8 +137,8 @@
 				<div class="control-group">
 					<button class="start-button">Start</button>
 				</div>
-			</div>  -->
-		</section>
+			</div>
+		</section> -->
 		<section class="table">
 			<div class="scoreDisplay"></div>
 			<div class="display-container container1">
@@ -145,10 +149,6 @@
 				</div>
 				<div class="rollDisplay"></div>
 			</div>
-			<!-- <div class="display-container container2">
-        <h3 class="table-label">Kept Dice</h3>
-        <ul class="keptDisplay"></ul>
-      </div> -->
 		</section>
 		<section class="footer-container">
 			<footer class="footer hide">
@@ -159,8 +159,8 @@
 	</main>
 	<!-- <script src="./mainbackup.js" type="module" charset="utf-8"></script> -->
 	<script src="./main.js" type="module" charset="utf-8"></script>
-	<script src="./menu.js" type ="module" charset="utf-8"></script>
-	<script src="./new-game-view.js" type ="module" charset="utf-8"></script>
+	<script src="./nav.js" type="module" charset="utf-8"></script>
+	<script src="./new-game-view.js" type="module" charset="utf-8"></script>
 </body>
 
 </html>

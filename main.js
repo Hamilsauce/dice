@@ -50,13 +50,13 @@ const uiState = () => {
 	const titleText = document.querySelector('.app-title');
 	let footerButtons = document.querySelectorAll('.footer-button')
 	let footer = document.querySelector('.footer')
-	let actionBar = document.querySelector('.action-bar')
+	// let actionBar = document.querySelector('.action-bar')
 
 	titleText.innerText = game.rules.name;
 
 	if (game.gameActive === true) {
-		actionBar.classList.add('fade')
-		actionBar.classList.remove('show')
+		// actionBar.classList.add('fade')
+		// actionBar.classList.remove('show')
 		footer.classList.remove('hide')
 
 		footerButtons.forEach(btn => {
@@ -64,8 +64,8 @@ const uiState = () => {
 		})
 
 	} else if (game.gameActive === false) {
-		actionBar.classList.remove('fade')
-		actionBar.classList.add('show')
+		// actionBar.classList.remove('fade')
+		// actionBar.classList.add('show')
 		footer.classList.add('hide')
 
 		footerButtons.forEach(btn => {
@@ -423,7 +423,7 @@ document.querySelector('.start-button')
 		let gameSelect = document.querySelector('.game-select')
 		let gameRules = gameSelect.options[gameSelect.selectedIndex].value
 		let playerCount = document.querySelector('.player-count-input').value;
-		
+
 		const app = document.querySelector('.app')
 		app.style.backgroundColor = store.state.themeColor;
 		setRulesModal();
@@ -474,7 +474,7 @@ document.querySelector('.end-new-button')
 
 		}, 400)
 	})
-	
+
 	// document.querySelector('.end-replay-button')
 	// .addEventListener('click', e => {
 	// 	let gameSelect = document.querySelector('.game-select')

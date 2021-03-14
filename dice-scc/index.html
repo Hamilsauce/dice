@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="./style.css" type="text/css" media="all" />
+	<link rel="stylesheet" href="./menu.css" type="text/css" media="all" />
+	<link rel="stylesheet" href="./dice-style.css" type="text/css" media="all" />
+	<title>Roll some dice</title>
+</head>
+
+<body>
+	<div class="nav1">
+		<div class="nav-head">
+			<div class="close-nav">
+				X
+			</div>
+		</div>
+		<a class="home-link nav-link" href="#">home</a>
+		<a class="projects-link nav-link" href="#">Projects</a>
+		<a class="music-link nav-link" href="https://hamilsauce.github.io/music-library-app/">ham radio</a>
+		<a class="about-link nav-link" href="#">About</a>
+		<a class="contact-link nav-link" href="#">Contact</a>
+		<a class="github-link nav-link" href="#">github</a>
+	</div>
+	<main class="app">
+		<header class="app-header">
+			<h1 class="app-title">Roll some dice</h1>
+			<div class="menu-button">Options</div>
+		</header>
+		<div class="subtitle">Enter number of players, click Start. Each player rolls dice, selects the dice to keep, rolls again.</div>
+		<section class="action-bar show">
+			<div class="options-container show">
+				<div class="control-group">
+					<label for="player-count-input">Players: </label>
+					<input type="number" name="player-count-input" id="player-count-input" class="player-count-input" value="2">
+				</div>
+				<div class="control-group">
+					<label for="player-count-input">Game: </label>
+					<select name="game-select" id="game-select" class="game-select">
+						<option value="ship, captain, crew" class="game-option">Ship, Captain, Crew</option>
+						<option value="horses" class="game-option">Horses</option>
+						<option value="threes" class="game-option">Threes</option>
+						<!-- <option value="" class="game-option"></option>
+          <option value="" class="game-option"></option> -->
+					</select>
+				</div>
+				<div class="control-group">
+					<button class="start-button">Start</button>
+				</div>
+			</div>
+		</section>
+		<section class="table">
+			<div class="scoreDisplay"></div>
+			<div class="display-container container1">
+				<div class="table-header">
+					<div class="currentPlayerDisplay">Player One</div>
+					<div class="currentScoreDisplay">Score: 0</div>
+					<!-- <div class="table-label">Table</div> -->
+				</div>
+				<div class="rollDisplay"></div>
+			</div>
+			<!-- <div class="display-container container2">
+        <h3 class="table-label">Kept Dice</h3>
+        <ul class="keptDisplay"></ul>
+      </div> -->
+		</section>
+		<section class="footer-container">
+			<footer class="footer hide">
+				<button class="rollButton footer-button hide">Roll</button>
+				<button name="nextPlayerButton" class="nextPlayerButton footer-button hide">Next Player</button>
+			</footer>
+		</section>
+	</main>
+	<!-- <script src="./mainbackup.js" type="module" charset="utf-8"></script> -->
+	<script src="./main.js" type="module" charset="utf-8"></script>
+	<script src="./menu.js" charset="utf-8"></script>
+</body>
+
+</html>

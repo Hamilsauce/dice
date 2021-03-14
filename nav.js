@@ -18,15 +18,17 @@ const closeNav = () => {
 
 }
 
-document.querySelector('.menu-button')
-	.addEventListener('click', e => {
-		toggleNav();
+document.querySelectorAll('.menu-button')
+	.forEach(btn => {
+		btn.addEventListener('click', e => {
+			toggleNav();
+		})
 	})
 
 document.querySelector('.close-nav')
 	.addEventListener('click', e => {
 		toggleNav();
-		window.navigator.vibrate(1000); // 
+		window.navigator.vibrate(1000); //
 	})
 
 document.querySelector('.rules-menu-button')
@@ -41,14 +43,14 @@ document.querySelector('.new-game-menu-button')
 		const newGameView = document.querySelector('.new-game-view')
 		let gameView = document.querySelector('.app')
 		toggleNav();
-			// let menuView = document.querySelector('.new-game-view')
+		// let menuView = document.querySelector('.new-game-view')
 		setTimeout(() => {
 			newGameView.classList.remove('hide');
 			gameView.classList.add('hide');
 
-			
+
 		}, 400)
 
-		
+
 		// newGameView.classList.remove('hide')
 	})

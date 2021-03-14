@@ -1,0 +1,42 @@
+WHEN DIE IS CLICKED
+1. Must check if correct dice are selected/kept
+	before running die event handler
+
+POSSIBLE ALT ROLL LOGIC
+1. If first roll (roll count = 0), allow rolls
+2. If kept/selected dice total only = 6, 
+
+ROLL LOGIC
+1. Get selected dice
+	if sel or kept dice do not contain 6, 5, AND 4
+	then dont keep selected dice UNLESS (if ) 
+	
+	else if sel or kept dice do not contain a 4
+	then keep none
+	
+	else if sel or kept dice do not contain a 5
+	then keep none
+	
+	else if sel or kept dice do not contain a 6
+	then keep none
+	
+	if kept die length = 5 or rollcount = rollLimit
+	then end turn
+	
+	
+CALCULATE SCORE
+if only 1 kept die, then score = ship
+else if only 2 kept die, then score = captain
+else if only 3 kept die, then score = crew
+else if only 4 die kept, then
+	1. find a kept die with a 6, remove from keptdice
+	2. Repeat 1. for a 5 and a 4
+	3. score = remaining kept die roll
+
+else if 5 die kept, then
+	1. find a kept die with a 6, remove from keptdice
+  2. Repeat 1. for a 5 and a 4
+	3. score = sum of remaining kept dice rolls
+
+
+***TRY THE MINUS BY 15 TO DETERMINE SCORE

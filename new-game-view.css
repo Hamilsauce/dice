@@ -10,8 +10,6 @@ html {
 	font-family: 'Roboto', sans-serif;
 }
 
-body {}
-
 .new-game-view {
 	font-family: 'Roboto', sans-serif;
 	position: fixed;
@@ -36,12 +34,21 @@ body {}
 }
 
 .header {
-	grid-area: 'head';
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
 	padding: 10px 15px 15px 15px;
+	color: #ececec;
+	letter-spacing: 2px;
+	opacity: 0.9;
+}
+
+.app-header-title {
+	height: fit-content;
+	margin: 0;
 	color: #DEDEDE;
 	font-size: 1.3em;
 	font-weight: 300;
-	letter-spacing: 2px;
 	opacity: 0.9;
 }
 
@@ -213,5 +220,5 @@ body {}
 
 .color-toggle {
 	text-align: center;
-	
+
 }

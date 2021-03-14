@@ -1,0 +1,17 @@
+Each time 'Roll Button' is clicked:
+
+  1. Must check if player remaining rollCount (initial rollLimit (5) - keptDiceCount) is equal to 0
+    a) If remaining rollCount = 0, run player.finalScore (sum all dice values from keptDice EXCEPT if value is 3)
+    b) Move to next player
+
+  2. Must check that player has kept/selected at least one die.
+    a) If no new die selected, then do not move on to next rolls and notify player
+    b) If die selected, add to keptDice
+    c) Update players's remaining rolls = initial rollLimit (5) - keptDiceCount
+
+
+TODO
+1. 2/17/2021 - When 'Threes' is selected: allow user to select dice that have different
+    values than previously selected/kept dice (remove 'horses' selection rules)
+    
+

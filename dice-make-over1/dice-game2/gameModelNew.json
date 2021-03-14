@@ -1,0 +1,170 @@
+Game { playerCount: "2", rules: {…}, players: Array(2), activePlayer: Player, gameStarted: true, … }
+activePlayer: Object
+gameOver: false
+gameStarted: true
+playerCount: "2"
+
+players: Array(2)
+0: Object
+
+diceSet: Object
+activeDice: Array(0)
+dice: Array(5)
+
+0: Object
+diceSet: Object
+dieElement: HTMLOListElement
+dieValueClass: "die1Value"
+id: 1
+kept: false
+name: "Die One"
+selected: false
+value: null
+
+__proto__: Object
+constructor: ƒ class Die {
+constructor(id, diceSet) { this.value = null, this.id = id, this.name = this.createNameFromId(), this.dieValueClass = `die${this.id}Value`, this.selected = false, this.diceSet = diceSet, this.kept = false } createNameFromId() {
+if (this.id == 1) { return 'Die One'; } else if (this.id == 2) { return 'Die Two'; } else if (this.id == 3) { return 'Die Three'; } else if (this.id == 4) {
+return 'Die Four...
+createDieValue: ƒ createDieValue(min, max) {
+if (this.kept === false) {
+min = Math.ceil(min);
+max = Math.floor(max);
+this.value = Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive } // this.createTemplate(); return this.value; }
+createNameFromId: ƒ createNameFromId() { if (this.id == 1) { return 'Die One'; } else if (this.id == 2) { return 'Die Two'; } else if (this.id == 3) { return 'Die Three'; } else if (this.id == 4) { return 'Die Four'; } else if (this.id == 5) { return 'Die Five'; } else { return 'Die (No ID)'; } }
+keep: ƒ keep() { this.selected == true ? this.kept = true : this.selected = false;
+this.selected = false; }
+newTemplate: ƒ newTemplate() {
+const oddEven = this.id % 2 == 0 ? 'even-roll' : 'odd-roll';
+const dieList = document.createElement('ol');
+dieList.classList.add('die-list', oddEven);
+dieList.setAttribute('id', `die-${this.id}`);
+dieList.dataset.roll = '1';
+dieList.dataset.selected = 'false';
+dieList.dataset.kept = 'false';
+let sideCount = 6;
+for (let i = 1; i <= sideCount; i++) {
+const dieSide = document.createElement('li');
+dieSide.classList.add('die-item');...
+registerEventListener: ƒ registerEventListener() {
+let el = document.querySelector(`.${this.dieValueClass}`);
+el.addEventListener('click', e => {
+let keptDice = this.diceSet.getKeptDice();
+let selectedDice = this.diceSet.selectedDice();
+let keptCheck = keptDice.every(d => { return d.value === this.value; }) let selectedCheck = selectedDice.every(d => { return d.value === this.value; }) if (keptCheck === false || selectedCheck === false && selectedDice...
+registerEventListener2: ƒ registerEventListener2() {
+let el = this.dieElement;
+el.addEventListener('click', e => {
+let keptDice = this.diceSet.getKeptDice();
+let selectedDice = this.diceSet.selectedDice();
+let keptCheck = keptDice.every(d => { return d.value === this.value; }) let selectedCheck = selectedDice.every(d => { return d.value === this.value; }) die.classList.toggle('selected') const dieSides = [...die.children];
+dieSides.fo...
+__proto__: Object
+1: Object
+2: Object
+3: Object
+4: Object
+length: 5
+__proto__: Array(0)
+diceCount: 5
+keptCount: 0
+keptDice: Array(0)
+ 
+player: Object
+selectedDice: Array(2)
+selectedValue: Array(0)
+ 
+__proto__: Object
+ constructor: ƒ class DiceSet {
+constructor(diceCount, player) { this.player = player, this.diceCount = diceCount, this.dice = this.createDice(this.diceCount).map(id => new Die(id, this)), this.activeDice = this.getActiveDice(), this.keptCount = 0, this.selectedValue = [] } createDice(count) { let die = []; for (let i = 1; i <= count; i++) { let id = i;
+die.push(id); }; return die; } renderDice() {
+const rollArea = document.querySelect...
+createDice: ƒ createDice(count) { let die = []; for (let i = 1; i <= count; i++) { let id = i;
+die.push(id); }; return die; }
+getActiveDice: ƒ getActiveDice() { let activeArray = [...document.querySelectorAll(`.die-list`)].filter(die => die.dataset.kept === false) this.activeDice = activeArray; return this.activeDice; }
+getKeptCount: ƒ getKeptCount() { this.keptCount = this.keptDice.length; return this.keptCount; }
+getKeptDice: ƒ getKeptDice() { let keptArray = [...document.querySelectorAll(`.die-list`)].filter(die => { return die.dataset.kept === true; }) this.keptDice = keptArray; return this.keptDice; }
+getSelectedDice: ƒ getSelectedDice() { let selected = [...document.querySelectorAll(`.die-list`)].filter(die => { return die.dataset.selected === 'true'; }) this.selectedDice = selected
+return selected; }
+registerDiceListener: ƒ registerDiceListener(el) { // let el = this.dieElement; el.addEventListener('click', e => { let keptDice = this.player.keptDice; this.getSelectedDice(); let keptCheck = keptDice.every(d => { return d.dataset.roll == el.dataset.roll; }) console.log('keptCheck'); console.log(keptCheck); console.log(keptDice); let selectedCheck = this.selectedDice.every(d => { return d.dataset.roll == el.dataset.roll; }) console.log('...
+renderDice: ƒ renderDice() { const rollArea = document.querySelector(`.rollDisplay`); const diceMarkup = document.createElement('div');
+diceMarkup.classList.add('dice') this.dice.forEach(die => { die.newTemplate();
+diceMarkup.appendChild(die.dieElement) }) rollArea.appendChild(diceMarkup) const dieElems = document.querySelectorAll(`.die-list`);
+dieElems.forEach(die => { this.registerDiceListener(die) }) }
+__proto__: Object
+finalScore: Object
+game: Object
+hasPlayed: true
+id: 1
+keptDice: Array(3)
+name: "Player One"
+rollCount: 4
+__proto__: Object
+constructor: ƒ class Player {
+constructor(id, game) { this.game = game, this.id = id, this.name = this.createNameFromId(), this.diceSet = new DiceSet(this.game.rules.diceCount, this), this.rollCount = 0, this.keptDice = [], this.hasPlayed = false } createNameFromId() { // console.log(this.id); if (this.id == 1) { return 'Player One'; } else if (this.id == 2) { return 'Player Two'; } else if (this.id == 3) { return 'Player Three'; ...
+createNameFromId: ƒ createNameFromId() { // console.log(this.id); if (this.id == 1) { return 'Player One'; } else if (this.id == 2) { return 'Player Two'; } else if (this.id == 3) { return 'Player Three'; } else if (this.id == 4) { return 'Player Four'; } else if (this.id == 5) { return 'Player Five'; } else { return 'Player (No ID)'; } }
+increaseRollCount: ƒ increaseRollCount(n) { this.rollCount += n; return this.rollCount; }
+keepDice: ƒ keepDice() { let dice = this.diceSet.dice;
+dice.forEach(die => { die.keep(); }) }
+keepDice2: ƒ keepDice2() {
+const dice = [...document.querySelectorAll(".die-list")];
+let sel = dice.filter(die => { return die.dataset.selected == 'true'; }) console.log('sel');
+console.log(sel);
+sel.forEach(die => {
+const dieSides = [...die.children];
+die.classList.add('kept') die.classList.remove('selected') die.dataset.kept = 'true';
+die.dataset.selected = 'false';
+die.style.pointerEvents = 'none';
+dieSides.forEach(child => {
+...
+rollDice: ƒ rollDice() { //TODO If this is first roll, then either add event listeners to dice or enable pointerevents this.keepDice2(); const rollDisplay = document.querySelector(`.rollDisplay`) const dice = [...document.querySelectorAll(".die-list")] const activeDice = dice.filter(die => { return die.dataset.kept != 'true'; }) activeDice.forEach((die, index) => { this.game.toggleClasses(die); die.dataset.roll = this.game.getRandomNumber(1, 6); }); }
+__proto__: Object
+1: Object
+length: 2
+__proto__: Array(0)
+rules: Object
+diceCount: 5
+name: "horses"
+rollLimit: 3
+__proto__: Object
+winner: null
+__proto__: Object
+constructor: ƒ class Game {
+constructor(playerCount, rules) { this.playerCount = playerCount, this.rules = this.getRules(rules), this.players = this.createPlayers(this.playerCount).map(id => new Player(id, this)), this.activePlayer = null, this.gameStarted = false, this.gameOver = false, this.winner = null } getRules(ruleSet) {
+if (ruleSet.toLowerCase() == 'horses') { return { name: ruleSet, diceCount: 5, rollLimit: 3 } }...
+createPlayers: ƒ createPlayers(count) { let players = []; for (let i = 1; i <= count; i++) { let id = i;
+players.push(id); }; return players; }
+endGame: ƒ endGame() { this.gameOver = true;
+this.getWinner() }
+endTurn: ƒ endTurn() {
+let rollButton = document.querySelector('.rollButton') let nextPlayerButton = document.querySelector('.nextPlayerButton') nextPlayerButton.disabled = false;
+nextPlayerButton.style.opacity = '1';
+rollButton.disabled = true;
+rollButton.style.opacity = '0.7';
+this.activePlayer.finalScore = { keptCount: this.activePlayer.keptDice.length, keptValue: this.activePlayer.keptDice[0].dataset.roll } this.activePlayer.hasPlayed = true;
+let...
+generateScore: ƒ generateScore() { this.updateState(); let player = this.activePlayer; let diceSet = player.diceSet; let count = player.keptDice.length
+let value = player.keptDice[0].dataset.roll; return `${player.name} rolled ${count} ${value}'s`; }
+getRandomNumber: ƒ getRandomNumber(min, max) { min = Math.ceil(min);
+max = Math.floor(max); return Math.floor(Math.random() * (max - min + 1)) + min; }
+getRules: ƒ getRules(ruleSet) { if (ruleSet.toLowerCase() == 'horses') { return { name: ruleSet, diceCount: 5, rollLimit: 3 } } else { alert('No rules provided. Need dice count and roll limit.'); } }
+getWinner: ƒ getWinner() {
+const scoreArray = this.players.map(player => { let score = Object.entries(player.finalScore); let nameProp = [['id', player.name]]; return nameProp.concat(score).reduce((obj, prop) => { obj[prop[0]] = prop[1]; return obj; }, {}); });
+let tie = 0;
+scoreArray.sort((a, b) => {
+if (b.keptCount - a.keptCount == 0) {
+if (b.keptValue - a.keptValue == 0) {
+newGame: ƒ newGame() {
+let nextPlayerButton = document.querySelector('.nextPlayerButton') nextPlayerButton.disabled = true;
+nextPlayerButton.style.opacity = '0.7';
+this.gameStarted = true;
+this.activePlayer = this.players[0];
+this.nextPlayer() // this.activePlayer.diceSet.renderDice() document.querySelector('.rollButton').value = 'Roll'; }
+nextPlayer: ƒ nextPlayer() { let rollDisplay = document.querySelector('.rollDisplay') rollDisplay.innerHTML = ''; let rollButton = document.querySelector('.rollButton') this.activePlayer.diceSet.renderDice() rollButton.disabled = false;
+rollButton.style.opacity = '1';
+rollButton.textContent = 'Roll'; }
+toggleClasses: ƒ toggleClasses(die) { die.classList.toggle("odd-roll");
+die.classList.toggle("even-roll"); }
+updateState: ƒ updateState() { this.activePlayer.keepDice();
+this.activePlayer.diceSet.getKeptDice() this.activePlayer.diceSet.getKeptCount() this.activePlayer.diceSet.getActiveDice() }
+__proto__: Object
