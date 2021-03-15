@@ -14,49 +14,19 @@ import {
 	EndGameModal
 } from './js/EndModal.js';
 
-//TODO Record game length
-// const store = undefined;
-
-
-// const store = new Store();
-// const setLocalStorage = (key, data) => {
-// 	const lStore = localStorage;
-// 	const newHistoryData = JSON.stringify(data)
-// 	console.log(newHistoryData);
-// 	lStore.setItem(key, newHistoryData)
-
-// 	return 'data successfully stored'
-// }
-
-// store.state.test = {
-// 	fuck: 'fuck'
-// }
-
-// localStorage.setItem('test', JSON.stringify(['fuck me', 'fuck ypu']))
-
-// console.log(store);
-
-// window.onload = e => {
-	storeFactory();
-	store.getLocalStorage('diceGameHistory');
-	console.log('store state');
-		store.state.themeColor = 'rgb(186, 91, 91)';
-		// newGameView.style.backgroundColor = store.state.themeColor;
-	console.log(store.state.gameHistory);
-// };
+storeFactory();
+store.getLocalStorage('diceGameHistory');
+store.state.themeColor = 'rgb(186, 91, 91)';
 
 //@UI stuff
 const uiState = () => {
 	const titleText = document.querySelector('.app-title');
-	let footerButtons = document.querySelectorAll('.footer-button')
-	let footer = document.querySelector('.footer')
-	// let actionBar = document.querySelector('.action-bar')
+	const footerButtons = document.querySelectorAll('.footer-button')
+	const footer = document.querySelector('.footer')
 
 	titleText.innerText = game.rules.name;
 
 	if (game.gameActive === true) {
-		// actionBar.classList.add('fade')
-		// actionBar.classList.remove('show')
 		footer.classList.remove('hide')
 
 		footerButtons.forEach(btn => {
@@ -64,29 +34,21 @@ const uiState = () => {
 		})
 
 	} else if (game.gameActive === false) {
-		// actionBar.classList.remove('fade')
-		// actionBar.classList.add('show')
 		footer.classList.add('hide')
 
 		footerButtons.forEach(btn => {
 			btn.classList.add('hide')
 		})
 	}
+
 	if (game.gameOver == true) {
 		setTimeout(() => {
-			console.log('game over uiState');
-			console.log(store.state.scoreArray);
-			// const listBody = document.querySelector('.player-list-body')
 			const endModal = new EndGameModal(document.querySelector('.player-list-body'), store.state.scoreArray, game.rules.name, game.gameTimeSeconds);
-
 			endModal.createWinnerHeader()
 			endModal.createGameNameText()
 			endModal.createGameTimeText()
 			endModal.createListItems();
 			document.querySelector('.end-game-modal-dimmer').classList.toggle('hide')
-			// endModal.replayGame();
-
-			// document.querySelector('.nav').classList.toggle('navExpand')
 		}, 1000)
 	}
 }
@@ -114,24 +76,24 @@ const displayMessage = (message, displayTime) => {
 
 const playerTurn = (player, diceCount) => {
 	const rollLimit = game.rules.rollLimit;
-	let activePlayer = game.activePlayer;
-	let diceSet = activePlayer.diceSet;
-	let dice = diceSet.dice;
+	const activePlayer = game.activePlayer;
+	const diceSet = activePlayer.diceSet;
+	const dice = diceSet.dice;
+
+	const scoreDisplay = document.querySelector('.scoreDisplay')
+	const rollButton = document.querySelector('.rollButton')
+	const nextPlayerButton = document.querySelector('.nextPlayerButton')
 
 	game.updateState();
 
 	//HORSES
 	if (game.rules.name == 'horses') {
 		if (player.rollCount >= rollLimit || diceCount <= 0) { //! test if roll limit reached, end turn if so
-			let scoreDisplay = document.querySelector('.scoreDisplay')
-			let rollButton = document.querySelector('.rollButton')
-			let nextPlayerButton = document.querySelector('.nextPlayerButton')
 
 			player.keepDice();
 			game.updateState()
 
 			let output = game.generateScore();
-			// scoreDisplay.textContent = output;
 
 			displayMessage(output, 5000)
 			game.endTurn()
@@ -150,14 +112,9 @@ const playerTurn = (player, diceCount) => {
 		//THREES
 	} else if (game.rules.name == 'threes') {
 		if (player.keptDice.length >= 5) { //! test if roll limit reached, end turn if so
-			let scoreDisplay = document.querySelector('.scoreDisplay')
-
 			player.keepDice();
-			game.updateState()
-			game.endTurn()
-
-			let rollButton = document.querySelector('.rollButton')
-			let nextPlayerButton = document.querySelector('.nextPlayerButton')
+			game.updateState();
+			game.endTurn();
 
 			nextPlayerButton.disabled = false;
 			nextPlayerButton.style.opacity = '1';
@@ -165,7 +122,7 @@ const playerTurn = (player, diceCount) => {
 			rollButton.disabled = true;
 			rollButton.style.opacity = '0.7';
 
-			let outputText = `${activePlayer.name} rolled ${activePlayer.finalScore.threesScore}`
+			let outputText = `${activePlayer.name} rolled ${activePlayer.finalScore.score}`
 			displayMessage(outputText, 5000)
 		} else if (player.rollCount == 0) {
 			player.keepDice()
@@ -181,14 +138,9 @@ const playerTurn = (player, diceCount) => {
 		//SCC
 	} else if (game.rules.name == 'ship, captain, crew') {
 		if (player.rollCount == (rollLimit) || player.keptDice.length == 5) { //! test if roll limit reached, end turn if so
-			let scoreDisplay = document.querySelector('.scoreDisplay')
-
 			player.keepDice();
 			game.updateState()
 			game.endTurn()
-
-			let rollButton = document.querySelector('.rollButton')
-			let nextPlayerButton = document.querySelector('.nextPlayerButton')
 
 			nextPlayerButton.disabled = false;
 			nextPlayerButton.style.opacity = '1';
@@ -196,7 +148,7 @@ const playerTurn = (player, diceCount) => {
 			rollButton.disabled = true;
 			rollButton.style.opacity = '0.7';
 
-			let outputText = `${activePlayer.name} rolled ${activePlayer.finalScore.sccScore}`
+			let outputText = `${activePlayer.name} rolled ${activePlayer.finalScore.score}`
 			displayMessage(outputText, 5000)
 		} else if (player.rollCount == 0) {
 			player.keepDice()
@@ -211,8 +163,6 @@ const playerTurn = (player, diceCount) => {
 //double click roll display
 document.querySelector('.table')
 	.addEventListener('dblclick', e => {
-		console.log(e);
-		// console.log(e.targe);
 		if (e.target.classList.contains('die-list') || e.target.classList.contains('die-list') || e.target.classList.contains('die-item') || e.target.classList.contains('dot')) {
 			e.stopPropagation();
 			e.preventDefault()
@@ -220,10 +170,12 @@ document.querySelector('.table')
 		}
 
 		const player = game.activePlayer;
-		let diceSet = player.diceSet;
+		const diceSet = player.diceSet;
+		const diceCount = diceSet.diceCount - diceSet.keptCount;
 		const rollButton = document.querySelector('.rollButton')
+		const nextPlayerButton = document.querySelector('.nextPlayerButton')
+
 		game.updateState();
-		let diceCount = diceSet.diceCount - diceSet.keptCount;
 		playerTurn(player, diceCount);
 
 		game.updateState();
@@ -237,11 +189,7 @@ document.querySelector('.table')
 			}
 
 			if (game.gameOver === true) {
-				let nextPlayerButton = document.querySelector('.nextPlayerButton')
 				rollButton.textContent = 'Game Over'
-				// console.log('end game state');
-				// console.log(store);
-				// console.log(store.state.gameHistory);
 
 				//TODO Refactor: if tie, then game.winner is a string of tied players
 				//TODO if no tie, game.winner is an object of winner
@@ -249,7 +197,6 @@ document.querySelector('.table')
 					let winnerMsg = game.winner
 					displayMessage(winnerMsg, 7000)
 				} else {
-					// let winnerMsg = `${game.winner.name} wins with ${game.winner.keptCount} ${game.winner.keptValue}'s`
 					let winnerMsg = `${game.winner.name} wins with ${game.winner.score}`
 					displayMessage(winnerMsg, 7000)
 				}
@@ -259,11 +206,9 @@ document.querySelector('.table')
 		} else if (game.rules.name == 'threes') {
 			if (player.keptDice.length >= game.rules.rollLimit - 1) { //! test if last turn, update UI
 				rollButton.textContent = 'End turn'
-
 			}
 
 			if (game.gameOver === true) {
-				let nextPlayerButton = document.querySelector('.nextPlayerButton')
 				rollButton.textContent = 'Game Over'
 
 				//TODO Refactor: if tie, then game.winner is a string of tied players
@@ -284,7 +229,6 @@ document.querySelector('.table')
 			}
 
 			if (game.gameOver === true) {
-				let nextPlayerButton = document.querySelector('.nextPlayerButton')
 				rollButton.textContent = 'Game Over'
 
 				//TODO Refactor: if tie, then game.winner is a string of tied players
@@ -325,9 +269,6 @@ document.querySelector('.rollButton')
 			if (game.gameOver === true) {
 				let nextPlayerButton = document.querySelector('.nextPlayerButton')
 				e.target.textContent = 'Game Over'
-				// console.log('end game state');
-				// console.log(store);
-				// console.log(store.state.gameHistory);
 
 				//TODO Refactor: if tie, then game.winner is a string of tied players
 				//TODO if no tie, game.winner is an object of winner
@@ -335,7 +276,6 @@ document.querySelector('.rollButton')
 					let winnerMsg = game.winner
 					displayMessage(winnerMsg, 7000)
 				} else {
-					// let winnerMsg = `${game.winner.name} wins with ${game.winner.keptCount} ${game.winner.keptValue}'s`
 					let winnerMsg = `${game.winner.name} wins with ${game.winner.score}`
 					displayMessage(winnerMsg, 7000)
 				}
@@ -383,7 +323,6 @@ document.querySelector('.rollButton')
 				}
 			}
 		}
-
 		uiState()
 	});
 
@@ -397,7 +336,6 @@ document.querySelector('.nextPlayerButton')
 		game.nextPlayer()
 
 		let rollDisplay = document.querySelector('.rollDisplay')
-		// let rollButton = document.querySelector('.rollButton')
 		let dice = document.querySelector('.dice')
 		dice.classList.add('newDice')
 
@@ -465,57 +403,54 @@ document.querySelector('.end-new-button')
 		const newGameView = document.querySelector('.new-game-view')
 		let gameView = document.querySelector('.app')
 		const eModal = document.querySelector('.end-game-modal-dimmer')
-		// toggleNav();
-		// let menuView = document.querySelector('.new-game-view')
 		setTimeout(() => {
 			newGameView.classList.remove('hide');
 			gameView.classList.add('hide');
 			eModal.classList.add('hide')
-
 		}, 400)
 	})
 
-	// document.querySelector('.end-replay-button')
-	// .addEventListener('click', e => {
-	// 	let gameSelect = document.querySelector('.game-select')
-	// 	let gameRules = gameSelect.options[gameSelect.selectedIndex].value
-	// 	let playerCount = document.querySelector('.player-count-input').value;
+// document.querySelector('.end-replay-button')
+// .addEventListener('click', e => {
+// 	let gameSelect = document.querySelector('.game-select')
+// 	let gameRules = gameSelect.options[gameSelect.selectedIndex].value
+// 	let playerCount = document.querySelector('.player-count-input').value;
 
-	// 	// setRulesModal();
+// 	// setRulesModal();
 
-	// 	//in newgameview js
-	// 	const nameArray = getPlayerNames();
-	// 	if (playerCount < 2) {
-	// 		playerCountInput.select();
-	// 		let msg = 'Must have at least two players'
-	// 		displayMessage(msg, 4000)
-	// 	} else {
-	// 		// gameFactory(nameArray, gameRules);
+// 	//in newgameview js
+// 	const nameArray = getPlayerNames();
+// 	if (playerCount < 2) {
+// 		playerCountInput.select();
+// 		let msg = 'Must have at least two players'
+// 		displayMessage(msg, 4000)
+// 	} else {
+// 		// gameFactory(nameArray, gameRules);
 
-	// 		let rollDisplay = document.querySelector('.rollDisplay')
-	// 		rollDisplay.innerHTML = '';
+// 		let rollDisplay = document.querySelector('.rollDisplay')
+// 		rollDisplay.innerHTML = '';
 
-	// 		let rollButton = document.querySelector('.rollButton')
-	// 		rollButton.disabled = false;
-	// 		rollButton.style.opacity = '1';
-	// 		rollButton.textContent = 'Roll';
+// 		let rollButton = document.querySelector('.rollButton')
+// 		rollButton.disabled = false;
+// 		rollButton.style.opacity = '1';
+// 		rollButton.textContent = 'Roll';
 
-	// 		game.newGame()
-	// 		uiState()
-	// 		console.log('game in replay');
-	// 		console.log(game);
+// 		game.newGame()
+// 		uiState()
+// 		console.log('game in replay');
+// 		console.log(game);
 
-	// 		let nextPlayerButton = document.querySelector('.nextPlayerButton')
-	// 		nextPlayerButton.disabled = true;
-	// 		nextPlayerButton.style.opacity = '0.7';
+// 		let nextPlayerButton = document.querySelector('.nextPlayerButton')
+// 		nextPlayerButton.disabled = true;
+// 		nextPlayerButton.style.opacity = '0.7';
 
-	// 		let msg = `${game.activePlayer.name}'s turn. Roll on!`
-	// 		displayMessage(msg, 4000)
+// 		let msg = `${game.activePlayer.name}'s turn. Roll on!`
+// 		displayMessage(msg, 4000)
 
-	// 		// document.querySelector('.new-game-view').classList.toggle('hide');
-	// 		document.querySelector('.end-game-modal-dimmer').classList.toggle('hide');
-	// 	}
-	// });
+// 		// document.querySelector('.new-game-view').classList.toggle('hide');
+// 		document.querySelector('.end-game-modal-dimmer').classList.toggle('hide');
+// 	}
+// });
 
 
 // document.querySelector('.end-replay-button')
