@@ -5,7 +5,7 @@ import {
 
 storeFactory()
 store.getLocalStorage('diceGameHistory')
-
+store.reIndexGames()
 const firstGame = store.state.gameHistory[[0]]
 
 const gameDate = new Date(firstGame.gameDate)

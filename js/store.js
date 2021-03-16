@@ -25,6 +25,12 @@ export class Store {
 		const newHistoryData = JSON.stringify(data)
 		localStorage.setItem(key, newHistoryData)
 	}
+	reIndexGames() {
+		this.state.gameHistory
+			.forEach((game, i) => {
+				game.id = i + 1;
+		})
+	}
 }
 
 export let store = undefined;
