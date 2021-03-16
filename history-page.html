@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- <script src="res/vue@2.6.12.js"></script> -->
+	<title></title>
+	<style type="text/css" media="all">
+		.table-container {
+			/* position: sticky;
+			top: 0;
+			left: 0; */
+				/* height: 400px; */
+				/* overflow-y: scroll; */
+		}
+		.table-body {
+			height: 500px;
+			overflow-y: scroll;
+		}
+		td {
+			text-align: center;
+			padding: 10px 5px;
+		}
+		.col-selected {
+			background: #A3CED990;
+		}
+		.row-selected {
+			background: #EEF0A1B5;
+		}
+	</style>
+</head>
+
+<body>
+	<h3>History Page</h3>
+	<div class="app">
+		<div class="form-container">
+			<div class="form-header">Search</div>
+			<form class="search-form">
+				<select name="search-param-select" id="search-param-select" class="search-param-select">
+					<option value="name">name</option>
+					<option value="game">game</option>
+				</select>
+			</form>
+			<div class="game-count-display"></div>
+		</div>
+		<div class="table-container">
+			<table class="history-table">
+				<thead>
+					<tr class="table-header-row">
+						<th class="table-header" data-column="1">ID</th>
+						<th class="table-header" data-column="2">NAME</th>
+						<th class="table-header" data-column="3">WINNER</th>
+					</tr>
+				</thead>
+				<tbody class="table-body"></tbody>
+			</table>
+		</div>
+	</div>
+	<!-- 	<div id="vue-app">
+	<div class="">
+		<h1 class="">{{heading}}</h1>
+		<p class="">{{text}}</p>
+		<editable-text></editable-text>
+		<game-table :games="games">
+		</game-table>
+	</div>
+</div> -->
+	<!-- <script src="app.js"></script> -->
+	<script src="history-page.js" type="module" charset="utf-8"></script>
+</body>
+
+</html>
