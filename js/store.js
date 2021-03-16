@@ -30,6 +30,10 @@ export class Store {
 			.forEach((game, i) => {
 				game.id = i + 1;
 		})
+		this.setLocalStorage('diceGameHistory', this.state.gameHistory)
+	this.getLocalStorage('diceGameHistory') 
+		
+		
 	}
 }
 
