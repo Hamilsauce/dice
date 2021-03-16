@@ -1,0 +1,68 @@
+{
+	activePlayer: Object
+	gameActive: false
+	gameOver: true
+	gameTimeSeconds: 9
+	playerCount: 2
+	players: Array(2)
+	0: Object
+	diceSet: Object
+	activeDice: Array(0)
+	dice: Array(5)
+		0: Object
+			diceSet: Object
+			dieElement: HTMLOListElement
+			dieTemplate: HTMLOListElement
+			dieValueClass: "die1Value"
+			id: 1
+			kept: false
+			name: "Die One"
+			rollValue: null
+			selected: false
+			__proto__: Object
+		1: Object
+		2: Object
+		3: Object
+		4: Object
+		length: 5
+	__proto__: Array(0)
+	diceCount: 5
+	keptCount: 0
+	keptDice: Array(0)
+	length: 0
+	player: Object
+	selectedValue: Array(0)
+	__proto__: Object
+	finalScore: Object
+	keptCount: 1
+	keptValue: "1"
+	score: "1 x 1"
+	__proto__: Object
+	game: Object
+	hasPlayed: true
+	id: 1
+	keptDice: Array(1)
+	name: "Player 1"
+	rollCount: 4
+	selectedCount: 1
+	selectedDice: Array(0)
+	__proto__: Object
+	1: Object
+	length: 2
+	__proto__: Array(0)
+	rules: Object
+	diceCount: 5
+	name: "horses"
+	rollLimit: 3
+	__proto__: Object
+	startTime: 2910.7999999978347
+	stopTime: 11585.899999998219
+	winner: Object
+	keptCount: 3
+	keptValue: "3"
+	name: "Player 2"
+	score: "3 x 3"
+	__proto__: Object
+	__proto__: Object
+	
+}

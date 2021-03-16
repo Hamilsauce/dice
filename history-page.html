@@ -11,22 +11,80 @@
 			/* position: sticky;
 			top: 0;
 			left: 0; */
-				/* height: 400px; */
-				/* overflow-y: scroll; */
+			/* height: 400px; */
+			/* overflow-y: scroll; */
 		}
-		.table-body {
-			height: 500px;
-			overflow-y: scroll;
+
+		.history-table {
+			border-collapse: collapse;
+			width: 100%;
 		}
-		td {
+
+		.sticky-container {
+			display: flex;
+			box-shadow: 0px 0px 5px 0px #8F8F8F;
+			background: #7279C9;
+			color: white;
+			text-align: center;
+		}
+
+		.sticky-header {
+			width: 100vw;
+			/* background: white; */
+			padding: 10px;
+		}
+
+		.sticky {
+			position: sticky;
+			top: 0;
+			width: 100%;
+		}
+
+		.field {
+			background: white;
+		}
+
+		.table-header-row {
+			color: white;
+			background: #7279C9;
+		}
+
+		.table-body {}
+
+		.col-selected {
+			background: #91BAEEC2;
+		}
+
+		.row-selected {
+			background: #FFE687;
+		}
+
+		.intersect-field {
+			background: #FF8787;
+		}
+
+		td,
+		th {
+			width: 33%;
 			text-align: center;
 			padding: 10px 5px;
 		}
-		.col-selected {
-			background: #A3CED990;
+
+		table thead tr {
+			/* display: block; */
 		}
-		.row-selected {
-			background: #EEF0A1B5;
+
+		table th,
+		table td {
+			/* width: 100px; */
+			//fixed width
+		}
+
+
+		table tbody {
+			/* display: block; */
+			/* height: 500px; */
+			/* overflow: auto; */
 		}
 	</style>
 </head>
@@ -44,15 +102,20 @@
 			</form>
 			<div class="game-count-display"></div>
 		</div>
+		<div class="sticky-container">
+			<div class="sticky-header table-header" data-column="1">DATE</div>
+			<div class="sticky-header table-header" data-column="2">NAME</div>
+			<div class="sticky-header table-header" data-column="3">WINNER</div>
+		</div> 
 		<div class="table-container">
 			<table class="history-table">
-				<thead>
+				<!-- <thead>
 					<tr class="table-header-row">
 						<th class="table-header" data-column="1">ID</th>
 						<th class="table-header" data-column="2">NAME</th>
 						<th class="table-header" data-column="3">WINNER</th>
 					</tr>
-				</thead>
+				</thead> -->
 				<tbody class="table-body"></tbody>
 			</table>
 		</div>
