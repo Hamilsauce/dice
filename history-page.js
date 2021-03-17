@@ -7,22 +7,25 @@ storeFactory()
 store.getLocalStorage('diceGameHistory')
 store.reIndexGames()
 
-// const firstGame = store.state.gameHistory[[0]]
-
-// const gameDate = new Date(firstGame.gameDate)
-const headerRow = document.querySelector('.sticky-container')
-console.log(headerRow);
-const headerPos = headerRow.offsetTop;
 
 const stickyHeader = () => {
-	console.log(headerPos);
+	const topButton = document.querySelector('.top-button')
+	const headerRow = document.querySelector('.sticky-container')
+	let headerPos = headerRow.offsetTop;
+
 	if (window.pageYOffset > headerPos) {
 		headerRow.classList.add("sticky");
+		topButton.classList.remove("hide");
+
 	} else {
 		headerRow.classList.remove("sticky");
+		topButton.classList.add("hide");
 	}
 }
 
+let testDate = new Date('3/9/2021')
+console.log('testDate');
+console.log(testDate);
 
 const getFormattedDate = dateString => {
 	const day = new Date(dateString).getDate()
@@ -66,15 +69,19 @@ const buildRow = game => {
 	return row
 }
 
-const buildTable = () => {
-	const games = store.state.gameHistory
+const buildTable = (games) => {
+	// const games = store.state.gameHistory
 	const body = document.querySelector('.table-body')
+	while (body.firstChild) {
+		body.removeChild(body.firstChild)
+	}
+
 	games.forEach(game => {
 		const row = buildRow(game)
 		body.appendChild(row)
 	})
 }
-buildTable();
+buildTable(store.state.gameHistory);
 
 let colNum = null;
 let rowNum = null;
@@ -93,19 +100,17 @@ document.querySelectorAll('.table-header')
 				} else {
 					field.classList.remove('col-selected')
 				}
-					// console.log(rowNum);
-					// console.log(field.parentElement.id);
 
 				if (field.parentElement.id == rowNum && field.dataset.column == colNum) {
 					field.classList.add('intersect-field')
 				} else {
 					field.classList.remove('intersect-field')
 				}
-				// console.log(colNum);
-				// console.log(rowNum);
 			})
 		})
 	})
+
+
 
 //highlight row when row cell clicked
 document.querySelectorAll('.table-field')
@@ -129,14 +134,59 @@ document.querySelectorAll('.table-field')
 			})
 		})
 	})
-	
-	document.querySelector('.top-button')
-		.addEventListener('click', e => {
-		console.log('clixk');
-			document.documentElement.scrollTop = 0;
-			document.body.scrollTop = 0;
-			// window.pageYOffset = `0px`;
-	})
-	
 
-window.onscroll = function() { stickyHeader() };
+//filter button click
+document.querySelector('.filter-button')
+	.addEventListener('click', e => {
+		const paramSelect = document.querySelector('.filter-param-select')
+		const filterInput = document.querySelector('.filter-input')
+
+		const hist = store.state.gameHistory;
+		console.log(hist);
+		if (!filterInput.value) {
+			buildTable(hist)
+
+		} else {
+			const filteredHist = hist
+				.filter(game => {
+					return game.gameName.toUpperCase() == filterInput.value.toUpperCase()
+				})
+
+			buildTable(filteredHist)
+			// console.log(filteredHist);
+
+		}
+
+
+		// const fields = document.querySelectorAll('.table-field')
+
+		// fields.forEach(field => {
+		// 	if (field.dataset.id == id) {
+		// 		field.classList.toggle('row-selected')
+		// 	} else {
+		// 		field.classList.remove('row-selected')
+		// 	}
+		// 	if (field.dataset.id == rowNum && field.dataset.column == colNum) {
+		// 		field.classList.add('intersect-field')
+		// 	} else {
+		// 		field.classList.remove('intersect-field')
+		// 	}
+		// })
+	})
+
+document.querySelector('.top-button')
+	.addEventListener('click', e => {
+		console.log('clixk');
+		document.documentElement.scrollTop = 0;
+		document.body.scrollTop = 0;
+		// window.pageYOffset = `0px`;
+	})
+
+const toggleTopButton = () => {
+
+}
+
+window.onscroll = function() {
+	stickyHeader()
+
+};
