@@ -9,11 +9,38 @@ export class Game {
 	constructor(playerNames, rules) {
 		this.playerCount = playerNames.length,
 			this.rules = this.getRules(rules),
-			this.players = playerNames.map((n, id) => new Player(n, ++id, this)),
+			this.playerNames = playerNames,
+			this.players = this.randomizePlayers(playerNames.slice()).map((n, id) => new Player(n, ++id, this)),
 			this.activePlayer = null,
 			this.gameActive = false,
 			this.gameOver = false,
 			this.winner = null
+	}
+	
+	randomizePlayers(names) {
+		// const sortedNames = names.sort((a, b) => Math.random() - 0.5 )
+		let currentIndex = names.length;
+		let temporaryValue, randomIndex;
+		
+		// While there remain elements to shuffle...
+		while (0 !== currentIndex) {
+			// Pick a remaining element...
+			randomIndex = Math.floor(Math.random() * currentIndex);
+			currentIndex -= 1;
+		
+			// And swap it with the current element.
+			temporaryValue = names[currentIndex];
+			names[currentIndex] = names[randomIndex];
+			names[randomIndex] = temporaryValue;
+		}
+		
+		
+		console.log('original names');
+		// console.log(playerNames);
+		console.log('sorted names');
+		console.log(names);
+		console.log(this);
+		return names;
 	}
 
 	getRules(ruleSet) {
