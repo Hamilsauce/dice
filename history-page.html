@@ -7,6 +7,24 @@
 	<!-- <script src="res/vue@2.6.12.js"></script> -->
 	<title></title>
 	<style type="text/css" media="all">
+	.top-button {
+		position: fixed;
+		bottom: 5%;
+		right: 5%;
+		width: 30px;
+		height: 30px;
+		padding: 15px 10px 5px 10px;
+		border-radius: 50%;
+		text-align: center;
+		color: white;
+		background: #48B868;
+		box-shadow: 0px 2px 5px 0px #71717190;
+	}
+	
+	.filter-form {
+		display: flex;
+		flex-direction: row;
+	}
 		.table-container {
 			/* position: sticky;
 			top: 0;
@@ -91,14 +109,23 @@
 
 <body>
 	<h3>History Page</h3>
+	<div class="top-button">
+		top
+	</div>
 	<div class="app">
 		<div class="form-container">
-			<div class="form-header">Search</div>
-			<form class="search-form">
-				<select name="search-param-select" id="search-param-select" class="search-param-select">
-					<option value="name">name</option>
-					<option value="game">game</option>
+			<div class="form-header">Filter</div>
+			<form class="filter-form">
+				<select name="filter-param-select" id="filter-param-select" class="filter-param-select">
+					<option value="date">Date</option>
+					<option value="name">Name</option>a
+					<option value="winner">Winner</option>a
 				</select>
+				<div class="control-group">
+					<label for="filter-input"></label>
+					<input type="text" class="filter-input" name="filter-input" id="filter-input" value="" />
+				</div>
+				<button class="filter-button" type="button">Filter</button>
 			</form>
 			<div class="game-count-display"></div>
 		</div>

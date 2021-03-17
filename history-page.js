@@ -93,12 +93,16 @@ document.querySelectorAll('.table-header')
 				} else {
 					field.classList.remove('col-selected')
 				}
+					// console.log(rowNum);
+					// console.log(field.parentElement.id);
 
-				if (field.dataset.id == rowNum && field.dataset.column == colNum) {
+				if (field.parentElement.id == rowNum && field.dataset.column == colNum) {
 					field.classList.add('intersect-field')
 				} else {
 					field.classList.remove('intersect-field')
 				}
+				// console.log(colNum);
+				// console.log(rowNum);
 			})
 		})
 	})
@@ -125,5 +129,14 @@ document.querySelectorAll('.table-field')
 			})
 		})
 	})
+	
+	document.querySelector('.top-button')
+		.addEventListener('click', e => {
+		console.log('clixk');
+			document.documentElement.scrollTop = 0;
+			document.body.scrollTop = 0;
+			// window.pageYOffset = `0px`;
+	})
+	
 
 window.onscroll = function() { stickyHeader() };
