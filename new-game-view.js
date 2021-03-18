@@ -44,7 +44,12 @@ const rulesArray = [
 	}
 ]
 document.querySelector('.new-game-view').style.backgroundColor = '#BA5B5B'
+let namesArray = [];
+let randomizeSelected = false;
+
 // document.getElementById('menu-view').style.backgroundColor = '#35B0F1'
+
+
 
 const getRuleData = gameSelection => {
 	const rulesObject = rulesArray
@@ -70,9 +75,40 @@ export const getPlayerNames = () => {
 			const playerName = `Player ${i}`;
 			pNames.push(playerName)
 		}
-		return pNames
+		// return pNames
+		if (randomizeSelected) {
+			randomizeSelected = false;
+			return randomizePlayers(pNames)
+		} else {
+			return pNames
+		}
 	}
-	return pNames
+}
+
+const randomizePlayers = (names) => {
+	// const sortedNames = names.sort((a, b) => Math.random() - 0.5 )
+	let currentIndex = names.length;
+	let temporaryValue, randomIndex;
+
+	// While there remain elements to shuffle...
+	while (0 !== currentIndex) {
+		// Pick a remaining element...
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex -= 1;
+
+		// And swap it with the current element.
+		temporaryValue = names[currentIndex];
+		names[currentIndex] = names[randomIndex];
+		names[randomIndex] = temporaryValue;
+	}
+
+
+	console.log('original names');
+	// console.log(playerNames);
+	console.log('sorted names');
+	console.log(names);
+	console.log(this);
+	return names;
 }
 
 const createNameInputs = (playerCount, parentEl) => {
@@ -161,10 +197,23 @@ document.querySelector('.name-button')
 //name modal close
 document.querySelector('.name-modal').querySelector('.close-modal-button')
 	.addEventListener('click', e => {
-		const namesArray = getPlayerNames()
+		namesArray = getPlayerNames()
 		console.log(namesArray);
 		e.target.parentElement.parentElement.classList.toggle('hide')
 	})
+
+document.querySelector('.randomize-button')
+	.addEventListener('click', e => {
+		if (randomizeSelected) {
+			randomizeSelected = false
+		} else {
+			randomizeSelected = true
+		}
+
+	})
+
+
+
 
 document.querySelector('.color-toggle')
 	.addEventListener('click', e => {
@@ -187,7 +236,7 @@ document.querySelector('.color-toggle')
 // 		store.state.themeColor = 'rgb(186, 91, 91)';
 // 		newGameView.style.backgroundColor = store.state.themeColor;
 // console.log(store);
-		
+
 // 	}, 1000)
 // }
 

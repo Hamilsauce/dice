@@ -106,9 +106,18 @@ html {
 	color: #EEEDC6;
 }
 
+
 .player-select-container {
 	grid-area: 'psel';
 	margin-bottom: 20px;
+}
+
+.player-options-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 100%;
+	max-width: 210px;
 }
 
 .start-button-container {

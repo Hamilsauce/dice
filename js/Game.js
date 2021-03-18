@@ -10,7 +10,7 @@ export class Game {
 		this.playerCount = playerNames.length,
 			this.rules = this.getRules(rules),
 			this.playerNames = playerNames,
-			this.players = this.randomizePlayers(playerNames.slice()).map((n, id) => new Player(n, ++id, this)),
+			this.players = playerNames.slice().map((n, id) => new Player(n, ++id, this)),
 			this.activePlayer = null,
 			this.gameActive = false,
 			this.gameOver = false,
