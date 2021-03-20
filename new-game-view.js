@@ -47,9 +47,11 @@ document.querySelector('.new-game-view').style.backgroundColor = '#BA5B5B'
 let namesArray = [];
 let randomizeSelected = false;
 
-// document.getElementById('menu-view').style.backgroundColor = '#35B0F1'
-
-
+window.onload = e => {
+	let rulesModal = document.querySelector('.rules-modal')
+	rulesModal.style.display = 'none';
+	setRulesModal();
+}
 
 const getRuleData = gameSelection => {
 	const rulesObject = rulesArray
@@ -64,33 +66,30 @@ export const getPlayerNames = () => {
 	const pNames = [];
 
 	if (nameInputs.length > 0) {
-		nameInputs.forEach(input => {
-			let playerName = input.value ? input.value : `Player ${input.dataset.playerNumber}`;
+		nameInputs.forEach((input, i) => {
+			let playerName = input.value ? input.value : `Player ${i + 1}`;
 			pNames.push(playerName)
 		})
-		return pNames
 	} else {
 		const playerCount = document.querySelector('.player-count-input').value
 		for (var i = 1; i <= playerCount; i++) {
 			const playerName = `Player ${i}`;
 			pNames.push(playerName)
 		}
-		// return pNames
-		if (randomizeSelected) {
-			randomizeSelected = false;
-			return randomizePlayers(pNames)
-		} else {
-			return pNames
-		}
+	}
+	
+	if (randomizeSelected) {
+		randomizeSelected = false;
+		return randomizePlayers(pNames)
+	} else {
+		return pNames
 	}
 }
 
 const randomizePlayers = (names) => {
-	// const sortedNames = names.sort((a, b) => Math.random() - 0.5 )
 	let currentIndex = names.length;
 	let temporaryValue, randomIndex;
 
-	// While there remain elements to shuffle...
 	while (0 !== currentIndex) {
 		// Pick a remaining element...
 		randomIndex = Math.floor(Math.random() * currentIndex);
@@ -101,13 +100,6 @@ const randomizePlayers = (names) => {
 		names[currentIndex] = names[randomIndex];
 		names[randomIndex] = temporaryValue;
 	}
-
-
-	console.log('original names');
-	// console.log(playerNames);
-	console.log('sorted names');
-	console.log(names);
-	console.log(this);
 	return names;
 }
 
@@ -141,7 +133,6 @@ const createNameInputs = (playerCount, parentEl) => {
 	}
 }
 
-
 export const setRulesModal = () => {
 	let rulesModal = document.querySelector('.rules-modal')
 	let gameSelect = document.querySelector('.game-select')
@@ -149,12 +140,6 @@ export const setRulesModal = () => {
 
 	rulesModal.querySelector('.modal-title').innerHTML = ruleData.name
 	rulesModal.querySelector('.modal-content').innerHTML = ruleData.description
-}
-
-window.onload = e => {
-	let rulesModal = document.querySelector('.rules-modal')
-	rulesModal.style.display = 'none';
-	setRulesModal();
 }
 
 document.querySelector('.rule-button')
@@ -177,9 +162,7 @@ document.querySelector('.rules-modal').querySelector('.close-modal-button')
 
 		setTimeout(() => {
 			rulesModal.style.display = 'none';
-
 		}, 100)
-		// e.target.parentElement.parentElement.classList.toggle('hide')
 	})
 
 document.querySelector('.name-button')
@@ -188,9 +171,7 @@ document.querySelector('.name-button')
 		let playerSelect = document.querySelector('.player-count-input');
 		const modalContent = nameModal.querySelector('.modal-content');
 		let count = playerSelect.value;
-		console.log(playerSelect.value);
 		nameModal.classList.toggle('hide');
-		console.log('count');
 		createNameInputs(count, modalContent)
 	})
 
@@ -198,7 +179,6 @@ document.querySelector('.name-button')
 document.querySelector('.name-modal').querySelector('.close-modal-button')
 	.addEventListener('click', e => {
 		namesArray = getPlayerNames()
-		console.log(namesArray);
 		e.target.parentElement.parentElement.classList.toggle('hide')
 	})
 
@@ -212,18 +192,14 @@ document.querySelector('.randomize-button')
 
 	})
 
-
-
-
 document.querySelector('.color-toggle')
 	.addEventListener('click', e => {
 		const colors = ['rgb(186, 91, 91)', 'rgb(53, 176, 241)', 'rgb(142, 191, 64)']
-		// const newGameView = document.querySelector('.menu-view')
 		const newGameView = document.querySelector('.new-game-view')
 		let currentBackground = newGameView.style.backgroundColor
-		console.log(currentBackground);
 		let colorIndex = colors.indexOf(currentBackground)
 		let nextColorIndex = colorIndex >= (colors.length - 1) ? 0 : colorIndex + 1;
+
 		store.state.themeColor = colors[nextColorIndex]
 		newGameView.style.backgroundColor = store.state.themeColor;
 
