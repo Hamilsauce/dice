@@ -7,10 +7,14 @@ storeFactory()
 store.getLocalStorage('diceGameHistory')
 store.reIndexGames()
 
+window.onscroll = function() {
+	stickyHeader()
+};
+
+	const headerRow = document.querySelector('.sticky-container')
+	const topButton = document.querySelector('.top-button')
 
 const stickyHeader = () => {
-	const topButton = document.querySelector('.top-button')
-	const headerRow = document.querySelector('.sticky-container')
 	let headerPos = headerRow.offsetTop;
 
 	if (window.pageYOffset > headerPos) {
@@ -176,7 +180,6 @@ document.querySelector('.filter-button')
 
 document.querySelector('.top-button')
 	.addEventListener('click', e => {
-		console.log('clixk');
 		document.documentElement.scrollTop = 0;
 		document.body.scrollTop = 0;
 		// window.pageYOffset = `0px`;
@@ -186,7 +189,3 @@ const toggleTopButton = () => {
 
 }
 
-window.onscroll = function() {
-	stickyHeader()
-
-};
