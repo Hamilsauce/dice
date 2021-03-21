@@ -10,9 +10,9 @@
 
 .app {
 	display: grid;
-	grid-template-rows: 50px 100px 1fr 60px;
+	grid-template-rows: 75px 125px 1fr 60px;
 	margin: 0 auto;
-	height: 100vh;
+	height: 105%;
 	box-shadow: 0px 0px 150px 0px inset #965236B8;
 	overflow: hidden;
 	opacity: 1;
@@ -29,7 +29,7 @@
 	position: sticky;
 	padding: 0;
 	margin: 0;
-	bottom: 0;
+	bottom: 0px;
 	left: 0;
 	z-index: 0;
 }
@@ -112,12 +112,12 @@
 .subtitle {
 	display: grid;
 	/* grid-template-columns: 1fr 1fr; */
-	grid-template-rows: 1fr 1fr;
-	grid-template-columns: repeat(3, 100px);
+	grid-template-rows: auto;
+	grid-template-columns: repeat(3, 1fr);
 	grid-gap: 10px;
-	justify-content: space-around;
+	justify-content: space-evenly;
 	max-width: 740px;
-	margin: 10px auto;
+	margin: 10px 20px;
 	padding: 5px 10px;
 	font-size: 0.95em;
 	font-weight: 300;
@@ -126,9 +126,12 @@
 }
 
 .player-grid-item {
+	height: fit-content;
 	padding: 5px;
 	border-radius: 5px;
 	background: #FDFDFDBF;
+	font-size: 1.2em;
+	font-weight: 500;
 	color: #2C2C2CBF;
 	
 }
@@ -146,6 +149,7 @@
 }
 
 .table {
+	touch-action: none;
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	grid-template-areas:

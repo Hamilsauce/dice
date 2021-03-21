@@ -16,32 +16,6 @@ export class Game {
 			this.gameOver = false,
 			this.winner = null
 	}
-	
-	randomizePlayers(names) {
-		// const sortedNames = names.sort((a, b) => Math.random() - 0.5 )
-		let currentIndex = names.length;
-		let temporaryValue, randomIndex;
-		
-		// While there remain elements to shuffle...
-		while (0 !== currentIndex) {
-			// Pick a remaining element...
-			randomIndex = Math.floor(Math.random() * currentIndex);
-			currentIndex -= 1;
-		
-			// And swap it with the current element.
-			temporaryValue = names[currentIndex];
-			names[currentIndex] = names[randomIndex];
-			names[randomIndex] = temporaryValue;
-		}
-		
-		
-		console.log('original names');
-		// console.log(playerNames);
-		console.log('sorted names');
-		console.log(names);
-		console.log(this);
-		return names;
-	}
 
 	getRules(ruleSet) {
 		if (ruleSet.toLowerCase() == 'horses') {
@@ -99,7 +73,6 @@ export class Game {
 		} else if (this.rules.name == 'threes') {
 			let count = player.keptDice.length
 			let outputText = `${player.name} rolled ${player.finalScore.threesScore}`
-
 			return outputText;
 		}
 	}
@@ -180,7 +153,6 @@ export class Game {
 			})
 
 		if (remainingPlayers.length == 0) { // && (this.activePlayer.rollCount >= this.rules.rollLimit || this.rules.diceCount > this.activePlayer.keptDice.length)
-			console.log('endgame');
 			this.endGame();
 		}
 	}
@@ -212,14 +184,11 @@ export class Game {
 			gameTime: this.gameTimeSeconds,
 			winner: this.winner,
 			scoreArray: store.state.scoreArray
-
 		}
 		store.saveGameToHistory(gameRecord)
 		console.log('end of game');
 		console.log(game);
-
 	}
-
 
 	getWinner() {
 		//HORSES
@@ -236,6 +205,7 @@ export class Game {
 							return obj;
 						}, {});
 				});
+				
 			let tie = 0;
 			store.state.scoreArray = scoreArray.sort((a, b) => {
 				if (b.keptCount - a.keptCount == 0) {
@@ -276,6 +246,7 @@ export class Game {
 							return obj;
 						}, {});
 				});
+				
 			let tie = 0;
 			store.state.scoreArray = scoreArray.sort((a, b) => {
 				if (b.score - a.score == 0) {
@@ -285,10 +256,6 @@ export class Game {
 					return a.score - b.score;
 				}
 			});
-			console.log('get winner store state');
-			console.log(store.state.scoreArray)
-			console.log(store);
-
 
 			//TODO Fix tie bug - if one player wins and the losers tie, game calls tie betwen the losers
 			let tieArray = [];
@@ -318,7 +285,6 @@ export class Game {
 				});
 
 			let tie = 0;
-			console.log(scoreArray);
 			store.state.scoreArray = scoreArray.sort((a, b) => {
 				if (b.scoreValue - a.scoreValue == 0) {
 					tie += 1

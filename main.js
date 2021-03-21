@@ -17,7 +17,7 @@ import {
 storeFactory();
 store.getLocalStorage('diceGameHistory');
 store.state.themeColor = 'rgb(186, 91, 91)';
-
+document.querySelector('.footer-container').scrollIntoView()
 //@UI stuff
 const uiState = () => {
 	const titleText = document.querySelector('.app-title');
@@ -73,6 +73,89 @@ const displayMessage = (message, displayTime) => {
 	}, 200)
 }
 //@ End UI stuff
+
+export const handleRollAction = game => {
+		const player = game.activePlayer;
+		const diceSet = player.diceSet;
+		let diceCount = diceSet.diceCount - diceSet.keptCount;
+		const rollButton = document.querySelector('.rollButton')
+		const nextPlayerButton = document.querySelector('.nextPlayerButton')
+
+	game.updateState();
+	// let diceCount = diceSet.diceCount - diceSet.keptCount;
+	playerTurn(player, diceCount);
+
+	game.updateState();
+	player.rollCount += 1;
+
+	//HORSES
+	console.log(player.rollCount);
+	// console.log(player.rollCount);
+	if (game.rules.name == 'horses') {
+		if (player.rollCount >= game.rules.rollLimit ) { //! test if last turn, update UI
+			rollButton.textContent = 'End turn'
+			displayMessage('Last roll!', 7000)
+		}
+
+		if (game.gameOver === true) {
+			let nextPlayerButton = document.querySelector('.nextPlayerButton')
+			rollButton.textContent = 'Game Over'
+
+			//TODO Refactor: if tie, then game.winner is a string of tied players
+			//TODO if no tie, game.winner is an object of winner
+			if (typeof game.winner == 'string') {
+				let winnerMsg = game.winner
+				displayMessage(winnerMsg, 7000)
+			} else {
+				let winnerMsg = `${game.winner.name} wins with ${game.winner.score}`
+				displayMessage(winnerMsg, 7000)
+			}
+		}
+
+		//THREES
+	} else if (game.rules.name == 'threes') {
+		if (player.keptDice.length >= game.rules.rollLimit - 1) { //! test if last turn, update UI
+			e.target.textContent = 'End turn'
+		}
+
+		if (game.gameOver === true) {
+			let nextPlayerButton = document.querySelector('.nextPlayerButton')
+			e.target.textContent = 'Game Over'
+
+			//TODO Refactor: if tie, then game.winner is a string of tied players
+			//TODO if no tie, game.winner is an object of winner
+			if (typeof game.winner == 'string') {
+				let winnerMsg = game.winner
+				displayMessage(winnerMsg, 20000)
+			} else {
+				let winnerMsg = `${game.winner.name} wins with ${game.winner.score}`
+				displayMessage(winnerMsg, 20000)
+			}
+		}
+
+		//SCC
+	} else if (game.rules.name == 'ship, captain, crew') {
+		if (player.keptDice.length == 5 || player.rollCount >= game.rules.rollLimit) { //! test if last turn, update UI
+			e.target.textContent = 'End turn'
+		}
+
+		if (game.gameOver === true) {
+			let nextPlayerButton = document.querySelector('.nextPlayerButton')
+			e.target.textContent = 'Game Over'
+
+			//TODO Refactor: if tie, then game.winner is a string of tied players
+			//TODO if no tie, game.winner is an object of winner
+			if (typeof game.winner == 'string') {
+				let winnerMsg = game.winner
+				displayMessage(winnerMsg, 20000)
+			} else {
+				let winnerMsg = `${game.winner.name} wins with ${game.winner.score}`
+				displayMessage(winnerMsg, 20000)
+			}
+		}
+	}
+	uiState()
+}
 
 const playerTurn = (player, diceCount) => {
 	const rollLimit = game.rules.rollLimit;
@@ -168,163 +251,15 @@ document.querySelector('.table')
 			e.preventDefault()
 			return
 		}
-
-		const player = game.activePlayer;
-		const diceSet = player.diceSet;
-		const diceCount = diceSet.diceCount - diceSet.keptCount;
-		const rollButton = document.querySelector('.rollButton')
-		const nextPlayerButton = document.querySelector('.nextPlayerButton')
-
-		game.updateState();
-		playerTurn(player, diceCount);
-
-		game.updateState();
-		player.rollCount += 1;
-
-		//HORSES
-		if (game.rules.name == 'horses') {
-			if (player.rollCount == game.rules.rollLimit) { //! test if last turn, update UI
-				rollButton.textContent = 'End turn'
-				displayMessage('Last roll!', 7000)
-			}
-
-			if (game.gameOver === true) {
-				rollButton.textContent = 'Game Over'
-
-				//TODO Refactor: if tie, then game.winner is a string of tied players
-				//TODO if no tie, game.winner is an object of winner
-				if (typeof game.winner == 'string') {
-					let winnerMsg = game.winner
-					displayMessage(winnerMsg, 7000)
-				} else {
-					let winnerMsg = `${game.winner.name} wins with ${game.winner.score}`
-					displayMessage(winnerMsg, 7000)
-				}
-			}
-
-			//THREES
-		} else if (game.rules.name == 'threes') {
-			if (player.keptDice.length >= game.rules.rollLimit - 1) { //! test if last turn, update UI
-				rollButton.textContent = 'End turn'
-			}
-
-			if (game.gameOver === true) {
-				rollButton.textContent = 'Game Over'
-
-				//TODO Refactor: if tie, then game.winner is a string of tied players
-				//TODO if no tie, game.winner is an object of winner
-				if (typeof game.winner == 'string') {
-					let winnerMsg = game.winner
-					displayMessage(winnerMsg, 20000)
-				} else {
-					let winnerMsg = `${game.winner.name} wins with ${game.winner.score}`
-					displayMessage(winnerMsg, 20000)
-				}
-			}
-
-			//SCC
-		} else if (game.rules.name == 'ship, captain, crew') {
-			if (player.keptDice.length == 5 || player.rollCount >= game.rules.rollLimit) { //! test if last turn, update UI
-				rollButton.textContent = 'End turn'
-			}
-
-			if (game.gameOver === true) {
-				rollButton.textContent = 'Game Over'
-
-				//TODO Refactor: if tie, then game.winner is a string of tied players
-				//TODO if no tie, game.winner is an object of winner
-				if (typeof game.winner == 'string') {
-					let winnerMsg = game.winner
-					displayMessage(winnerMsg, 20000)
-				} else {
-					let winnerMsg = `${game.winner.name} wins with ${game.winner.score}`
-					displayMessage(winnerMsg, 20000)
-				}
-			}
-		}
-		uiState()
+		handleRollAction(game)
 	});
 
 
 //roll button
 document.querySelector('.rollButton')
 	.addEventListener('click', e => {
-		const player = game.activePlayer;
-		let diceSet = player.diceSet;
-
-		game.updateState();
-		let diceCount = diceSet.diceCount - diceSet.keptCount;
-		playerTurn(player, diceCount);
-
-		game.updateState();
-		player.rollCount += 1;
-
-		//HORSES
-		if (game.rules.name == 'horses') {
-			if (player.rollCount == game.rules.rollLimit) { //! test if last turn, update UI
-				e.target.textContent = 'End turn'
-				displayMessage('Last roll!', 7000)
-			}
-
-			if (game.gameOver === true) {
-				let nextPlayerButton = document.querySelector('.nextPlayerButton')
-				e.target.textContent = 'Game Over'
-
-				//TODO Refactor: if tie, then game.winner is a string of tied players
-				//TODO if no tie, game.winner is an object of winner
-				if (typeof game.winner == 'string') {
-					let winnerMsg = game.winner
-					displayMessage(winnerMsg, 7000)
-				} else {
-					let winnerMsg = `${game.winner.name} wins with ${game.winner.score}`
-					displayMessage(winnerMsg, 7000)
-				}
-			}
-
-			//THREES
-		} else if (game.rules.name == 'threes') {
-			if (player.keptDice.length >= game.rules.rollLimit - 1) { //! test if last turn, update UI
-				e.target.textContent = 'End turn'
-			}
-
-			if (game.gameOver === true) {
-				let nextPlayerButton = document.querySelector('.nextPlayerButton')
-				e.target.textContent = 'Game Over'
-
-				//TODO Refactor: if tie, then game.winner is a string of tied players
-				//TODO if no tie, game.winner is an object of winner
-				if (typeof game.winner == 'string') {
-					let winnerMsg = game.winner
-					displayMessage(winnerMsg, 20000)
-				} else {
-					let winnerMsg = `${game.winner.name} wins with ${game.winner.score}`
-					displayMessage(winnerMsg, 20000)
-				}
-			}
-
-			//SCC
-		} else if (game.rules.name == 'ship, captain, crew') {
-			if (player.keptDice.length == 5 || player.rollCount >= game.rules.rollLimit) { //! test if last turn, update UI
-				e.target.textContent = 'End turn'
-			}
-
-			if (game.gameOver === true) {
-				let nextPlayerButton = document.querySelector('.nextPlayerButton')
-				e.target.textContent = 'Game Over'
-
-				//TODO Refactor: if tie, then game.winner is a string of tied players
-				//TODO if no tie, game.winner is an object of winner
-				if (typeof game.winner == 'string') {
-					let winnerMsg = game.winner
-					displayMessage(winnerMsg, 20000)
-				} else {
-					let winnerMsg = `${game.winner.name} wins with ${game.winner.score}`
-					displayMessage(winnerMsg, 20000)
-				}
-			}
-		}
-		uiState()
-	});
+		handleRollAction(game)
+	})
 
 document.querySelector('.nextPlayerButton')
 	.addEventListener('click', e => {
@@ -365,7 +300,7 @@ document.querySelector('.start-button')
 		const app = document.querySelector('.app')
 		app.style.backgroundColor = store.state.themeColor;
 		setRulesModal();
-
+		
 		//in newgameview js
 		const nameArray = getPlayerNames();
 		if (playerCount < 2) {
@@ -385,6 +320,8 @@ document.querySelector('.start-button')
 
 			game.newGame()
 			uiState()
+			let originalShadow = getComputedStyle(document.querySelector('.die-item')).boxShadow
+
 
 			let nextPlayerButton = document.querySelector('.nextPlayerButton')
 			nextPlayerButton.disabled = true;
@@ -459,3 +396,8 @@ document.querySelector('.end-new-button')
 // 		console.log(endModal);
 // 		endModal.replayGame()
 // 	})
+
+
+{
+	handleRollAction
+}
