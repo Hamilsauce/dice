@@ -225,7 +225,7 @@ export class Game {
 			if (tie >= 1) {
 				tieArray = scoreArray.slice(0, tie + 1)
 				let tieString = tieArray.map(pl => {
-					return pl.id
+					return pl.name
 				}).join(' & ');
 				this.winner = `${tieString} tie!`
 			} else {
@@ -297,12 +297,14 @@ export class Game {
 			//TODO Fix tie bug - if one player wins and the losers tie, game calls tie betwen the losers
 			let tieArray = [];
 			if (tie >= 1) {
-				tieArray = scoreArray.slice(0, tie)
+				tieArray = scoreArray.slice(0, tie + 1)
 				let tieString = tieArray
 					.map(pl => {
-						return pl.id
+						return pl.name
 					}).join(' & ');
 				this.winner = `${tieString} tie!`
+				console.log('winner');
+				console.log(this.winner);
 			} else {
 				this.winner = scoreArray[0];
 			}

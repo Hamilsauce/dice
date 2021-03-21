@@ -115,12 +115,12 @@ export const handleRollAction = game => {
 		//THREES
 	} else if (game.rules.name == 'threes') {
 		if (player.keptDice.length >= game.rules.rollLimit - 1) { //! test if last turn, update UI
-			e.target.textContent = 'End turn'
+			rollButton.textContent = 'End turn'
 		}
 
 		if (game.gameOver === true) {
 			let nextPlayerButton = document.querySelector('.nextPlayerButton')
-			e.target.textContent = 'Game Over'
+			rollButton.textContent = 'Game Over'
 
 			//TODO Refactor: if tie, then game.winner is a string of tied players
 			//TODO if no tie, game.winner is an object of winner
@@ -136,12 +136,12 @@ export const handleRollAction = game => {
 		//SCC
 	} else if (game.rules.name == 'ship, captain, crew') {
 		if (player.keptDice.length == 5 || player.rollCount >= game.rules.rollLimit) { //! test if last turn, update UI
-			e.target.textContent = 'End turn'
+			rollButton.textContent = 'End turn'
 		}
 
 		if (game.gameOver === true) {
 			let nextPlayerButton = document.querySelector('.nextPlayerButton')
-			e.target.textContent = 'Game Over'
+			rollButton.textContent = 'Game Over'
 
 			//TODO Refactor: if tie, then game.winner is a string of tied players
 			//TODO if no tie, game.winner is an object of winner
