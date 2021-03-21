@@ -110,12 +110,27 @@
 }
 
 .subtitle {
+	display: grid;
+	/* grid-template-columns: 1fr 1fr; */
+	grid-template-rows: 1fr 1fr;
+	grid-template-columns: repeat(3, 100px);
+	grid-gap: 10px;
+	justify-content: space-around;
 	max-width: 740px;
-	margin: auto;
+	margin: 10px auto;
 	padding: 5px 10px;
 	font-size: 0.95em;
 	font-weight: 300;
 	color: white;
+	text-align: center;
+}
+
+.player-grid-item {
+	padding: 5px;
+	border-radius: 5px;
+	background: #FDFDFDBF;
+	color: #2C2C2CBF;
+	
 }
 
 .table-header {

@@ -1,3 +1,7 @@
+import {
+	setRulesModal
+} from './new-game-view.js'
+
 const toggleNav = () => {
 	const nav = document.querySelector('.nav');
 	// nav.style.width = '250px';
@@ -33,9 +37,18 @@ document.querySelector('.close-nav')
 
 document.querySelector('.rules-menu-button')
 	.addEventListener('click', e => {
-		const rulesModal = document.querySelector('.rules-modal')
-		toggleNav();
-		rulesModal.classList.toggle('hide')
+			let rulesModal = document.querySelector('.rules-modal')
+			setRulesModal();
+			rulesModal.style.display = 'grid';
+	
+			setTimeout(() => {
+				rulesModal.classList.remove('hide')
+	
+			}, 100)
+	
+		// const rulesModal = document.querySelector('.rules-modal')
+		// toggleNav();
+		// rulesModal.classList.remove('hide')
 	})
 
 document.querySelector('.new-game-menu-button')
