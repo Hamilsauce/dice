@@ -75,14 +75,30 @@ const displayMessage = (message, displayTime) => {
 //@ End UI stuff
 
 export const handleRollAction = game => {
-		const player = game.activePlayer;
-		const diceSet = player.diceSet;
-		let diceCount = diceSet.diceCount - diceSet.keptCount;
-		const rollButton = document.querySelector('.rollButton')
-		const nextPlayerButton = document.querySelector('.nextPlayerButton')
+	const player = game.activePlayer;
+	const diceSet = player.diceSet;
+	let diceCount = diceSet.diceCount - diceSet.keptCount;
+	const rollButton = document.querySelector('.rollButton')
+	const nextPlayerButton = document.querySelector('.nextPlayerButton');
+
+	const handleWinnerContent = () => {
+		if (game.gameOver === true) {
+			let nextPlayerButton = document.querySelector('.nextPlayerButton')
+			rollButton.textContent = 'Game Over'
+
+			//TODO Refactor: if tie, then game.winner is a string of tied players
+			//TODO if no tie, game.winner is an object of winner
+			if (typeof game.winner == 'string') {
+				let winnerMsg = game.winner
+				displayMessage(winnerMsg, 20000)
+			} else {
+				let winnerMsg = `${game.winner.name} wins with ${game.winner.score}`
+				displayMessage(winnerMsg, 20000)
+			}
+		}
+	}
 
 	game.updateState();
-	// let diceCount = diceSet.diceCount - diceSet.keptCount;
 	playerTurn(player, diceCount);
 
 	game.updateState();
@@ -90,27 +106,14 @@ export const handleRollAction = game => {
 
 	//HORSES
 	console.log(player.rollCount);
-	// console.log(player.rollCount);
 	if (game.rules.name == 'horses') {
-		if (player.rollCount >= game.rules.rollLimit ) { //! test if last turn, update UI
+		if (player.rollCount >= game.rules.rollLimit) { //! test if last turn, update UI
 			rollButton.textContent = 'End turn'
 			displayMessage('Last roll!', 7000)
 		}
+		handleWinnerContent();
 
-		if (game.gameOver === true) {
-			let nextPlayerButton = document.querySelector('.nextPlayerButton')
-			rollButton.textContent = 'Game Over'
 
-			//TODO Refactor: if tie, then game.winner is a string of tied players
-			//TODO if no tie, game.winner is an object of winner
-			if (typeof game.winner == 'string') {
-				let winnerMsg = game.winner
-				displayMessage(winnerMsg, 7000)
-			} else {
-				let winnerMsg = `${game.winner.name} wins with ${game.winner.score}`
-				displayMessage(winnerMsg, 7000)
-			}
-		}
 
 		//THREES
 	} else if (game.rules.name == 'threes') {
@@ -118,41 +121,14 @@ export const handleRollAction = game => {
 			rollButton.textContent = 'End turn'
 		}
 
-		if (game.gameOver === true) {
-			let nextPlayerButton = document.querySelector('.nextPlayerButton')
-			rollButton.textContent = 'Game Over'
-
-			//TODO Refactor: if tie, then game.winner is a string of tied players
-			//TODO if no tie, game.winner is an object of winner
-			if (typeof game.winner == 'string') {
-				let winnerMsg = game.winner
-				displayMessage(winnerMsg, 20000)
-			} else {
-				let winnerMsg = `${game.winner.name} wins with ${game.winner.score}`
-				displayMessage(winnerMsg, 20000)
-			}
-		}
-
+		handleWinnerContent();
 		//SCC
 	} else if (game.rules.name == 'ship, captain, crew') {
 		if (player.keptDice.length == 5 || player.rollCount >= game.rules.rollLimit) { //! test if last turn, update UI
 			rollButton.textContent = 'End turn'
 		}
 
-		if (game.gameOver === true) {
-			let nextPlayerButton = document.querySelector('.nextPlayerButton')
-			rollButton.textContent = 'Game Over'
-
-			//TODO Refactor: if tie, then game.winner is a string of tied players
-			//TODO if no tie, game.winner is an object of winner
-			if (typeof game.winner == 'string') {
-				let winnerMsg = game.winner
-				displayMessage(winnerMsg, 20000)
-			} else {
-				let winnerMsg = `${game.winner.name} wins with ${game.winner.score}`
-				displayMessage(winnerMsg, 20000)
-			}
-		}
+		handleWinnerContent();
 	}
 	uiState()
 }
@@ -300,7 +276,7 @@ document.querySelector('.start-button')
 		const app = document.querySelector('.app')
 		app.style.backgroundColor = store.state.themeColor;
 		setRulesModal();
-		
+
 		//in newgameview js
 		const nameArray = getPlayerNames();
 		if (playerCount < 2) {

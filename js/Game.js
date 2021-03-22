@@ -205,7 +205,7 @@ export class Game {
 							return obj;
 						}, {});
 				});
-				
+
 			let tie = 0;
 			store.state.scoreArray = scoreArray.sort((a, b) => {
 				if (b.keptCount - a.keptCount == 0) {
@@ -246,10 +246,10 @@ export class Game {
 							return obj;
 						}, {});
 				});
-				
+
 			let tie = 0;
 			store.state.scoreArray = scoreArray.sort((a, b) => {
-				if (b.score - a.score == 0) {
+				if (a.score - b.score == 0) {
 					tie += 1
 					return 0;
 				} else {
@@ -262,7 +262,7 @@ export class Game {
 			if (tie >= 1) {
 				tieArray = scoreArray.slice(0, tie + 1)
 				let tieString = tieArray.map(pl => {
-					return pl.id
+					return pl.name
 				}).join(' & ');
 				this.winner = `${tieString} tie!`
 			} else {
@@ -303,8 +303,6 @@ export class Game {
 						return pl.name
 					}).join(' & ');
 				this.winner = `${tieString} tie!`
-				console.log('winner');
-				console.log(this.winner);
 			} else {
 				this.winner = scoreArray[0];
 			}
