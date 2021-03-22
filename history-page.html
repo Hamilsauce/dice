@@ -7,32 +7,35 @@
 	<!-- <script src="res/vue@2.6.12.js"></script> -->
 	<title></title>
 	<style type="text/css" media="all">
-	.top-button {
-		position: fixed;
-		bottom: 5%;
-		right: 5%;
-		width: 30px;
-		height: 30px;
-		padding: 15px 10px 5px 10px;
-		border-radius: 50%;
-		text-align: center;
-		color: white;
-		background: #48B868;
-		box-shadow: 0px 2px 5px 0px #71717190;
-	}
-	
-	.top-button.hide {
-		display: none;
-	}
-	
-	.filter-form {
-		display: flex;
-		flex-direction: row;
-	}
+		.top-button {
+			/* display: block; */
+			z-index: 30;
+			position: fixed;
+			bottom: 5%;
+			right: 5%;
+			width: 30px;
+			height: 30px;
+			padding: 15px 10px 5px 10px;
+			border-radius: 50%;
+			text-align: center;
+			color: white;
+			background: #48B868;
+			box-shadow: 0px 2px 5px 0px #71717190;
+		}
+
+		.top-button.hide {
+			display: none;
+		}
+
+		.filter-form {
+			display: flex;
+			flex-direction: row;
+		}
+
 		.table-container {
-	border-left: 1px solid #CDD4D9;
-	border-right: 1px solid #CDD4D9;
-			
+			/* border-left: 1px solid #CDD4D9; */
+			/* border-right: 1px solid #CDD4D9; */
+
 			/* position: sticky;
 			top: 0;
 			left: 0; */
@@ -64,11 +67,12 @@
 			top: 0;
 			width: 100%;
 		}
-.table-row {
-	/* border: 0px solid #FFFFFF00; */
-	border-bottom: 1px solid #E0E0E0;
-	
-}
+
+		.table-row {
+			border: 0px solid #FFFFFF00;
+			border-bottom: 1px solid #E0E0E0;
+
+		}
 
 		.field {
 			background: white;
@@ -78,11 +82,11 @@
 			color: white;
 			background: #7279C9;
 		}
-		
+
 		.table-header {
-	/* border: 1px solid #FFFFFF00; */
-	border-right: 1px solid #E0E0E0;
-			
+			border: 1px solid #FFFFFF00;
+			border-right: 1px solid #E0E0E0;
+
 		}
 
 		.table-body {}
@@ -103,16 +107,16 @@
 		th {
 			width: 33%;
 			text-align: center;
-			/* padding: 8px 5px; */
+			padding: 8px 5px;
 		}
 
 		table thead tr {
-			/* display: block; */
+			display: block;
 		}
 
 		table th,
 		table td {
-			/* width: 100px; */
+			width: 100px;
 		}
 
 
@@ -122,14 +126,15 @@
 			/* overflow: auto; */
 		}
 	</style>
+	<script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.4/dayjs.min.js" type="text/javascript" charset="utf-8"></script>
 </head>
 
 <body>
 	<h3>History Page</h3>
+	<div class="app">
 	<div class="top-button hide">
 		top
 	</div>
-	<div class="app">
 		<div class="form-container">
 			<div class="form-header">Filter</div>
 			<form class="filter-form">
@@ -150,7 +155,7 @@
 			<div class="sticky-header table-header" data-column="1">DATE</div>
 			<div class="sticky-header table-header" data-column="2">NAME</div>
 			<div class="sticky-header table-header" data-column="3">WINNER</div>
-		</div> 
+		</div>
 		<div class="table-container">
 			<table class="history-table">
 				<!-- <thead>

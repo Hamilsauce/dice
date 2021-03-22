@@ -3,6 +3,9 @@ import {
 	storeFactory
 } from './js/store.js'
 
+
+
+
 storeFactory()
 store.getLocalStorage('diceGameHistory')
 store.reIndexGames()
@@ -11,12 +14,11 @@ window.onscroll = function() {
 	stickyHeader()
 };
 
-	const headerRow = document.querySelector('.sticky-container')
+
+const headerRow = document.querySelector('.sticky-container')
 	const topButton = document.querySelector('.top-button')
-
-const stickyHeader = () => {
 	let headerPos = headerRow.offsetTop;
-
+const stickyHeader = () => {
 	if (window.pageYOffset > headerPos) {
 		headerRow.classList.add("sticky");
 		topButton.classList.remove("hide");
@@ -32,12 +34,7 @@ console.log('testDate');
 console.log(testDate);
 
 const getFormattedDate = dateString => {
-	const day = new Date(dateString).getDate()
-	const mo = new Date(dateString).getMonth() + 1
-	const yr = new Date(dateString).getFullYear();
-	const formattedDate = `${mo}/${day}/${yr}`;
-
-	return formattedDate;
+	return dayjs(dateString).format("MM/DD/YYYY");
 }
 
 const buildRow = game => {
@@ -180,12 +177,18 @@ document.querySelector('.filter-button')
 
 document.querySelector('.top-button')
 	.addEventListener('click', e => {
-		document.documentElement.scrollTop = 0;
-		document.body.scrollTop = 0;
+		let currHeaderPos = headerRow.offsetTop
+		console.log(currHeaderPos);
+		while (currHeaderPos > 0) {
+			// console.log(currHeaderPos);
+			currHeaderPos = currHeaderPos - 1
+		document.documentElement.scrollTop = currHeaderPos;
+		document.body.scrollTop = currHeaderPos;
+		
+		}
 		// window.pageYOffset = `0px`;
 	})
 
-const toggleTopButton = () => {
+// const toggleTopButton = () => {
 
-}
-
+// }
