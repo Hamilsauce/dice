@@ -102,22 +102,13 @@ export class EndGameModal {
 			console.log(game);
 		})
 	}
+	
 	replayGame() {
-		// document.querySelector('.end-replay-button')
-		// .addEventListener('click', e => {
-		// console.log('end modal');
-		// console.log(endModal);
-		// endModal.replayGame()
 		const dimmer = document.querySelector('.end-game-modal-dimmer')
 		dimmer.classList.toggle('hide')
-		console.log('new game replay button');
+	
 		game.newGame();
 		console.log(game);
-		// uiState
-
-
-
-		// })
 	}
 }
 

@@ -1,12 +1,12 @@
 export class Die {
 	constructor(id, diceSet) {
-		this.rollValue = null,
-			this.id = id,
-			this.name = this.createNameFromId(),
-			this.dieValueClass = `die${this.id}Value`,
-			this.selected = false,
-			this.diceSet = diceSet,
-			this.kept = false
+		this.rollValue = null;
+		this.id = id;
+		this.name = this.createNameFromId();
+		this.dieValueClass = `die${this.id}Value`;
+		this.selected = false;
+		this.diceSet = diceSet;
+		this.kept = false;
 	}
 	createNameFromId() {
 		if (this.id == 1) {
@@ -30,8 +30,8 @@ export class Die {
 	}
 
 	toggleDieSelect() {
-		let die = this.dieElement
-		let player = this.diceSet.player
+		const die = this.dieElement
+		const player = this.diceSet.player
 		let keptDice = player.keptDice;
 		let selectedDice = this.diceSet.getSelectedDice();
 
@@ -55,10 +55,8 @@ export class Die {
 	}
 
 	newTemplate() {
-		
-		const oddEven = this.id % 2 == 0 ? 'even-roll' : 'odd-roll';
-
 		const dieList = document.createElement('ol');
+		const oddEven = this.id % 2 == 0 ? 'even-roll' : 'odd-roll';
 		dieList.classList.add('die-list', oddEven);
 		dieList.setAttribute('id', `die-${this.id}`);
 		dieList.dataset.roll = '1';
@@ -105,60 +103,26 @@ export class Die {
 
 	registerDiceListener(diceSet, player) {
 		this.dieElement.addEventListener('click', e => {
-			// e.stopPropagation()
-			// e.preventDefault()
-			let die = this.dieElement
+			const die = this.dieElement
 			let keptDice = player.keptDice;
 			let selectedDice = this.diceSet.getSelectedDice();
 			const ruleSet = this.diceSet.player.game.rules;
 
 			if (ruleSet.name == 'horses') {
-				let keptCheck = keptDice.every(d => { //! checks if clicked die has been selected/kept
+				const keptCheck = keptDice.every(d => { //! checks if clicked die has been selected/kept
 					return d.dataset.roll == die.dataset.roll;
 				})
 
-				let selectedCheck = selectedDice.every(d => { //! checks if clicked die has been selected/kept
+				const selectedCheck = selectedDice.every(d => { //! checks if clicked die has been selected/kept
 					return d.dataset.roll == die.dataset.roll;
 				})
 
 				if (keptCheck === true && selectedCheck === true && player.rollCount !== 0) { //! if die isn't already selected/kept AND player has rolled
-					die.classList.toggle('selected')
-
-					const dieSides = [...die.children];
-					dieSides.forEach(child => {
-						child.classList.toggle('selected')
-
-						const dots = [...child.children];
-						dots.forEach(dot => {
-							dot.classList.toggle('selected')
-						})
-					})
-
-					if (die.classList.contains('selected')) {
-						die.dataset.selected = 'true';
-					} else {
-						die.dataset.selected = 'false';
-					}
+					this.toggleDieSelect();
 				}
 			} else if (ruleSet.name == 'threes') {
 				if (player.rollCount != 0) { //! if die isn't already selected/kept AND player has rolled
-					die.classList.toggle('selected')
-
-					const dieSides = [...die.children];
-					dieSides.forEach(child => {
-						child.classList.toggle('selected')
-
-						const dots = [...child.children];
-						dots.forEach(dot => {
-							dot.classList.toggle('selected')
-						})
-					})
-
-					if (die.classList.contains('selected')) {
-						die.dataset.selected = 'true';
-					} else {
-						die.dataset.selected = 'false';
-					}
+					this.toggleDieSelect()
 				}
 			} else if (ruleSet.name == 'ship, captain, crew') {
 				const rollCheck = this.getRollSum() - 15;

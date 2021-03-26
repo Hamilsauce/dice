@@ -68,6 +68,7 @@ export class Player {
     })
 
     this.selectedCount = this.selectedCount + sel.length;
+   
     sel.forEach(die => {
       const dieSides = [...die.children];
 

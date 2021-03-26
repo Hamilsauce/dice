@@ -114,8 +114,6 @@ export class Game {
 
 			const adjustedSum = sumRolls - 15;
 
-			//TODO MOVE THIS SO SCC SCORE REPLACED WITH 
-			//NAMES AFTER SCORE COMPARISON
 			if (adjustedSum > 0) {
 				player.finalScore = {
 					score: adjustedSum,

@@ -1,5 +1,7 @@
 //TODO Parse 
 
+
+
 export class Store {
 	constructor() {
 		this.state = {
@@ -10,6 +12,7 @@ export class Store {
 		this.state.gameHistory.push(gameData);
 		this.setLocalStorage('diceGameHistory', this.state.gameHistory)
 	}
+
 	getLocalStorage(key) {
 		const lStore = localStorage;
 		if (key in lStore) {
@@ -29,11 +32,25 @@ export class Store {
 		this.state.gameHistory
 			.forEach((game, i) => {
 				game.id = i + 1;
-		})
+			})
 		this.setLocalStorage('diceGameHistory', this.state.gameHistory)
-	this.getLocalStorage('diceGameHistory') 
-		
-		
+		this.getLocalStorage('diceGameHistory')
+	}
+
+	getWinnerName(gameToFind) {
+		// console.log(gameToFind);
+		let game = this.state.gameHistory
+			.find(({ id }) => {
+				return id = gameToFind.id
+			})
+			if (typeof game.winner == 'string') {
+				return game.winner
+			} else {
+				let winnerName = game.winner.id ? game.winner.id : game.winner.name
+			// console.log(winnerName);
+				return winnerName
+				// return game.winner.id || game.winner.name;
+			}
 	}
 }
 

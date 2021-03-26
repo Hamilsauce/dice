@@ -16,8 +16,9 @@ window.onscroll = function() {
 
 
 const headerRow = document.querySelector('.sticky-container')
-	const topButton = document.querySelector('.top-button')
-	let headerPos = headerRow.offsetTop;
+const topButton = document.querySelector('.top-button')
+let headerPos = headerRow.offsetTop;
+
 const stickyHeader = () => {
 	if (window.pageYOffset > headerPos) {
 		headerRow.classList.add("sticky");
@@ -28,10 +29,6 @@ const stickyHeader = () => {
 		topButton.classList.add("hide");
 	}
 }
-
-let testDate = new Date('3/9/2021')
-console.log('testDate');
-console.log(testDate);
 
 const getFormattedDate = dateString => {
 	return dayjs(dateString).format("MM/DD/YYYY");
@@ -111,8 +108,6 @@ document.querySelectorAll('.table-header')
 		})
 	})
 
-
-
 //highlight row when row cell clicked
 document.querySelectorAll('.table-field')
 	.forEach(field => {
@@ -141,38 +136,30 @@ document.querySelector('.filter-button')
 	.addEventListener('click', e => {
 		const paramSelect = document.querySelector('.filter-param-select')
 		const filterInput = document.querySelector('.filter-input')
-
+		let paramValue = paramSelect.value
+	
 		const hist = store.state.gameHistory;
-		console.log(hist);
 		if (!filterInput.value) {
 			buildTable(hist)
-
 		} else {
 			const filteredHist = hist
 				.filter(game => {
-					return game.gameName.toUpperCase() == filterInput.value.toUpperCase()
+					if (paramValue == 'winner') {
+						if (typeof game.winner == 'string') {
+							return game.winner == filterInput.value
+						} else {
+							let gameWinnerName = game.winner.id || game.winner.name
+							return gameWinnerName == filterInput.value
+						}
+					} else if (paramValue == 'gameDate') {
+						let gDate = getFormattedDate(game.gameDate)
+						return gDate == filterInput.value
+					} else {
+						return game[paramValue].toUpperCase() == filterInput.value.toUpperCase()
+					}
 				})
-
 			buildTable(filteredHist)
-			// console.log(filteredHist);
-
 		}
-
-
-		// const fields = document.querySelectorAll('.table-field')
-
-		// fields.forEach(field => {
-		// 	if (field.dataset.id == id) {
-		// 		field.classList.toggle('row-selected')
-		// 	} else {
-		// 		field.classList.remove('row-selected')
-		// 	}
-		// 	if (field.dataset.id == rowNum && field.dataset.column == colNum) {
-		// 		field.classList.add('intersect-field')
-		// 	} else {
-		// 		field.classList.remove('intersect-field')
-		// 	}
-		// })
 	})
 
 document.querySelector('.top-button')
@@ -180,13 +167,11 @@ document.querySelector('.top-button')
 		let currHeaderPos = headerRow.offsetTop
 		console.log(currHeaderPos);
 		while (currHeaderPos > 0) {
-			// console.log(currHeaderPos);
 			currHeaderPos = currHeaderPos - 1
-		document.documentElement.scrollTop = currHeaderPos;
-		document.body.scrollTop = currHeaderPos;
-		
+			document.documentElement.scrollTop = currHeaderPos;
+			document.body.scrollTop = currHeaderPos;
+
 		}
-		// window.pageYOffset = `0px`;
 	})
 
 // const toggleTopButton = () => {
