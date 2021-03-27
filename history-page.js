@@ -149,7 +149,7 @@ document.querySelector('.filter-button')
 							return game.winner == filterInput.value
 						} else {
 							let gameWinnerName = game.winner.id || game.winner.name
-							return gameWinnerName == filterInput.value
+							return gameWinnerName.toUpperCase() == filterInput.value.toUpperCase()
 						}
 					} else if (paramValue == 'gameDate') {
 						let gDate = getFormattedDate(game.gameDate)
@@ -167,7 +167,7 @@ document.querySelector('.top-button')
 		let currHeaderPos = headerRow.offsetTop
 		console.log(currHeaderPos);
 		while (currHeaderPos > 0) {
-			currHeaderPos = currHeaderPos - 1
+			currHeaderPos = currHeaderPos
 			document.documentElement.scrollTop = currHeaderPos;
 			document.body.scrollTop = currHeaderPos;
 
