@@ -7,14 +7,14 @@ import {
 
 export class Game {
 	constructor(playerNames, rules) {
-		this.playerCount = playerNames.length,
-			this.rules = this.getRules(rules),
-			this.playerNames = playerNames,
-			this.players = playerNames.slice().map((n, id) => new Player(n, ++id, this)),
-			this.activePlayer = null,
-			this.gameActive = false,
-			this.gameOver = false,
-			this.winner = null
+		this.playerCount = playerNames.length;
+		this.rules = this.getRules(rules);
+		this.playerNames = playerNames;
+		this.players = playerNames.slice().map((n, id) => new Player(n, ++id, this));
+		this.activePlayer = null;
+		this.gameActive = false;
+		this.gameOver = false;
+		this.winner = null
 	}
 
 	getRules(ruleSet) {
@@ -195,8 +195,8 @@ export class Game {
 				.map(player => {
 					let score = Object.entries(player.finalScore);
 					let nameProp = [
-            ['name', player.name]
-          ];
+						['name', player.name]
+					];
 					return nameProp.concat(score)
 						.reduce((obj, prop) => {
 							obj[prop[0]] = prop[1];
@@ -236,8 +236,8 @@ export class Game {
 				.map((player, i) => {
 					let score = Object.entries(player.finalScore);
 					let nameProp = [
-            ['name', player.name]
-          ];
+						['name', player.name]
+					];
 					return nameProp.concat(score)
 						.reduce((obj, prop) => {
 							obj[prop[0]] = prop[1];
@@ -273,8 +273,8 @@ export class Game {
 				.map(player => {
 					let score = Object.entries(player.finalScore);
 					let nameProp = [
-            ['name', player.name]
-          ];
+						['name', player.name]
+					];
 					return nameProp.concat(score)
 						.reduce((obj, prop) => {
 							obj[prop[0]] = prop[1];
