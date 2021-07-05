@@ -4,12 +4,12 @@ import {
 
 export class DiceSet {
 	constructor(diceCount, player) {
-		this.player = player,
-			this.diceCount = diceCount,
-			this.dice = this.createDice(this.diceCount).map(id => new Die(id, this)),
-			this.activeDice = this.getActiveDice(),
-			this.keptCount = 0,
-			this.selectedValue = []
+		this.player = player;
+		this.diceCount = diceCount;
+		this.dice = this.createDice(this.diceCount).map(id => new Die(id, this));
+		this.activeDice = this.getActiveDice();
+		this.keptCount = 0;
+		this.selectedValue = [];
 	}
 
 	createDice(count) {

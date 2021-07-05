@@ -14,7 +14,7 @@ export class Game {
 		this.activePlayer = null;
 		this.gameActive = false;
 		this.gameOver = false;
-		this.winner = null
+		this.winner = null;
 	}
 
 	getRules(ruleSet) {

@@ -7,17 +7,17 @@ import {
 
 export class EndGameModal {
 	constructor(listBodyElement, playerRanks, gameName, gameTime) {
-		this.listBodyElement = listBodyElement,
-			this.playerRanks = playerRanks,
-			this.gameName = gameName,
-			this.gameTime = gameTime,
-			this.winnerClassName = 'end-modal-winner',
-			this.gameNameClassName = 'game-name-display',
-			this.gameTimeClassName = 'game-time-display',
-			this.listItemClassName = 'player-list-item',
-			this.itemRankClassName = 'player-item-rank',
-			this.itemNameClassName = 'player-item-name',
-			this.itemScoreClassName = 'player-item-score'
+		this.listBodyElement = listBodyElement;
+		this.playerRanks = playerRanks;
+		this.gameName = gameName;
+		this.gameTime = gameTime;
+		this.winnerClassName = 'end-modal-winner';
+		this.gameNameClassName = 'game-name-display';
+		this.gameTimeClassName = 'game-time-display';
+		this.listItemClassName = 'player-list-item';
+		this.itemRankClassName = 'player-item-rank';
+		this.itemNameClassName = 'player-item-name';
+		this.itemScoreClassName = 'player-item-score';
 	}
 	buildElement(tag, className) {
 		const el = document.createElement(tag);
@@ -102,11 +102,11 @@ export class EndGameModal {
 			console.log(game);
 		})
 	}
-	
+
 	replayGame() {
 		const dimmer = document.querySelector('.end-game-modal-dimmer')
 		dimmer.classList.toggle('hide')
-	
+
 		game.newGame();
 		console.log(game);
 	}
