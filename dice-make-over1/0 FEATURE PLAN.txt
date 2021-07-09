@@ -1,6 +1,0 @@
-1. Add player names
-2. add current player stats
-3.add previous player rolls log
-3. add game history for session
-4. add game specific rule info 
-5. integrate firebase
