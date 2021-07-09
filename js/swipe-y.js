@@ -45,7 +45,7 @@ const startTouch = (e) => {
 		const touch = touches[0]
 		startY = touch.clientY
 		diceTable.querySelectorAll('.die-item').forEach(die => {
-			die.style.boxShadow = `0px px ${5}px 0px rgba(255, 255, 255, 0.47)`
+			die.style.boxShadow = `0px 0px ${5}px 0px rgba(255, 255, 255, 0.47)`
 		})
 		diceTable.addEventListener('touchmove', moveTouch)
 		diceTable.addEventListener('touchend', endTouch)

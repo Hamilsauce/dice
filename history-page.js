@@ -165,6 +165,7 @@ document.querySelector('.filter-button')
 document.querySelector('.top-button')
 	.addEventListener('click', e => {
 		let currHeaderPos = headerRow.offsetTop
+		
 		console.log(currHeaderPos);
 		while (currHeaderPos > 0) {
 			currHeaderPos = currHeaderPos

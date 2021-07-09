@@ -87,14 +87,14 @@ export class Die {
 
 		let sumKeptRolls = player.keptDice
 			.reduce((sum, die) => {
-				let value = die.dataset.roll
-				return sum + parseInt(value)
+				let value = parseInt(die.dataset.roll)
+				return sum + value
 			}, 0);
 
 		let sumSelectedRolls = selectedDice
 			.reduce((sum, die) => {
-				let value = die.dataset.roll
-				return sum + parseInt(value)
+				let value = parseInt(die.dataset.roll)
+				return sum + value
 			}, 0);
 
 		let sumRoll = sumKeptRolls + sumSelectedRolls
