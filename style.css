@@ -132,13 +132,12 @@
 	background: #FDFDFDBF;
 	font-size: 1.2em;
 	font-weight: 500;
-color: #2C2C2CBF;
-}
-.player-grid-item:active {
-	background: #FDFDFDEB;
-	
+	color: #2C2C2CBF;
 }
 
+.player-grid-item:active {
+	background: #FDFDFDEB;
+}
 
 .table-header {
 	display: flex;

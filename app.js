@@ -30,6 +30,7 @@ Vue.component('table-row', {
 			<td class="column3 game-winner-field" data-column="3">{{ game.winner }}</td>
 		</tr>`
 })
+
 Vue.component('game-table', {
 	components: {},
 	props: ['games'],
@@ -41,15 +42,15 @@ Vue.component('game-table', {
 	template: `
 		<table class="game-table">
 			<thead>
-					<tr>
-						<th>ID</th>
-						<th>Name</th>
-						<th>Winner</th>
-					</tr>
-				</thead> 
-				<tbody>
-					<table-row v-for="game in games" :game="game" :key="game.id"></table-row>
-				</tbody>
+				<tr>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Winner</th>
+				</tr>
+			</thead> 
+			<tbody>
+				<table-row v-for="game in games" :game="game" :key="game.id"></table-row>
+			</tbody>
 		</table>`
 })
 

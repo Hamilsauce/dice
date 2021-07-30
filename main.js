@@ -15,9 +15,12 @@ import {
 } from './js/EndModal.js';
 
 storeFactory();
+
 store.getLocalStorage('diceGameHistory');
 store.state.themeColor = 'rgb(186, 91, 91)';
+
 document.querySelector('.footer-container').scrollIntoView()
+
 //@UI stuff
 const uiState = () => {
 	const titleText = document.querySelector('.app-title');
