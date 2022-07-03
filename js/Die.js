@@ -8,6 +8,7 @@ export class Die {
 		this.diceSet = diceSet;
 		this.kept = false;
 	}
+	
 	createNameFromId() {
 		if (this.id == 1) {
 			return 'Die One';
@@ -120,10 +121,12 @@ export class Die {
 				if (keptCheck === true && selectedCheck === true && player.rollCount !== 0) { //! if die isn't already selected/kept AND player has rolled
 					this.toggleDieSelect();
 				}
+				
 			} else if (ruleSet.name == 'threes') {
 				if (player.rollCount != 0) { //! if die isn't already selected/kept AND player has rolled
 					this.toggleDieSelect()
 				}
+				
 			} else if (ruleSet.name == 'ship, captain, crew') {
 				const rollCheck = this.getRollSum() - 15;
 				if (rollCheck >= 0) { //! if die isn't already selected/kept AND player has rolled

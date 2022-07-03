@@ -44,6 +44,7 @@ export class DiceSet {
 	getActiveDice() {
 		let activeArray = [...document.querySelectorAll(`.die-list`)]
 			.filter(die => die.dataset.kept === false)
+	
 		this.activeDice = activeArray;
 		return this.activeDice;
 	}
@@ -52,8 +53,10 @@ export class DiceSet {
 		let keptArray = [...document.querySelectorAll(`.die-list`)]
 			.filter(die => {
 				return die.dataset.kept === true;
-			})
+			});
+			
 		this.keptDice = keptArray;
+		
 		return this.keptDice;
 	}
 
@@ -61,8 +64,10 @@ export class DiceSet {
 		let selected = [...document.querySelectorAll(`.die-list`)]
 			.filter(die => {
 				return die.dataset.selected === 'true';
-			})
+			});
+			
 		this.player.selectedDice = selected;
+	
 		return selected;
 	}
 }
