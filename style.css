@@ -13,7 +13,7 @@
 	grid-template-rows: 50px 150px 1fr 60px;
 	margin: 0 auto;
 	height: 100%;
-	max-height: 100vh;
+	min-height: 100vh;
 	box-shadow: 0px 0px 150px 0px inset #965236B8;
 	overflow: hidden;
 	opacity: 1;

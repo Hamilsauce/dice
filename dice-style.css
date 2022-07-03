@@ -6,7 +6,7 @@
   align-items: center;
   justify-items: center;
   width: 300px;
-  height: 300px;
+  height: 100%;
   padding: 2rem;
   perspective: 900px;
   transition: 0.8s ease;
